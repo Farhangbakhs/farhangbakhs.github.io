@@ -6,438 +6,555 @@
 <title>Farhang Bakhshi · Data Science &amp; Quantitative Modelling</title>
 <meta name="robots" content="noindex, nofollow">
 <meta name="description" content="Portfolio of Farhang Bakhshi. Machine learning, statistical modelling and optimisation. University of Edinburgh, Computer Science and Management Science.">
+<meta property="og:title" content="Farhang Bakhshi · Data Science &amp; Quantitative Modelling">
+<meta property="og:description" content="Models that hold up out of sample, software that survives contact with real users.">
+<meta name="theme-color" content="#FDFDFC">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23FDFDFC'/%3E%3Crect x='6' y='18' width='4' height='8' fill='%23B3612F'/%3E%3Crect x='11' y='12' width='4' height='14' fill='%230072A3'/%3E%3Crect x='16' y='7' width='4' height='19' fill='%23005F87'/%3E%3Crect x='21' y='14' width='4' height='12' fill='%230072A3'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=Archivo:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
+/* ============================================================
+   TOKENS: "the analyst's brief"
+   paper white · single blue accent · evidence-first
+   chart series (validated, light surface, CVD-safe):
+   primary #0072A3 · comparison #B3612F
+   ============================================================ */
 :root{
-  --paper:#F7F5F0;
-  --paper-2:#EFECE4;
-  --ink:#14262E;
-  --ink-soft:#22383F;
-  --petrol:#11606B;
-  --petrol-deep:#0B454E;
-  --slate:#54686E;
-  --mist:#D9DFDB;
-  --line:#C9D1CC;
-  --display:"Bricolage Grotesque",system-ui,sans-serif;
-  --body:"Archivo",system-ui,sans-serif;
-  --mono:"JetBrains Mono",ui-monospace,monospace;
+  --bg:#FDFDFC;
+  --panel:#F6F8F9;
+  --line:#E4E9EC;
+  --line-strong:#1A2733;
+  --ink:#1A2733;
+  --body-c:#2E3F50;
+  --muted:#5A6B7E;
+  --faint:#5F7185;
+  --accent:#005F87;        /* links & key values (AA on white) */
+  --accent-soft:#DCEBF3;
+  --data-1:#0072A3;        /* chart: primary series */
+  --data-2:#B3612F;        /* chart: comparison series */
+  --track:#EAEFF2;
+  --heading:"Archivo",system-ui,sans-serif;
+  --body:"Source Sans 3",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
 }
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:84px}
+html{scroll-behavior:smooth;scroll-padding-top:86px}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 body{
-  background:var(--paper);
-  color:var(--ink);
+  background:var(--bg);
+  color:var(--body-c);
   font-family:var(--body);
-  font-size:16.5px;
+  font-size:17px;
   line-height:1.65;
   -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
 }
-::selection{background:var(--petrol);color:var(--paper)}
-a{color:var(--petrol);text-decoration:none}
-a:hover{color:var(--petrol-deep)}
-a:focus-visible,button:focus-visible{outline:2px solid var(--petrol);outline-offset:3px;border-radius:2px}
+::selection{background:var(--accent);color:#fff}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline;text-underline-offset:3px}
+a:focus-visible,button:focus-visible,[tabindex]:focus-visible{
+  outline:2px solid var(--accent);outline-offset:3px;border-radius:2px;
+}
+.skip{
+  position:fixed;top:-60px;left:16px;z-index:200;
+  background:var(--accent);color:#fff;font-family:var(--mono);font-size:12px;
+  padding:10px 16px;transition:top .2s;border-radius:0 0 4px 4px;
+}
+.skip:focus{top:0;color:#fff}
 
-.wrap{max-width:1060px;margin:0 auto;padding:0 28px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 28px}
+@media(max-width:640px){.wrap{padding:0 20px}}
 
-/* ---------- top nav ---------- */
+h1,h2,h3,h4{font-family:var(--heading);color:var(--ink);letter-spacing:-.012em}
+
+/* ---------- nav ---------- */
 nav{
-  position:fixed;top:0;left:0;right:0;z-index:50;
-  background:rgba(247,245,240,.88);
+  position:sticky;top:0;z-index:50;
+  background:rgba(253,253,252,.92);
   backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
   border-bottom:1px solid var(--line);
 }
 .nav-inner{
-  max-width:1060px;margin:0 auto;padding:0 28px;
-  height:60px;display:flex;align-items:center;justify-content:space-between;gap:16px;
+  max-width:1040px;margin:0 auto;padding:0 28px;
+  height:60px;display:flex;align-items:center;gap:22px;
 }
 .nav-name{
-  font-family:var(--display);font-weight:600;font-size:15px;letter-spacing:.01em;color:var(--ink);
+  font-family:var(--heading);font-weight:700;font-size:15px;color:var(--ink);white-space:nowrap;
 }
-.nav-name span{color:var(--petrol)}
-.nav-links{display:flex;gap:26px}
+.nav-name:hover{text-decoration:none}
+.nav-links{display:flex;gap:22px;margin-left:auto}
 .nav-links a{
-  font-family:var(--mono);font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;
-  color:var(--slate);padding:4px 0;border-bottom:1px solid transparent;
+  font-size:14px;font-weight:600;color:var(--muted);padding:4px 0;
+  border-bottom:2px solid transparent;
 }
-.nav-links a:hover,.nav-links a.active{color:var(--petrol-deep);border-bottom-color:var(--petrol)}
+.nav-links a:hover{color:var(--ink);text-decoration:none}
+.nav-links a.active{color:var(--accent);border-bottom-color:var(--accent)}
+.nav-cta{
+  font-size:13.5px;font-weight:600;color:#fff;background:var(--accent);
+  padding:8px 16px;border-radius:4px;white-space:nowrap;
+}
+.nav-cta:hover{background:#00506F;color:#fff;text-decoration:none}
+@media(max-width:820px){.nav-cta{display:none}}
 @media(max-width:720px){
-  .nav-inner{height:56px}
-  .nav-links{gap:16px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .nav-inner{height:54px;gap:14px}
+  .nav-links{gap:14px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
   .nav-links::-webkit-scrollbar{display:none}
-  .nav-links a{font-size:10px;white-space:nowrap}
+  .nav-links a{font-size:13px;white-space:nowrap}
 }
-#progress{
-  position:fixed;top:0;left:0;height:2px;width:0;z-index:60;
-  background:var(--petrol);transition:width .1s linear;
-}
-@media (prefers-reduced-motion:reduce){#progress{transition:none}}
 
 /* ---------- hero ---------- */
-header{padding:150px 0 0}
-.doc-ref{
-  display:flex;justify-content:space-between;align-items:baseline;
-  font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--slate);
-  border-bottom:1px solid var(--ink);padding-bottom:10px;
+header.wrap{margin:72px auto 0}
+.hero-eyebrow{
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--faint);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
+  padding-bottom:28px;
 }
-h1{
-  font-family:var(--display);
-  font-size:clamp(64px,13.5vw,136px);
-  font-weight:700;
-  font-variation-settings:"opsz" 96;
-  line-height:.92;letter-spacing:-.03em;
-  padding:40px 0 22px;
-}
+h1{font-size:clamp(42px,7vw,72px);font-weight:700;line-height:1.02;letter-spacing:-.022em}
 .hero-role{
-  font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;
-  color:var(--petrol-deep);border-top:1px solid var(--ink);display:inline-block;
-  padding:14px 0 0;margin-bottom:18px;
+  font-size:19px;font-weight:600;color:var(--accent);margin:16px 0 14px;
 }
-.hero-thesis{
-  max-width:620px;font-size:18px;line-height:1.62;color:var(--ink-soft);
-  padding:0 0 44px;
+.hero-thesis{max-width:640px;font-size:18.5px;line-height:1.6;color:var(--body-c)}
+.hero-thesis strong{color:var(--ink);font-weight:700}
+.hero-contact{display:flex;flex-wrap:wrap;gap:10px;margin:26px 0 0}
+.hero-contact a{
+  font-size:14px;font-weight:600;border:1px solid var(--line);border-radius:4px;
+  padding:9px 16px;color:var(--ink);display:inline-flex;align-items:center;gap:7px;
 }
-.spec-strip{
-  display:grid;grid-template-columns:repeat(4,1fr);
-  border-top:1px solid var(--ink);border-bottom:1px solid var(--line);
+.hero-contact a:hover{border-color:var(--accent);color:var(--accent);text-decoration:none}
+.hero-contact a.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.hero-contact a.primary:hover{background:#00506F}
+
+/* ---------- headline results (the 10-second layer) ---------- */
+.results-intro{
+  margin:46px 0 0;font-size:16px;color:var(--muted);max-width:640px;
 }
-.spec-strip>div{padding:16px 18px 18px 0;border-right:1px solid var(--line)}
-.spec-strip>div:last-child{border-right:none}
-.spec-strip>div+div{padding-left:18px}
-.spec-label{
+.results-intro strong{color:var(--ink);font-weight:700}
+.results{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:0;
+  border:1px solid var(--line);border-radius:6px;overflow:hidden;
+  margin:16px 0 0;background:var(--panel);
+}
+.result .r-field{
+  font-family:var(--mono);font-size:10px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--faint);
+}
+.result{
+  padding:22px 24px 20px;border-right:1px solid var(--line);
+  display:flex;flex-direction:column;gap:6px;color:inherit;
+}
+.result:last-child{border-right:none}
+.result:hover{text-decoration:none;background:#F0F4F6}
+.result .r-num{
+  font-family:var(--mono);font-size:23px;font-weight:600;color:var(--accent);
+  letter-spacing:-.02em;font-variant-numeric:tabular-nums;
+}
+.result .r-what{font-size:14.5px;line-height:1.5;color:var(--body-c)}
+.result .r-link{font-size:13px;font-weight:600;color:var(--accent);margin-top:auto;padding-top:8px}
+.result:hover .r-link{text-decoration:underline;text-underline-offset:3px}
+@media(max-width:820px){
+  .results{grid-template-columns:1fr}
+  .result{border-right:none;border-bottom:1px solid var(--line)}
+  .result:last-child{border-bottom:none}
+}
+
+/* ---------- at a glance ---------- */
+.glance{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:26px;
+  border-top:1px solid var(--line-strong);
+  margin-top:46px;padding:18px 0 0;
+}
+.g-label{
   font-family:var(--mono);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;
-  color:var(--slate);display:block;margin-bottom:6px;
+  color:var(--faint);display:block;margin-bottom:5px;
 }
-.spec-value{font-size:14.5px;font-weight:500;line-height:1.45}
-.spec-value a{border-bottom:1px solid var(--mist)}
-@media(max-width:860px){.spec-strip{grid-template-columns:1fr 1fr}
- .spec-strip>div:nth-child(2){border-right:none}
- .spec-strip>div:nth-child(3),.spec-strip>div:nth-child(4){border-top:1px solid var(--line)}
- .spec-strip>div:nth-child(3){padding-left:0}}
-@media(max-width:480px){.spec-strip{grid-template-columns:1fr}
- .spec-strip>div{border-right:none;border-top:1px solid var(--line);padding-left:0}
- .spec-strip>div:first-child{border-top:none}}
+.g-value{font-size:15px;font-weight:600;color:var(--ink);line-height:1.5}
+.g-value a{border-bottom:1px solid var(--line)}
+.g-value a:hover{text-decoration:none;border-color:var(--accent)}
+@media(max-width:820px){.glance{grid-template-columns:1fr 1fr;gap:18px 26px}}
+@media(max-width:480px){.glance{grid-template-columns:1fr}}
 
 /* ---------- section chrome ---------- */
-section{padding:96px 0 0}
+section.wrap{margin:88px auto 0}
 .sec-head{
-  display:flex;align-items:baseline;gap:18px;
-  border-bottom:1px solid var(--ink);padding-bottom:12px;margin-bottom:0;
+  display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;
+  border-bottom:2px solid var(--line-strong);padding-bottom:12px;
 }
-.sec-num{font-family:var(--mono);font-size:12px;letter-spacing:.1em;color:var(--petrol);font-weight:600}
-.sec-title{
-  font-family:var(--display);font-size:clamp(24px,3.4vw,32px);font-weight:600;letter-spacing:-.01em;
+.sec-title{font-size:clamp(24px,3.2vw,31px);font-weight:700}
+.sec-note{
+  margin-left:auto;font-family:var(--mono);font-size:11px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--faint);
 }
-.sec-note{margin-left:auto;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--slate)}
-@media(max-width:600px){.sec-note{display:none}}
+@media(max-width:640px){.sec-note{display:none}}
 
 /* ---------- projects ---------- */
-.project{
-  padding:56px 0 60px;border-bottom:1px solid var(--line);
-}
+.project{padding:52px 0 58px;border-bottom:1px solid var(--line)}
 .project:last-child{border-bottom:none}
 .proj-eyebrow{
-  font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--slate);
-  display:flex;gap:14px;align-items:center;margin-bottom:14px;
+  font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--faint);display:flex;gap:12px;align-items:center;margin-bottom:12px;
 }
-.proj-eyebrow b{color:var(--petrol);font-weight:600}
-.proj-eyebrow .dot{width:4px;height:4px;border-radius:50%;background:var(--line)}
-.project h3{
-  font-family:var(--display);font-size:clamp(26px,3.8vw,36px);font-weight:620;letter-spacing:-.012em;line-height:1.12;
-  max-width:760px;
+.proj-eyebrow b{color:var(--accent);font-weight:600}
+.proj-eyebrow .disc{color:var(--ink);font-weight:600}
+.project h3{font-size:clamp(23px,3.2vw,30px);font-weight:700;line-height:1.18;max-width:760px}
+.proj-tldr{
+  margin:14px 0 26px;padding:13px 18px;background:var(--panel);
+  border-left:3px solid var(--accent);border-radius:0 4px 4px 0;
+  font-size:16.5px;line-height:1.55;color:var(--ink);max-width:740px;
 }
-.proj-sub{font-size:17px;color:var(--petrol-deep);font-weight:500;margin:10px 0 26px;max-width:720px}
-.proj-grid{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:48px;align-items:start}
-@media(max-width:860px){.proj-grid{grid-template-columns:1fr;gap:32px}}
-.proj-body p{margin-bottom:16px;color:var(--ink-soft);max-width:62ch}
+.proj-tldr b{font-weight:700}
+.proj-grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:48px;align-items:start}
+@media(max-width:880px){.proj-grid{grid-template-columns:1fr;gap:30px}}
+.proj-body p{margin-bottom:15px;max-width:66ch}
 .proj-body p:last-child{margin-bottom:0}
-.proj-body strong{font-weight:600;color:var(--ink)}
+.proj-body p>strong:first-child{color:var(--ink);font-weight:700}
+.proj-body em{font-style:italic}
+.proj-aside{position:sticky;top:88px}
+@media(max-width:880px){.proj-aside{position:static}}
 
-.metric-strip{
-  border:1px solid var(--line);background:#FBFAF6;
+.facts{
+  font-size:14px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 18px;
+  margin:0 0 26px;padding-bottom:22px;border-bottom:1px solid var(--line);
 }
-.metric-strip .m-row{display:grid;grid-template-columns:1fr 1fr}
-.metric{padding:18px 20px;border-bottom:1px solid var(--line)}
+.facts b{color:var(--ink);font-weight:600}
+
+.metric-strip{border:1px solid var(--line);border-radius:6px;overflow:hidden;background:#fff}
+.m-row{display:grid;grid-template-columns:1fr 1fr}
+.metric{padding:16px 18px 15px;border-bottom:1px solid var(--line)}
 .m-row .metric:first-child{border-right:1px solid var(--line)}
-.metric-strip .m-row:last-child .metric{border-bottom:none}
+.m-row:last-child .metric{border-bottom:none}
 .metric .val{
-  font-family:var(--mono);font-size:24px;font-weight:600;color:var(--petrol-deep);letter-spacing:-.02em;line-height:1.1;
+  font-family:var(--mono);font-size:22px;font-weight:600;color:var(--accent);
+  letter-spacing:-.02em;line-height:1.15;font-variant-numeric:tabular-nums;
 }
 .metric .lab{
-  font-family:var(--mono);font-size:10px;letter-spacing:.11em;text-transform:uppercase;color:var(--slate);
-  display:block;margin-top:7px;line-height:1.5;
+  font-size:12.5px;color:var(--muted);display:block;margin-top:5px;line-height:1.45;
 }
-.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px}
+.tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:20px}
 .tag{
-  font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:var(--ink-soft);
-  border:1px solid var(--line);padding:5px 11px;border-radius:2px;background:transparent;
+  font-family:var(--mono);font-size:11.5px;color:var(--muted);
+  border:1px solid var(--line);padding:4px 10px;border-radius:3px;background:#fff;
 }
 
-/* mini chart */
-.chart{margin-top:24px;border:1px solid var(--line);background:#FBFAF6;padding:20px 20px 16px}
+/* ---------- charts ---------- */
+.chart{margin-top:20px;border:1px solid var(--line);border-radius:6px;background:#fff;padding:18px 18px 16px}
 .chart-title{
-  font-family:var(--mono);font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--slate);margin-bottom:16px;
-  display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);
+  margin-bottom:16px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
 }
-.legend{display:flex;gap:14px}
+.legend{display:flex;gap:14px;text-transform:none;letter-spacing:.02em}
 .legend span{display:flex;align-items:center;gap:6px}
-.legend i{width:9px;height:9px;display:inline-block}
-.legend .l-model i{background:var(--petrol)}
-.legend .l-base i{background:var(--mist)}
-.bars{display:flex;align-items:flex-end;gap:10px;height:120px}
-.bar-group{flex:1;display:flex;align-items:flex-end;gap:2px;height:100%;position:relative}
-.bar{flex:1;min-width:4px;transition:opacity .2s}
-.bar.model{background:var(--petrol)}
-.bar.base{background:var(--mist)}
-.bar-group:hover .bar{opacity:.82}
+.legend i{width:9px;height:9px;border-radius:2px;display:inline-block}
+.legend .l-model i{background:var(--data-1)}
+.legend .l-base i{background:var(--data-2)}
+.bars{display:flex;align-items:flex-end;gap:8px;height:120px;border-bottom:1px solid var(--line)}
+.bar-group{flex:1;display:flex;align-items:flex-end;gap:2px;height:100%;position:relative;cursor:default}
+.bar{flex:1;min-width:4px;border-radius:3px 3px 0 0}
+.bar.model{background:var(--data-1)}
+.bar.base{background:var(--data-2)}
+.bar-group:hover .bar,.bar-group:focus-visible .bar{filter:brightness(1.18)}
 .bar-year{
-  position:absolute;bottom:-20px;left:0;right:0;text-align:center;
-  font-family:var(--mono);font-size:9.5px;color:var(--slate);letter-spacing:.02em;
+  position:absolute;bottom:-21px;left:0;right:0;text-align:center;
+  font-family:var(--mono);font-size:9.5px;color:var(--faint);
 }
-.chart-foot{margin-top:32px;font-family:var(--mono);font-size:10.5px;color:var(--slate);letter-spacing:.03em}
+.chart-foot{margin-top:34px;font-size:13px;color:var(--muted);line-height:1.6}
+.chart-foot b{color:var(--accent);font-weight:600}
 
-/* comparison rows (MILP) */
-.compare{margin-top:24px;border:1px solid var(--line);background:#FBFAF6;padding:20px}
-.compare .chart-title{margin-bottom:14px}
+#tooltip{
+  position:fixed;z-index:100;pointer-events:none;opacity:0;transition:opacity .12s;
+  background:var(--ink);color:#F2F6F9;padding:8px 12px;border-radius:4px;
+  font-family:var(--mono);font-size:11.5px;line-height:1.7;
+  box-shadow:0 6px 18px rgba(26,39,51,.25);white-space:nowrap;
+}
+#tooltip b{color:#8FD4F5;font-weight:600}
+#tooltip .tt-base{color:#F0B285}
+
+.compare{margin-top:20px;border:1px solid var(--line);border-radius:6px;background:#fff;padding:18px}
 .cmp-row{margin-bottom:14px}
 .cmp-row:last-child{margin-bottom:0}
 .cmp-lab{
-  display:flex;justify-content:space-between;font-family:var(--mono);font-size:10.5px;
-  letter-spacing:.05em;color:var(--ink-soft);margin-bottom:5px;
+  display:flex;justify-content:space-between;gap:10px;font-size:13.5px;
+  color:var(--body-c);margin-bottom:5px;
 }
-.cmp-lab b{color:var(--petrol-deep);font-weight:600}
-.cmp-track{height:9px;background:var(--paper-2);position:relative}
-.cmp-fill{height:100%;background:var(--petrol)}
-.cmp-fill.light{background:#5E98A0}
-.cmp-fill.lighter{background:var(--mist)}
+.cmp-lab b{font-family:var(--mono);color:var(--accent);font-weight:600;font-variant-numeric:tabular-nums;font-size:12.5px}
+.cmp-track{height:9px;background:var(--track);border-radius:3px;overflow:hidden}
+.cmp-fill{height:100%;background:var(--data-1);border-radius:3px;width:var(--w,0%);transition:width .8s cubic-bezier(.2,.7,.2,1)}
+@media (prefers-reduced-motion:reduce){.cmp-fill{transition:none}}
 
-/* ---------- experience ---------- */
-.xp{display:grid;grid-template-columns:190px 1fr;gap:30px;padding:34px 0;border-bottom:1px solid var(--line)}
-.xp:last-child{border-bottom:none}
-.xp-when{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--slate);padding-top:5px}
-.xp h4{font-family:var(--display);font-size:20px;font-weight:620;letter-spacing:-.01em}
-.xp .role{font-size:14.5px;color:var(--petrol-deep);font-weight:500;margin:2px 0 10px}
-.xp p{color:var(--ink-soft);font-size:15.5px;max-width:66ch}
-@media(max-width:680px){.xp{grid-template-columns:1fr;gap:6px}}
-
-/* ---------- education ---------- */
-.edu-intro{padding:34px 0 8px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:start}
-.edu-intro h4{font-family:var(--display);font-size:22px;font-weight:620;letter-spacing:-.01em}
-.edu-intro .degree{color:var(--ink-soft);margin-top:4px}
-.pred{
-  font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--petrol-deep);border:1px solid var(--petrol);padding:8px 14px;white-space:nowrap;align-self:center;
+/* ---------- figures ---------- */
+.figure{margin-top:44px;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:#fff}
+.media-head{
+  display:flex;align-items:center;gap:14px;padding:11px 16px;
+  border-bottom:1px solid var(--line);
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
 }
-@media(max-width:600px){.edu-intro{grid-template-columns:1fr}.pred{justify-self:start}}
-.grades{margin-top:26px;border-top:1px solid var(--ink)}
-.grade-row{
-  display:grid;grid-template-columns:minmax(0,1.4fr) 64px minmax(0,1fr);
-  gap:20px;align-items:center;padding:13px 0;border-bottom:1px solid var(--line);
-}
-.grade-row .course{font-size:15px;font-weight:500}
-.grade-row .mark{font-family:var(--mono);font-size:14px;font-weight:600;color:var(--petrol-deep);text-align:right}
-.grade-bar{height:7px;background:var(--paper-2)}
-.grade-bar i{display:block;height:100%;background:var(--petrol)}
-.grade-note{font-family:var(--mono);font-size:11px;color:var(--slate);letter-spacing:.04em;padding-top:14px}
-@media(max-width:600px){.grade-row{grid-template-columns:1fr 54px}.grade-bar{display:none}}
-
-/* ---------- skills ---------- */
-.skill-row{
-  display:grid;grid-template-columns:230px 1fr;gap:24px;padding:20px 0;border-bottom:1px solid var(--line);
-}
-.skill-row:last-child{border-bottom:none}
-.skill-cat{
-  font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--slate);padding-top:4px;
-}
-.skill-items{font-size:15.5px;color:var(--ink-soft);line-height:1.7}
-.skill-items b{font-weight:600;color:var(--ink)}
-@media(max-width:640px){.skill-row{grid-template-columns:1fr;gap:4px}}
-
-.award{
-  margin-top:40px;border:1px solid var(--line);background:#FBFAF6;padding:22px 24px;
-  display:flex;gap:18px;align-items:baseline;
-}
-.award .spec-label{margin-bottom:0;white-space:nowrap}
-.award p{font-size:15px;color:var(--ink-soft)}
-
-/* ---------- footer ---------- */
-footer{margin-top:110px;background:var(--ink);color:#C7D2D0}
-.foot-inner{max-width:1060px;margin:0 auto;padding:74px 28px 40px}
-.foot-inner h2{
-  font-family:var(--display);font-size:clamp(30px,5vw,48px);font-weight:620;color:#F2F1EB;letter-spacing:-.015em;line-height:1.08;
-  max-width:640px;
-}
-.foot-links{display:flex;flex-wrap:wrap;gap:14px;margin:34px 0 60px}
-.foot-links a{
-  font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;
-  color:#EDF4F2;border:1px solid #3A5058;padding:11px 18px;transition:border-color .2s,color .2s;
-}
-.foot-links a:hover{border-color:#7FB2B8;color:#AEE3E6}
-.foot-base{
-  border-top:1px solid #2C424A;padding-top:22px;
-  display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;
-  font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#6E858C;
-}
-
-/* ---------- figures (full-width project media) ---------- */
-.figure{margin-top:46px;border:1px solid var(--line);background:#FBFAF6}
+.media-head .ref{color:var(--accent);font-weight:600}
+.media-head .m-title{color:var(--body-c)}
+.media-head .m-meta{margin-left:auto;color:var(--faint)}
+@media(max-width:560px){.media-head .m-meta{display:none}}
+.figure video{display:block;width:100%;height:auto;background:#10181F}
 .fig-cap{
   display:flex;justify-content:space-between;align-items:baseline;gap:14px;flex-wrap:wrap;
-  padding:13px 18px;border-top:1px solid var(--line);
-  font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--slate);
+  padding:12px 16px;border-top:1px solid var(--line);background:var(--panel);
+  font-size:13px;color:var(--muted);
 }
-.fig-cap b{color:var(--petrol-deep);font-weight:600}
-.fig-cap a{border-bottom:1px solid var(--mist);text-transform:none;letter-spacing:.04em}
+.fig-cap b{color:var(--ink);font-weight:600}
+.fig-cap a{font-weight:600;white-space:nowrap}
 
-/* instrument chrome: dark panel system for screen media (video, map) */
-.figure.instrument{background:#0B141A;border:1px solid #0B141A;box-shadow:0 1px 0 rgba(20,38,46,.18),0 18px 44px -30px rgba(11,20,26,.55)}
-.media-head{
-  display:flex;align-items:center;gap:16px;padding:12px 18px;
-  border-bottom:1px solid #22343B;
-  font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;
-}
-.media-head .ref{color:#3FD0C0;font-weight:600}
-.media-head .m-title{color:#B9C9C6}
-.media-head .m-meta{margin-left:auto;color:#5E767C}
-@media(max-width:560px){.media-head .m-meta{display:none}}
-.figure.instrument video{display:block;width:100%;height:auto;background:#0B141A}
-.figure.instrument .fig-cap{border-top:1px solid #22343B;color:#5E767C}
-.figure.instrument .fig-cap b{color:#7FC9C0}
-.figure.instrument .fig-cap a{color:#9FD3CC;border-bottom-color:#2C444C}
-.figure.instrument .fig-cap a:hover{color:#C8EAE5}
-
-/* map facade + iframe */
 .map-shell{
-  position:relative;background:#0B141A;aspect-ratio:16/9;min-height:340px;
+  position:relative;background:var(--panel);width:100%;aspect-ratio:16/9;min-height:320px;
   display:flex;align-items:center;justify-content:center;overflow:hidden;
 }
 .map-shell iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 .map-facade{
-  position:relative;z-index:2;text-align:center;color:#7C949A;font-family:var(--mono);
-  display:flex;flex-direction:column;align-items:center;gap:16px;padding:24px;
+  position:relative;z-index:2;text-align:center;color:var(--muted);
+  display:flex;flex-direction:column;align-items:center;gap:14px;padding:24px;
 }
 .map-facade .grid-deco{
-  position:absolute;inset:0;z-index:-1;
-  background-image:linear-gradient(rgba(63,208,192,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(63,208,192,.05) 1px,transparent 1px);
+  position:absolute;inset:-200px;z-index:-1;
+  background-image:linear-gradient(rgba(0,114,163,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(0,114,163,.06) 1px,transparent 1px);
   background-size:34px 34px;
 }
-.map-facade p{font-size:11px;letter-spacing:.08em;text-transform:uppercase;max-width:420px;line-height:1.8}
+.map-facade p{font-size:14px;max-width:420px;line-height:1.6}
 .map-load-btn{
-  font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;
-  color:#3FD0C0;background:transparent;border:1px solid rgba(63,208,192,.45);
-  padding:13px 26px;cursor:pointer;transition:background .2s,border-color .2s;
+  font-family:var(--body);font-size:14.5px;font-weight:600;
+  color:#fff;background:var(--accent);border:none;border-radius:4px;
+  padding:12px 24px;cursor:pointer;transition:background .15s;
 }
-.map-load-btn:hover{background:rgba(63,208,192,.08);border-color:#3FD0C0}
+.map-load-btn:hover{background:#00506F}
+.map-note{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint)}
 
-/* Monte Carlo outcomes chart */
+/* Monte Carlo outcomes */
 .mc-final{
-  padding:15px 18px;border-bottom:1px solid var(--line);
-  font-family:var(--mono);font-size:11.5px;letter-spacing:.05em;color:var(--ink-soft);
+  padding:13px 16px;border-bottom:1px solid var(--line);
+  font-size:14px;color:var(--body-c);
   display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
 }
-.mc-final b{color:var(--petrol-deep);font-weight:600}
-.mc-body{padding:20px 18px 8px}
+.mc-final b{color:var(--ink);font-weight:700}
+.mc-final .p{font-family:var(--mono);font-size:12.5px;color:var(--accent);font-weight:600}
+.mc-body{padding:18px 16px 8px}
 .mc-legend{
-  display:flex;gap:16px;font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
-  text-transform:uppercase;color:var(--slate);margin-bottom:16px;
+  display:flex;gap:16px;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--muted);margin-bottom:14px;
 }
 .mc-legend span{display:flex;align-items:center;gap:6px}
-.mc-legend i{width:9px;height:9px;display:inline-block}
-.mc-legend .win i{background:var(--petrol)}
-.mc-legend .fin i{background:#C3D4CF}
-.mc-row{
-  display:grid;grid-template-columns:88px 1fr 118px;gap:14px;align-items:center;margin-bottom:11px;
-}
-.mc-team{font-size:14px;font-weight:500}
-.mc-track{position:relative;height:15px;background:var(--paper-2)}
-.mc-track .fin-bar{position:absolute;inset:0 auto 0 0;background:#C3D4CF}
-.mc-track .win-bar{position:absolute;inset:0 auto 0 0;background:var(--petrol)}
-.mc-vals{font-family:var(--mono);font-size:11.5px;color:var(--slate);text-align:right;white-space:nowrap}
-.mc-vals b{color:var(--petrol-deep);font-weight:600}
-@media(max-width:560px){.mc-row{grid-template-columns:74px 1fr 100px;gap:10px}.mc-team{font-size:13px}}
+.mc-legend i{width:9px;height:9px;border-radius:2px;display:inline-block}
+.mc-legend .win i{background:var(--data-1)}
+.mc-legend .fin i{background:var(--data-2)}
+.mc-row{display:grid;grid-template-columns:86px 1fr 120px;gap:14px;align-items:center;margin-bottom:10px}
+.mc-team{font-size:14.5px;font-weight:600;color:var(--ink)}
+.mc-track{position:relative;height:14px;background:var(--track);border-radius:3px;display:flex;gap:2px;overflow:hidden}
+.mc-track .win-bar{background:var(--data-1);width:var(--w,0%);transition:width .8s cubic-bezier(.2,.7,.2,1)}
+.mc-track .fin-bar{background:var(--data-2);width:var(--w,0%);transition:width .8s cubic-bezier(.2,.7,.2,1) .08s}
+@media (prefers-reduced-motion:reduce){.mc-track .win-bar,.mc-track .fin-bar{transition:none}}
+.mc-vals{font-family:var(--mono);font-size:11.5px;color:var(--muted);text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+.mc-vals b{color:var(--accent);font-weight:600}
+@media(max-width:560px){.mc-row{grid-template-columns:70px 1fr 102px;gap:10px}.mc-team{font-size:13px}}
 
-/* reveal */
-.reveal{opacity:0;transform:translateY(14px);transition:opacity .55s ease,transform .55s ease}
+/* ---------- experience ---------- */
+.xp{display:grid;grid-template-columns:180px 1fr;gap:28px;padding:30px 0;border-bottom:1px solid var(--line)}
+.xp:last-child{border-bottom:none}
+.xp-when{
+  font-family:var(--mono);font-size:12px;color:var(--faint);padding-top:5px;
+  font-variant-numeric:tabular-nums;
+}
+.xp h4{font-size:18.5px;font-weight:700}
+.xp .role{font-size:14.5px;color:var(--accent);font-weight:600;margin:2px 0 9px}
+.xp p{font-size:16px;max-width:68ch}
+@media(max-width:680px){.xp{grid-template-columns:1fr;gap:5px}}
+
+/* ---------- education ---------- */
+.edu-intro{padding:32px 0 6px;display:grid;grid-template-columns:1fr auto;gap:22px;align-items:start}
+.edu-intro h4{font-size:20px;font-weight:700}
+.edu-intro .degree{color:var(--muted);margin-top:3px;font-size:15.5px}
+.pred{
+  font-size:13px;font-weight:700;color:var(--accent);
+  background:var(--accent-soft);border-radius:4px;padding:8px 14px;
+  white-space:nowrap;align-self:center;
+}
+@media(max-width:600px){.edu-intro{grid-template-columns:1fr}.pred{justify-self:start}}
+.grades{margin-top:22px;border-top:2px solid var(--line-strong)}
+.grade-row{
+  display:grid;grid-template-columns:minmax(0,1.4fr) 70px minmax(0,1fr);
+  gap:18px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line);
+}
+.grade-row .course{font-size:15.5px;font-weight:600;color:var(--ink)}
+.grade-row .mark{
+  font-family:var(--mono);font-size:13px;font-weight:600;color:var(--accent);text-align:right;
+  font-variant-numeric:tabular-nums;
+}
+.grade-bar{height:7px;background:var(--track);border-radius:3px;overflow:hidden}
+.grade-bar i{display:block;height:100%;background:var(--data-1);border-radius:3px;width:var(--w,0%);transition:width .8s cubic-bezier(.2,.7,.2,1)}
+@media (prefers-reduced-motion:reduce){.grade-bar i{transition:none}}
+.grade-note{font-size:13px;color:var(--muted);padding-top:13px}
+@media(max-width:600px){.grade-row{grid-template-columns:1fr 58px}.grade-bar{display:none}}
+
+/* ---------- skills ---------- */
+.skill-row{display:grid;grid-template-columns:220px 1fr;gap:24px;padding:18px 0;border-bottom:1px solid var(--line)}
+.skill-row:last-child{border-bottom:none}
+.skill-cat{
+  font-family:var(--mono);font-size:11px;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--faint);padding-top:4px;
+}
+.skill-items{font-size:16px;line-height:1.7}
+.skill-items b{font-weight:700;color:var(--ink)}
+@media(max-width:640px){.skill-row{grid-template-columns:1fr;gap:4px}}
+.award{
+  margin-top:36px;border:1px solid var(--line);border-radius:6px;background:var(--panel);
+  padding:18px 22px;display:flex;gap:18px;align-items:baseline;
+}
+.award .g-label{margin-bottom:0;white-space:nowrap;color:var(--accent)}
+.award p{font-size:15.5px}
+.award strong{color:var(--ink);font-weight:700}
+@media(max-width:520px){.award{flex-direction:column;gap:6px}}
+
+/* ---------- footer ---------- */
+footer{margin-top:104px;border-top:1px solid var(--line);background:var(--panel)}
+.foot-inner{max-width:1040px;margin:0 auto;padding:64px 28px 36px}
+.foot-inner h2{font-size:clamp(26px,4vw,40px);font-weight:700;line-height:1.15;max-width:680px}
+.foot-sub{margin-top:12px;font-size:16.5px;color:var(--muted);max-width:600px}
+.foot-links{display:flex;flex-wrap:wrap;gap:12px;margin:30px 0 56px}
+.foot-links a{
+  font-size:14.5px;font-weight:600;border:1px solid var(--line);border-radius:4px;
+  padding:11px 20px;color:var(--ink);background:#fff;
+}
+.foot-links a:hover{border-color:var(--accent);color:var(--accent);text-decoration:none}
+.foot-links a.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.foot-links a.primary:hover{background:#00506F}
+.foot-base{
+  border-top:1px solid var(--line);padding-top:20px;
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;
+  font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);
+}
+
+/* ---------- reveal (subtle) ---------- */
+.reveal{opacity:0;transform:translateY(10px);transition:opacity .45s ease,transform .45s ease}
 .reveal.in{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+
+/* ---------- print ---------- */
+@media print{
+  nav,.skip,.hero-contact,.map-load-btn,#tooltip,.scroll-cue{display:none !important}
+  body{font-size:11pt;color:#000}
+  a{color:#000;text-decoration:none}
+  .reveal{opacity:1 !important;transform:none !important}
+  [data-w]{width:attr(data-w) !important}
+  .project,.xp{break-inside:avoid}
+  section.wrap{margin:32pt auto 0}
+  .figure video{display:none}
+  .fig-cap a::after{content:" (" attr(href) ")";font-size:9pt;color:#555}
+}
 </style>
 </head>
 <body>
-<div id="progress" aria-hidden="true"></div>
-<nav>
+<a class="skip" href="#projects">Skip to case studies</a>
+
+<nav aria-label="Main">
   <div class="nav-inner">
-    <a class="nav-name" href="#top">Farhang<span>&nbsp;Bakhshi</span></a>
+    <a class="nav-name" href="#top">Farhang Bakhshi</a>
     <div class="nav-links">
-      <a href="#projects">Projects</a>
+      <a href="#projects">Case studies</a>
       <a href="#experience">Experience</a>
       <a href="#education">Education</a>
       <a href="#skills">Skills</a>
-      <a href="#contact">Contact</a>
     </div>
+    <a class="nav-cta" href="mailto:farhangbak@gmail.com">Email me</a>
   </div>
 </nav>
 
 <header id="top" class="wrap">
-  <div class="doc-ref">
-    <span>Portfolio · Selected work</span>
+  <div class="hero-eyebrow">
+    <span>Data science portfolio</span>
     <span>London, UK · 2026</span>
   </div>
-  <h1>Farhang<br>Bakhshi</h1>
-  <div class="hero-role">Data science · Machine learning · Mathematical optimisation</div>
+  <h1>Farhang Bakhshi</h1>
+  <p class="hero-role">Machine learning · Econometrics · Mathematical optimisation</p>
   <p class="hero-thesis">
-    Penultimate-year Computer Science and Management Science student at the University of Edinburgh.
-    I build models that hold up out of sample and software that survives contact with real users.
-    Currently a Data Science intern at Ekimetrics, London.
+    Penultimate-year Computer Science and Management Science student at the University of Edinburgh,
+    currently a Data Science intern at Ekimetrics, London. I build <strong>models that hold up out of
+    sample</strong> and software that survives contact with real users.
   </p>
-  <div class="spec-strip">
+  <div class="hero-contact">
+    <a class="primary" href="mailto:farhangbak@gmail.com">farhangbak@gmail.com</a>
+    <a href="https://www.linkedin.com/in/farhang-bakhshi-854423347/" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="https://github.com/Farhangbakhs" target="_blank" rel="noopener">GitHub</a>
+  </div>
+
+  <p class="results-intro"><strong>Three projects, three different disciplines.</strong> The domain changes every time; the problem solving is what carries over.</p>
+  <div class="results" role="list" aria-label="Headline results">
+    <a class="result" role="listitem" href="#p1">
+      <span class="r-field">Software engineering</span>
+      <span class="r-num">3 models shipped</span>
+      <span class="r-what">Turned three research computer-vision models into a desktop app that surveyors install and use like any normal software.</span>
+      <span class="r-link">Case study 01 ↓</span>
+    </a>
+    <a class="result" role="listitem" href="#p2">
+      <span class="r-field">Operations research</span>
+      <span class="r-num">12,578 schools</span>
+      <span class="r-what">Planned a five-year, $125M national internet rollout for Honduras, optimised to stay robust when the budget gets cut.</span>
+      <span class="r-link">Case study 02 ↓</span>
+    </a>
+    <a class="result" role="listitem" href="#p3">
+      <span class="r-field">Machine learning</span>
+      <span class="r-num">9 of 9 tournaments</span>
+      <span class="r-what">Built a World Cup predictor that beat the baseline in every one of nine held-out tournaments, with zero data leakage.</span>
+      <span class="r-link">Case study 03 ↓</span>
+    </a>
+  </div>
+
+  <div class="glance">
     <div>
-      <span class="spec-label">Currently</span>
-      <span class="spec-value">Data Science Intern, Ekimetrics (Jul&ndash;Dec 2026)</span>
+      <span class="g-label">Currently</span>
+      <span class="g-value">Data Science Intern, Ekimetrics (Jul&ndash;Dec 2026)</span>
     </div>
     <div>
-      <span class="spec-label">Education</span>
-      <span class="spec-value">BSc CS &amp; Management Science, Edinburgh · predicted First</span>
+      <span class="g-label">Education</span>
+      <span class="g-value">BSc CS &amp; Management Science, Edinburgh · predicted First</span>
     </div>
     <div>
-      <span class="spec-label">Focus</span>
-      <span class="spec-value">ML · econometrics · mathematical optimisation</span>
+      <span class="g-label">Focus</span>
+      <span class="g-value">ML · econometrics · optimisation</span>
     </div>
     <div>
-      <span class="spec-label">Contact</span>
-      <span class="spec-value"><a href="mailto:farhangbak@gmail.com">Email</a> · <a href="https://www.linkedin.com/in/farhang-bakhshi-854423347/" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://github.com/Farhangbakhs" target="_blank" rel="noopener">GitHub</a></span>
+      <span class="g-label">Open to</span>
+      <span class="g-value">2027 data science &amp; quantitative internships</span>
     </div>
   </div>
 </header>
 
+<main>
 <!-- ================= PROJECTS ================= -->
 <section id="projects" class="wrap">
   <div class="sec-head">
-    <span class="sec-num">01</span>
-    <h2 class="sec-title">Selected projects</h2>
+    <h2 class="sec-title">Case studies</h2>
     <span class="sec-note">Problem · Approach · Outcome</span>
   </div>
 
   <!-- ALICS -->
-  <article class="project reveal">
-    <div class="proj-eyebrow"><b>1 / 3</b><span class="dot"></span><span>Industry placement · Loopsio · 2026</span></div>
+  <article class="project reveal" id="p1">
+    <div class="proj-eyebrow"><b>01</b><span class="disc">Software engineering</span><span>· Industry placement, Loopsio · 2026</span></div>
     <h3>ALICS: productionising computer vision for structural inspection</h3>
-    <p class="proj-sub">A cross-platform desktop application that takes research-grade crack detection models out of the lab and into the hands of field surveyors.</p>
+    <p class="proj-tldr"><b>In one line:</b> I built the application layer that turned three research crack-detection models into a desktop product that non-technical surveyors install and run like any normal app.</p>
+    <div class="facts">
+      <span><b>Role</b> Software developer (team of 4)</span>
+      <span><b>Duration</b> 16 weeks</span>
+      <span><b>Evidence</b> <a href="#fig1">demo video below</a></span>
+    </div>
     <div class="proj-grid">
       <div class="proj-body">
         <p><strong>Problem.</strong> Three research computer-vision models (YOLO detection, U-Net segmentation, photometric-stereo 3D reconstruction) existed only as lab code. Civil engineers needed to run calibrated crack analysis offline, on site, and export engineering-grade reports, without installing Python or touching a terminal.</p>
-        <p><strong>Approach.</strong> On a 16-week placement in a team of four, I built the entire application layer around the pre-existing analysis code: a Tauri 2 / Rust backend, a React 19 + TypeScript frontend, and a zero-copy Rust to Python inference bridge using PyO3 with NumPy ndarray views, so multi-megapixel images cross the language boundary without serialisation. A 12-migration SQLite layer persists per-scan, per-cell analysis results, including a BLOB migration that resolved row-size limits on large scans.</p>
-        <p><strong>Outcome.</strong> Shipped as signed installers for Windows, macOS and Linux with a fully bundled Python runtime, so non-technical surveyors install the whole ML stack like any normal app. The tool outputs calibrated crack-width measurements in millimetres, a Three.js 3D mesh viewer with a signed depth scale, and templated PDF inspection reports suitable for structural documentation.</p>
+        <p><strong>Approach.</strong> I built the entire application layer around the pre-existing analysis code: a Tauri 2 / Rust backend, a React 19 + TypeScript frontend, and a zero-copy Rust-to-Python inference bridge using PyO3 with NumPy ndarray views, so multi-megapixel images cross the language boundary without serialisation. A 12-migration SQLite layer persists per-scan, per-cell analysis results, including a BLOB migration that resolved row-size limits on large scans.</p>
+        <p><strong>Outcome.</strong> Shipped as signed installers for Windows, macOS and Linux with a fully bundled Python runtime. The tool outputs calibrated crack-width measurements in millimetres, a Three.js 3D mesh viewer with a signed depth scale, and templated PDF inspection reports suitable for structural documentation.</p>
       </div>
-      <aside>
+      <aside class="proj-aside">
         <div class="metric-strip">
           <div class="m-row">
-            <div class="metric"><span class="val">3</span><span class="lab">Research CV models productionised</span></div>
-            <div class="metric"><span class="val">0-copy</span><span class="lab">Rust&ndash;Python bridge (PyO3)</span></div>
+            <div class="metric"><span class="val">3</span><span class="lab">Research vision models shipped</span></div>
+            <div class="metric"><span class="val">Zero-copy</span><span class="lab">Rust to Python image bridge (PyO3)</span></div>
           </div>
           <div class="m-row">
-            <div class="metric"><span class="val">4</span><span class="lab">Platforms · signed installers</span></div>
+            <div class="metric"><span class="val">4</span><span class="lab">Platforms with signed installers</span></div>
             <div class="metric"><span class="val">12</span><span class="lab">SQLite schema migrations</span></div>
           </div>
         </div>
@@ -449,7 +566,7 @@ footer{margin-top:110px;background:var(--ink);color:#C7D2D0}
       </aside>
     </div>
 
-    <figure class="figure instrument reveal">
+    <figure class="figure reveal" id="fig1">
       <div class="media-head">
         <span class="ref">Fig. 1</span>
         <span class="m-title">ALICS desktop application · recorded demo</span>
@@ -462,46 +579,51 @@ footer{margin-top:110px;background:var(--ink);color:#C7D2D0}
       </video>
       <figcaption class="fig-cap">
         <span>Detection · segmentation · 3D reconstruction · PDF export</span>
-        <a href="alics.mp4" download>Download video &darr;</a>
+        <a href="alics.mp4" download>Download video ↓</a>
       </figcaption>
     </figure>
   </article>
 
   <!-- MILP -->
-  <article class="project reveal">
-    <div class="proj-eyebrow"><b>2 / 3</b><span class="dot"></span><span>Coursework · Mathematical Programming in Advanced Analytics · 2026</span></div>
+  <article class="project reveal" id="p2">
+    <div class="proj-eyebrow"><b>02</b><span class="disc">Operations research</span><span>· Coursework, Mathematical Programming in Advanced Analytics · 2026</span></div>
     <h3>School connectivity optimisation under budget uncertainty</h3>
-    <p class="proj-sub">A multi-period MILP and two-stage stochastic programme allocating a $125M national budget to connect 12,578 Honduran schools to the internet.</p>
+    <p class="proj-tldr"><b>In one line:</b> a multi-period MILP and two-stage stochastic programme allocating a $125M national budget to connect 12,578 Honduran schools, solved twice to put a price on political deployment milestones.</p>
+    <div class="facts">
+      <span><b>Role</b> Geospatial pipeline &amp; modelling (team project)</span>
+      <span><b>Solver</b> Gurobi via Julia/JuMP</span>
+      <span><b>Evidence</b> <a href="#fig2">interactive dashboard below</a></span>
+    </div>
     <div class="proj-grid">
       <div class="proj-body">
         <p><strong>Problem.</strong> Roughly 93% of Honduran public schools have no internet connection. Connectivity requires a three-layer prerequisite chain (tower, then WISP equipment, then school devices) with an 18:1 cost gap between equipping an existing tower and building a new one, phased over five years against an uncertain budget.</p>
-        <p><strong>Approach.</strong> Our team formulated a multi-period mixed-integer linear programme in Julia/JuMP with Gurobi: budgeted maximal covering, prerequisite sequencing constraints, soft annual deployment milestones, and a two-stage stochastic extension hedging a &plusmn;20% budget shock in years 3 to 5. I built the geospatial data pipeline over 15,000+ schools and 7,297 candidate tower sites using a 10 km Haversine coverage radius.</p>
-        <p><strong>Outcome.</strong> We solved the model twice on purpose: once unrestricted, connecting 98.7% of in-scope schools, and once with political deployment milestones, which costs 24.3 percentage points of final coverage, roughly 125 schools per point of early visibility. Comparing the two quantifies what year-on-year political progress actually costs. Both solutions are embedded in the dashboard below; switching scenario shows the 3,046-school gap materialise on the map. The stochastic extension adds a 1,067-school robust core immune to budget cuts, with EVPI and VSS bounds of at least 263 and 177 schools.</p>
+        <p><strong>Approach.</strong> Our team formulated a multi-period mixed-integer linear programme: budgeted maximal covering, prerequisite sequencing constraints, soft annual deployment milestones, and a two-stage stochastic extension hedging a ±20% budget shock in years 3 to 5. I built the geospatial data pipeline over 15,000+ schools and 7,297 candidate tower sites using a 10 km Haversine coverage radius.</p>
+        <p><strong>Outcome.</strong> We solved the model twice on purpose: once unrestricted, connecting 98.7% of in-scope schools, and once with political deployment milestones, which costs 24.3 percentage points of final coverage, roughly 125 schools per point of early visibility. Both solutions are embedded in the dashboard below; switching scenario shows the 3,046-school gap materialise on the map. The stochastic extension adds a 1,067-school robust core immune to budget cuts, with EVPI and VSS bounds of at least 263 and 177 schools.</p>
       </div>
-      <aside>
+      <aside class="proj-aside">
         <div class="metric-strip">
           <div class="m-row">
-            <div class="metric"><span class="val">12,578</span><span class="lab">Schools · 7,297 tower sites</span></div>
+            <div class="metric"><span class="val">12,578</span><span class="lab">Schools in scope · 7,297 candidate towers</span></div>
             <div class="metric"><span class="val">$125M</span><span class="lab">Five-year national budget</span></div>
           </div>
           <div class="m-row">
-            <div class="metric"><span class="val">24.3pp</span><span class="lab">Coverage cost of milestones</span></div>
-            <div class="metric"><span class="val">&ge;177</span><span class="lab">Schools gained by hedging (VSS)</span></div>
+            <div class="metric"><span class="val">24.3pp</span><span class="lab">Coverage given up to hit annual milestones</span></div>
+            <div class="metric"><span class="val">≥177</span><span class="lab">Extra schools secured by hedging the budget</span></div>
           </div>
         </div>
-        <div class="compare">
+        <div class="compare reveal">
           <div class="chart-title"><span>Year-5 connectivity by model variant</span></div>
           <div class="cmp-row">
             <div class="cmp-lab"><span>Deterministic, no milestones</span><b>98.7%</b></div>
-            <div class="cmp-track"><div class="cmp-fill" style="width:98.7%"></div></div>
+            <div class="cmp-track"><div class="cmp-fill" data-w="98.7%"></div></div>
           </div>
           <div class="cmp-row">
             <div class="cmp-lab"><span>Deterministic, with milestones</span><b>74.4%</b></div>
-            <div class="cmp-track"><div class="cmp-fill light" style="width:74.4%"></div></div>
+            <div class="cmp-track"><div class="cmp-fill" data-w="74.4%"></div></div>
           </div>
           <div class="cmp-row">
-            <div class="cmp-lab"><span>Stochastic, pessimistic budget (&minus;20%)</span><b>50.2%</b></div>
-            <div class="cmp-track"><div class="cmp-fill lighter" style="width:50.2%"></div></div>
+            <div class="cmp-lab"><span>Stochastic, pessimistic budget (−20%)</span><b>50.2%</b></div>
+            <div class="cmp-track"><div class="cmp-fill" data-w="50.2%"></div></div>
           </div>
         </div>
         <div class="tags">
@@ -511,7 +633,7 @@ footer{margin-top:110px;background:var(--ink);color:#C7D2D0}
       </aside>
     </div>
 
-    <figure class="figure instrument reveal">
+    <figure class="figure reveal" id="fig2">
       <div class="media-head">
         <span class="ref">Fig. 2</span>
         <span class="m-title">Honduras deployment dashboard · both deterministic solutions</span>
@@ -522,38 +644,43 @@ footer{margin-top:110px;background:var(--ink);color:#C7D2D0}
           <div class="grid-deco" aria-hidden="true"></div>
           <p>12,578 schools · both solved rollouts embedded · year-by-year playback</p>
           <button class="map-load-btn" id="milp-map-btn" type="button">Load interactive map</button>
+          <span class="map-note">Loads a 5.6 MB embed</span>
         </div>
       </div>
       <figcaption class="fig-cap">
         <span>Opens on the milestone rollout · use the scenario switch to compare against the unrestricted optimum</span>
-        <a href="DeterministicMap_embedded.html" target="_blank" rel="noopener">Open full screen &nearr;</a>
+        <a href="DeterministicMap_embedded.html" target="_blank" rel="noopener">Open full screen ↗</a>
       </figcaption>
     </figure>
   </article>
 
   <!-- WC2026 -->
-  <article class="project reveal">
-    <div class="proj-eyebrow"><b>3 / 3</b><span class="dot"></span><span>Personal project · 2026</span></div>
+  <article class="project reveal" id="p3">
+    <div class="proj-eyebrow"><b>03</b><span class="disc">Machine learning &amp; statistics</span><span>· Personal project · 2026</span></div>
     <h3>World Cup 2026 bracket predictor</h3>
-    <p class="proj-sub">A LightGBM + Poisson ensemble trained on 96 years of tournament history, validated with leave-one-tournament-out cross-validation and 100,000 Monte Carlo simulations.</p>
+    <p class="proj-tldr"><b>In one line:</b> a LightGBM + Poisson ensemble built leakage-free on 96 years of history that beats the baseline in every one of nine held-out tournaments.</p>
+    <div class="facts">
+      <span><b>Role</b> Solo, data pipeline to validation</span>
+      <span><b>Validation</b> Leave-one-tournament-out CV · 100k Monte Carlo</span>
+    </div>
     <div class="proj-grid">
       <div class="proj-body">
         <p><strong>Problem.</strong> Sports prediction is notorious for leakage and overfitting: features quietly built on future information, and test tournaments that bleed into training. The design constraint here was generalisation first, predictive power second.</p>
-        <p><strong>Approach.</strong> Custom regex state machines parse 1,402 matches across every World Cup since 1930 plus Euro and Copa Am&eacute;rica data. A sequential FeatureBuilder enforces a strict read-then-update invariant, so features for match <em>i</em> use only matches 0 to <em>i</em>&minus;1. 42 features cover Elo (with confederation-tuned K-factors), career goal statistics, recent form, tournament experience and head-to-head record, feeding a LightGBM classifier blended 75/25 with a Poisson expected-goals GLM, tuned over 300 Optuna trials.</p>
+        <p><strong>Approach.</strong> Custom regex state machines parse 1,402 matches across every World Cup since 1930 plus Euro and Copa América data. A sequential FeatureBuilder enforces a strict read-then-update invariant, so features for match <em>i</em> use only matches 0 to <em>i</em>−1. 42 features cover Elo (with confederation-tuned K-factors), career goal statistics, recent form, tournament experience and head-to-head record, feeding a LightGBM classifier blended 75/25 with a Poisson expected-goals GLM, tuned over 300 Optuna trials.</p>
         <p><strong>Outcome.</strong> The model beats the majority-class baseline in all nine LOTO folds (1990 to 2022), averaging 52.4% accuracy with a +7.4pp lift. Interpretation surfaced a genuine signal: World Cup experience features outrank raw Elo, while confederation membership carries zero importance once performance features are included. The 100k-simulation bracket makes Brazil the most likely 2026 champion at 15.3%.</p>
       </div>
-      <aside>
+      <aside class="proj-aside">
         <div class="metric-strip">
           <div class="m-row">
-            <div class="metric"><span class="val">+7.4pp</span><span class="lab">Mean lift vs baseline · 9/9 folds</span></div>
-            <div class="metric"><span class="val">100k</span><span class="lab">Monte Carlo simulations</span></div>
+            <div class="metric"><span class="val">+7.4pp</span><span class="lab">Accuracy above baseline, mean of 9 folds</span></div>
+            <div class="metric"><span class="val">100k</span><span class="lab">Simulated tournament brackets</span></div>
           </div>
           <div class="m-row">
             <div class="metric"><span class="val">42</span><span class="lab">Leakage-free features</span></div>
-            <div class="metric"><span class="val">1,402</span><span class="lab">Matches · WC + Euro + Copa</span></div>
+            <div class="metric"><span class="val">1,402</span><span class="lab">Matches parsed: World Cup, Euro, Copa</span></div>
           </div>
         </div>
-        <div class="chart" aria-label="LOTO cross-validation accuracy versus majority-class baseline by tournament year">
+        <div class="chart reveal" aria-label="Leave-one-tournament-out cross-validation accuracy versus majority-class baseline by tournament year. Model beats baseline in all nine folds, mean 52.4 percent versus 45.0 percent.">
           <div class="chart-title">
             <span>LOTO-CV accuracy by held-out tournament</span>
             <span class="legend">
@@ -561,18 +688,18 @@ footer{margin-top:110px;background:var(--ink);color:#C7D2D0}
               <span class="l-base"><i></i>Baseline</span>
             </span>
           </div>
-          <div class="bars">
-            <div class="bar-group"><div class="bar model" style="height:57.7%"></div><div class="bar base" style="height:51.9%"></div><span class="bar-year">'90</span></div>
-            <div class="bar-group"><div class="bar model" style="height:55.8%"></div><div class="bar base" style="height:48.1%"></div><span class="bar-year">'94</span></div>
-            <div class="bar-group"><div class="bar model" style="height:45.3%"></div><div class="bar base" style="height:43.8%"></div><span class="bar-year">'98</span></div>
-            <div class="bar-group"><div class="bar model" style="height:43.8%"></div><div class="bar base" style="height:42.2%"></div><span class="bar-year">'02</span></div>
-            <div class="bar-group"><div class="bar model" style="height:64.1%"></div><div class="bar base" style="height:50%"></div><span class="bar-year">'06</span></div>
-            <div class="bar-group"><div class="bar model" style="height:45.3%"></div><div class="bar base" style="height:39.1%"></div><span class="bar-year">'10</span></div>
-            <div class="bar-group"><div class="bar model" style="height:54.7%"></div><div class="bar base" style="height:43.8%"></div><span class="bar-year">'14</span></div>
-            <div class="bar-group"><div class="bar model" style="height:54.7%"></div><div class="bar base" style="height:40.6%"></div><span class="bar-year">'18</span></div>
-            <div class="bar-group"><div class="bar model" style="height:50%"></div><div class="bar base" style="height:45.3%"></div><span class="bar-year">'22</span></div>
+          <div class="bars" id="loto">
+            <div class="bar-group" tabindex="0" data-year="1990" data-model="57.7" data-base="51.9"><div class="bar model" style="height:57.7%"></div><div class="bar base" style="height:51.9%"></div><span class="bar-year">'90</span></div>
+            <div class="bar-group" tabindex="0" data-year="1994" data-model="55.8" data-base="48.1"><div class="bar model" style="height:55.8%"></div><div class="bar base" style="height:48.1%"></div><span class="bar-year">'94</span></div>
+            <div class="bar-group" tabindex="0" data-year="1998" data-model="45.3" data-base="43.8"><div class="bar model" style="height:45.3%"></div><div class="bar base" style="height:43.8%"></div><span class="bar-year">'98</span></div>
+            <div class="bar-group" tabindex="0" data-year="2002" data-model="43.8" data-base="42.2"><div class="bar model" style="height:43.8%"></div><div class="bar base" style="height:42.2%"></div><span class="bar-year">'02</span></div>
+            <div class="bar-group" tabindex="0" data-year="2006" data-model="64.1" data-base="50.0"><div class="bar model" style="height:64.1%"></div><div class="bar base" style="height:50%"></div><span class="bar-year">'06</span></div>
+            <div class="bar-group" tabindex="0" data-year="2010" data-model="45.3" data-base="39.1"><div class="bar model" style="height:45.3%"></div><div class="bar base" style="height:39.1%"></div><span class="bar-year">'10</span></div>
+            <div class="bar-group" tabindex="0" data-year="2014" data-model="54.7" data-base="43.8"><div class="bar model" style="height:54.7%"></div><div class="bar base" style="height:43.8%"></div><span class="bar-year">'14</span></div>
+            <div class="bar-group" tabindex="0" data-year="2018" data-model="54.7" data-base="40.6"><div class="bar model" style="height:54.7%"></div><div class="bar base" style="height:40.6%"></div><span class="bar-year">'18</span></div>
+            <div class="bar-group" tabindex="0" data-year="2022" data-model="50.0" data-base="45.3"><div class="bar model" style="height:50%"></div><div class="bar base" style="height:45.3%"></div><span class="bar-year">'22</span></div>
           </div>
-          <div class="chart-foot">Mean 52.4% vs 45.0% baseline · beats baseline in every fold</div>
+          <div class="chart-foot">Mean <b>52.4%</b> vs 45.0% baseline · beats baseline in every fold</div>
         </div>
         <div class="tags">
           <span class="tag">Python</span><span class="tag">LightGBM</span><span class="tag">Poisson GLM</span>
@@ -584,41 +711,41 @@ footer{margin-top:110px;background:var(--ink);color:#C7D2D0}
     <figure class="figure reveal">
       <div class="mc-final">
         <span>Deterministic bracket path: <b>Brazil defeats France in the final</b></span>
-        <span>P(match) = <b>52.7%</b></span>
+        <span class="p">P(match) = 52.7%</span>
       </div>
-      <div class="mc-body" role="img" aria-label="Tournament outcome probabilities from 100,000 Monte Carlo simulations. Brazil 15.3% to win, Argentina 14.3%, France 11.2%, Spain 9.2%, Portugal 6.6%, England 6.2%.">
+      <div class="mc-body" role="img" aria-label="Tournament outcome probabilities from 100,000 Monte Carlo simulations. Brazil 15.3 percent to win, Argentina 14.3, France 11.2, Spain 9.2, Portugal 6.6, England 6.2.">
         <div class="mc-legend">
           <span class="win"><i></i>Wins tournament</span>
-          <span class="fin"><i></i>Reaches final</span>
+          <span class="fin"><i></i>Reaches final, eliminated</span>
         </div>
         <div class="mc-row">
           <span class="mc-team">Brazil</span>
-          <div class="mc-track"><div class="fin-bar" style="width:99.2%"></div><div class="win-bar" style="width:58.8%"></div></div>
+          <div class="mc-track"><div class="win-bar" data-w="58.8%"></div><div class="fin-bar" data-w="40.4%"></div></div>
           <span class="mc-vals"><b>15.3%</b> / 25.8%</span>
         </div>
         <div class="mc-row">
           <span class="mc-team">Argentina</span>
-          <div class="mc-track"><div class="fin-bar" style="width:94.2%"></div><div class="win-bar" style="width:55.0%"></div></div>
+          <div class="mc-track"><div class="win-bar" data-w="55.0%"></div><div class="fin-bar" data-w="39.2%"></div></div>
           <span class="mc-vals"><b>14.3%</b> / 24.5%</span>
         </div>
         <div class="mc-row">
           <span class="mc-team">France</span>
-          <div class="mc-track"><div class="fin-bar" style="width:73.8%"></div><div class="win-bar" style="width:43.1%"></div></div>
+          <div class="mc-track"><div class="win-bar" data-w="43.1%"></div><div class="fin-bar" data-w="30.7%"></div></div>
           <span class="mc-vals"><b>11.2%</b> / 19.2%</span>
         </div>
         <div class="mc-row">
           <span class="mc-team">Spain</span>
-          <div class="mc-track"><div class="fin-bar" style="width:61.5%"></div><div class="win-bar" style="width:35.4%"></div></div>
+          <div class="mc-track"><div class="win-bar" data-w="35.4%"></div><div class="fin-bar" data-w="26.1%"></div></div>
           <span class="mc-vals"><b>9.2%</b> / 16.0%</span>
         </div>
         <div class="mc-row">
           <span class="mc-team">Portugal</span>
-          <div class="mc-track"><div class="fin-bar" style="width:47.3%"></div><div class="win-bar" style="width:25.4%"></div></div>
+          <div class="mc-track"><div class="win-bar" data-w="25.4%"></div><div class="fin-bar" data-w="21.9%"></div></div>
           <span class="mc-vals"><b>6.6%</b> / 12.3%</span>
         </div>
         <div class="mc-row">
           <span class="mc-team">England</span>
-          <div class="mc-track"><div class="fin-bar" style="width:45.4%"></div><div class="win-bar" style="width:23.8%"></div></div>
+          <div class="mc-track"><div class="win-bar" data-w="23.8%"></div><div class="fin-bar" data-w="21.6%"></div></div>
           <span class="mc-vals"><b>6.2%</b> / 11.8%</span>
         </div>
       </div>
@@ -633,13 +760,12 @@ footer{margin-top:110px;background:var(--ink);color:#C7D2D0}
 <!-- ================= EXPERIENCE ================= -->
 <section id="experience" class="wrap">
   <div class="sec-head">
-    <span class="sec-num">02</span>
     <h2 class="sec-title">Experience</h2>
-    <span class="sec-note">2022 &ndash; present</span>
+    <span class="sec-note">2022&ndash;present</span>
   </div>
 
   <div class="xp reveal">
-    <div class="xp-when">Jul &ndash; Dec 2026</div>
+    <div class="xp-when">Jul&ndash;Dec 2026</div>
     <div>
       <h4>Ekimetrics · London</h4>
       <div class="role">Data Science Intern, Marketing Effectiveness</div>
@@ -657,11 +783,11 @@ footer{margin-top:110px;background:var(--ink);color:#C7D2D0}
   </div>
 
   <div class="xp reveal">
-    <div class="xp-when">2023 &ndash; 2025</div>
+    <div class="xp-when">2023&ndash;2025</div>
     <div>
       <h4>Olivieros Restaurant · Edinburgh</h4>
       <div class="role">Team Manager</div>
-      <p>Led a team of six across high-volume 100+ cover shifts. Later built the restaurant's analytics platform (Python, FastAPI, Streamlit) over 22 weeks of data and £210K+ revenue; it remains in daily use by the owner and surfaced £400&ndash;900/month of identified savings.</p>
+      <p>Led a team of six across high-volume 100+ cover shifts. Later built the restaurant&rsquo;s analytics platform (Python, FastAPI, Streamlit) over 22 weeks of data and £210K+ revenue; it remains in daily use by the owner and surfaced £400–900/month of identified savings.</p>
     </div>
   </div>
 
@@ -678,7 +804,6 @@ footer{margin-top:110px;background:var(--ink);color:#C7D2D0}
 <!-- ================= EDUCATION ================= -->
 <section id="education" class="wrap">
   <div class="sec-head">
-    <span class="sec-num">03</span>
     <h2 class="sec-title">Education</h2>
     <span class="sec-note">University of Edinburgh</span>
   </div>
@@ -695,41 +820,40 @@ footer{margin-top:110px;background:var(--ink);color:#C7D2D0}
     <div class="grade-row">
       <span class="course">Informatics Large Practical</span>
       <span class="mark">89 · A2</span>
-      <div class="grade-bar"><i style="width:89%"></i></div>
+      <div class="grade-bar"><i data-w="89%"></i></div>
     </div>
     <div class="grade-row">
       <span class="course">Entrepreneurship and Business Growth</span>
       <span class="mark">72 · A3</span>
-      <div class="grade-bar"><i style="width:72%"></i></div>
+      <div class="grade-bar"><i data-w="72%"></i></div>
     </div>
     <div class="grade-row">
       <span class="course">Mathematical Programming in Advanced Analytics</span>
       <span class="mark">68 · B</span>
-      <div class="grade-bar"><i style="width:68%"></i></div>
+      <div class="grade-bar"><i data-w="68%"></i></div>
     </div>
     <div class="grade-row">
       <span class="course">The Strategy of Digital Transformation</span>
       <span class="mark">66 · B</span>
-      <div class="grade-bar"><i style="width:66%"></i></div>
+      <div class="grade-bar"><i data-w="66%"></i></div>
     </div>
     <div class="grade-row">
       <span class="course">Machine Learning</span>
       <span class="mark">64 · B</span>
-      <div class="grade-bar"><i style="width:64%"></i></div>
+      <div class="grade-bar"><i data-w="64%"></i></div>
     </div>
     <div class="grade-row">
       <span class="course">Management Science and Operations Analytics</span>
       <span class="mark">62 · B</span>
-      <div class="grade-bar"><i style="width:62%"></i></div>
+      <div class="grade-bar"><i data-w="62%"></i></div>
     </div>
-    <div class="grade-note">Third-year results, 2025/26 · Edinburgh common marking scheme (70+ First, 60&ndash;69 Upper Second)</div>
+    <div class="grade-note">Third-year results, 2025/26 · Edinburgh common marking scheme (70+ First, 60–69 Upper Second)</div>
   </div>
 </section>
 
 <!-- ================= SKILLS ================= -->
 <section id="skills" class="wrap">
   <div class="sec-head">
-    <span class="sec-num">04</span>
     <h2 class="sec-title">Skills</h2>
   </div>
 
@@ -757,17 +881,19 @@ footer{margin-top:110px;background:var(--ink);color:#C7D2D0}
   </div>
 
   <div class="award reveal">
-    <span class="spec-label">Award</span>
+    <span class="g-label">Award</span>
     <p><strong>2nd place of 30 teams, Anthropic-sponsored hackathon (2024)</strong>: built and presented a working software prototype in three hours.</p>
   </div>
 </section>
+</main>
 
 <!-- ================= FOOTER ================= -->
 <footer id="contact">
   <div class="foot-inner">
     <h2>Open to 2027 data science and quantitative analytics internships.</h2>
+    <p class="foot-sub">Based in London. Happy to talk through any of the case studies above, or share code and write-ups on request.</p>
     <div class="foot-links">
-      <a href="mailto:farhangbak@gmail.com">farhangbak@gmail.com</a>
+      <a class="primary" href="mailto:farhangbak@gmail.com">farhangbak@gmail.com</a>
       <a href="https://www.linkedin.com/in/farhang-bakhshi-854423347/" target="_blank" rel="noopener">LinkedIn</a>
       <a href="https://github.com/Farhangbakhs" target="_blank" rel="noopener">GitHub</a>
     </div>
@@ -778,24 +904,47 @@ footer{margin-top:110px;background:var(--ink);color:#C7D2D0}
   </div>
 </footer>
 
+<div id="tooltip" role="status" aria-hidden="true"></div>
+
 <script>
-// scroll reveal
+(function(){
+"use strict";
+
+/* subtle reveals + bar growth */
 const io=new IntersectionObserver(es=>{
-  es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
-},{threshold:.08});
+  es.forEach(e=>{
+    if(!e.isIntersecting)return;
+    e.target.classList.add('in');
+    e.target.querySelectorAll('[data-w]').forEach(el=>{
+      requestAnimationFrame(()=>{ el.style.width=el.dataset.w; });
+    });
+    io.unobserve(e.target);
+  });
+},{threshold:.12});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+document.querySelectorAll('[data-w]').forEach(el=>{
+  if(!el.closest('.reveal'))el.style.width=el.dataset.w;
+});
 
-// scroll progress
-const prog=document.getElementById('progress');
-const setProg=()=>{
-  const h=document.documentElement;
-  const max=h.scrollHeight-h.clientHeight;
-  prog.style.width=(max>0?(h.scrollTop/max)*100:0)+'%';
-};
-document.addEventListener('scroll',setProg,{passive:true});
-setProg();
+/* LOTO chart tooltip (hover + keyboard) */
+const tt=document.getElementById('tooltip');
+function showTT(g,cx,cy){
+  tt.innerHTML='<b>'+g.dataset.year+'</b> · model <b>'+g.dataset.model+'%</b> · baseline <span class="tt-base">'+g.dataset.base+'%</span>';
+  tt.style.opacity=1; tt.setAttribute('aria-hidden','false');
+  const r=tt.getBoundingClientRect();
+  tt.style.left=Math.min(innerWidth-r.width-10,Math.max(10,cx-r.width/2))+'px';
+  tt.style.top=(cy-r.height-12)+'px';
+}
+function hideTT(){ tt.style.opacity=0; tt.setAttribute('aria-hidden','true'); }
+document.querySelectorAll('#loto .bar-group').forEach(g=>{
+  g.addEventListener('mouseenter',()=>{const r=g.getBoundingClientRect();showTT(g,r.left+r.width/2,r.top);});
+  g.addEventListener('mouseleave',hideTT);
+  g.addEventListener('focus',()=>{const r=g.getBoundingClientRect();showTT(g,r.left+r.width/2,r.top);});
+  g.addEventListener('blur',hideTT);
+});
+document.addEventListener('scroll',hideTT,{passive:true});
 
-// click-to-load MILP map (keeps the 5.6 MB embed off the initial page load)
+/* click-to-load MILP map (keeps the 5.6 MB embed off initial load) */
 const mapBtn=document.getElementById('milp-map-btn');
 if(mapBtn){
   mapBtn.addEventListener('click',()=>{
@@ -810,7 +959,7 @@ if(mapBtn){
   });
 }
 
-// active nav highlighting
+/* active nav */
 const links=[...document.querySelectorAll('.nav-links a')];
 const secs=links.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);
 const nio=new IntersectionObserver(es=>{
@@ -819,8 +968,9 @@ const nio=new IntersectionObserver(es=>{
       links.forEach(l=>l.classList.toggle('active',l.getAttribute('href')==='#'+e.target.id));
     }
   });
-},{rootMargin:'-40% 0px -55% 0px'});
+},{rootMargin:'-35% 0px -60% 0px'});
 secs.forEach(s=>nio.observe(s));
+})();
 </script>
 </body>
 </html>
