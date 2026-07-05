@@ -25,10 +25,10 @@
   body { font-family: var(--font-sans); background: var(--bg); color: var(--text-primary); overflow: hidden; height: 100vh; }
   #map { position: absolute; top: 32px; left: 0; width: 100%; height: calc(100% - 32px); }
 
-  /* CRT Scanline overlay */
+  /* Vignette overlay — frames the 3D scene */
   #scanlines {
     position: absolute; top: 32px; left: 0; width: 100%; height: calc(100% - 32px);
-    background-image: none;
+    background-image: radial-gradient(ellipse at center, transparent 55%, rgba(3, 9, 13, 0.55) 100%);
     pointer-events: none; z-index: 50;
   }
 
@@ -311,6 +311,34 @@
   }
   .speed-btn:hover { border-color: rgba(63,208,192,0.3); color: var(--cyan); }
 
+  /* Prerequisite chain strip — Tower → WISP → Devices = Connected */
+  #chain-strip {
+    position: absolute; bottom: 76px; left: 50%; transform: translateX(-50%); z-index: 150;
+    display: none; align-items: center; gap: 10px;
+    background: var(--panel-bg); border: 1px solid var(--panel-border); border-radius: 8px;
+    padding: 8px 16px; backdrop-filter: blur(16px); white-space: nowrap;
+    max-width: calc(100% - 16px); overflow-x: auto;
+  }
+  .chain-title {
+    font-size: 9px; text-transform: uppercase; letter-spacing: 1.5px;
+    color: var(--text-secondary); font-weight: 600; margin-right: 4px;
+  }
+  .chain-stage { display: flex; align-items: center; gap: 7px; }
+  .chain-ico { width: 18px; height: 18px; flex: none; }
+  .cs-txt { display: flex; flex-direction: column; line-height: 1.15; }
+  .cs-name { font-size: 9px; text-transform: uppercase; letter-spacing: .08em; color: var(--text-label); }
+  .cs-count { font-family: var(--font-mono); font-size: 12px; font-weight: 600; font-variant-numeric: tabular-nums; }
+  #chain-tower .cs-count, #chain-wisp .cs-count { color: var(--gold); }
+  #chain-dev .cs-count { color: var(--equipped-blue); }
+  #chain-conn .cs-count { color: var(--cyan); }
+  .chain-arrow { color: var(--text-secondary); font-size: 12px; opacity: .75; }
+  @keyframes chain-flash { 0% { text-shadow: 0 0 12px currentColor; } 100% { text-shadow: none; } }
+  .chain-stage.tick .cs-count { animation: chain-flash 1.2s ease-out; }
+  @media (max-width: 700px) {
+    #chain-strip { gap: 7px; padding: 7px 10px; }
+    .chain-title { display: none; }
+  }
+
   /* Pulse animation for new infrastructure */
   @keyframes infra-pulse {
     0% { transform: scale(1); opacity: 1; }
@@ -582,6 +610,30 @@
   <div id="scale-label">10 km</div>
 </div>
 
+<!-- Prerequisite Chain Strip -->
+<div id="chain-strip" role="group" aria-label="Prerequisite chain: a school is connected once a tower exists, WISP is installed within 10 kilometres, and devices are delivered">
+  <span class="chain-title">Prerequisite Chain</span>
+  <div class="chain-stage" id="chain-tower" title="A tower must exist (built or pre-existing) before anything else">
+    <svg class="chain-ico" viewBox="0 0 20 20"><path d="M10 2.6 L14 18 M10 2.6 L6 18 M7.5 12.6 h5 M8.4 8.4 h3.2" stroke="#E7B94F" stroke-width="1.3" fill="none" stroke-linecap="round"/><circle cx="10" cy="2.4" r="1.3" fill="#FFF4C8"/></svg>
+    <div class="cs-txt"><span class="cs-name">Tower</span><span class="cs-count" id="chain-tower-n">&mdash;</span></div>
+  </div>
+  <span class="chain-arrow">&#8594;</span>
+  <div class="chain-stage" id="chain-wisp" title="WISP equipment on a tower creates a 10 km coverage radius — the glowing rings">
+    <svg class="chain-ico" viewBox="0 0 20 20"><circle cx="10" cy="13.5" r="1.7" fill="#E7B94F"/><path d="M6 10 a5.6 5.6 0 0 1 8 0 M3.6 7 a9 9 0 0 1 12.8 0" stroke="#E7B94F" stroke-width="1.3" fill="none" stroke-linecap="round"/></svg>
+    <div class="cs-txt"><span class="cs-name">WISP &middot; 10 km</span><span class="cs-count" id="chain-wisp-n">&mdash;</span></div>
+  </div>
+  <span class="chain-arrow">&#8594;</span>
+  <div class="chain-stage" id="chain-dev" title="The school itself needs a device package delivered">
+    <svg class="chain-ico" viewBox="0 0 20 20"><rect x="4.5" y="5.5" width="11" height="7.5" rx="1" stroke="#7A9ECD" stroke-width="1.3" fill="none"/><path d="M3 15.5 h14" stroke="#7A9ECD" stroke-width="1.3" stroke-linecap="round"/></svg>
+    <div class="cs-txt"><span class="cs-name">Devices</span><span class="cs-count" id="chain-dev-n">&mdash;</span></div>
+  </div>
+  <span class="chain-arrow">=</span>
+  <div class="chain-stage" id="chain-conn" title="All prerequisites met: the school is connected">
+    <svg class="chain-ico" viewBox="0 0 20 20"><path d="M3.8 9.8 L10 5 L16.2 9.8 V16 H3.8 Z" stroke="#3FD0C0" stroke-width="1.3" fill="rgba(63,208,192,0.16)" stroke-linejoin="round"/></svg>
+    <div class="cs-txt"><span class="cs-name">Connected</span><span class="cs-count" id="chain-conn-n">&mdash;</span></div>
+  </div>
+</div>
+
 <!-- Timeline Bar -->
 <div id="timeline">
   <div id="timeline-inner">
@@ -736,6 +788,7 @@ const DATA_NO_MILESTONE_SITES = [{"site_id":"1176","lat":15.312,"lon":-85.672,"i
         document.getElementById('charts-toggle-btn').style.display = 'block';
         document.getElementById('scanlines').style.display = '';
         document.getElementById('timeline').style.display = 'flex';
+        document.getElementById('chain-strip').style.display = 'flex';
         setYear(1);
         initMap();
       }, 300);
@@ -779,6 +832,7 @@ const DATA_NO_MILESTONE_SITES = [{"site_id":"1176","lat":15.312,"lon":-85.672,"i
 
   function setYear(yr) {
     currentYear = yr;
+    pendingBurst = true;   // new WISPs this year flash a bright radius ring
     yearPills.forEach(p => {
       const y = parseInt(p.dataset.year);
       p.classList.remove('active', 'past');
@@ -805,21 +859,31 @@ const DATA_NO_MILESTONE_SITES = [{"site_id":"1176","lat":15.312,"lon":-85.672,"i
     startPlay();
   });
 
+  function driftCamera() {
+    if (!map) return;
+    map.easeTo({ bearing: map.getBearing() + 5, duration: playSpeed, easing: t => t });
+  }
+
   function startPlay() {
     isPlaying = true;
+    pulseBoost = true;   // coverage radii glow harder while the deployment plays
     playBtn.classList.add('playing');
     playBtn.innerHTML = '&#9646;&#9646;';
+    if (map) map.easeTo({ pitch: Math.max(map.getPitch(), 55), duration: 900 });
     let yr = 1;
     setYear(yr);
+    driftCamera();
     playInterval = setInterval(() => {
       yr++;
       if (yr > 5) { stopPlay(); return; }
       setYear(yr);
+      driftCamera();
     }, playSpeed);
   }
 
   function stopPlay() {
     isPlaying = false;
+    pulseBoost = false;
     playBtn.classList.remove('playing');
     playBtn.innerHTML = '&#9654;';
     if (playInterval) { clearInterval(playInterval); playInterval = null; }
@@ -905,6 +969,267 @@ const DATA_NO_MILESTONE_SITES = [{"site_id":"1176","lat":15.312,"lon":-85.672,"i
       coords.push([lon + degLon * Math.sin(angle), lat + degLat * Math.cos(angle)]);
     }
     return coords;
+  }
+
+  // ═══════════════════════════════════════════════════════════════════
+  //  3D RENDERING — procedural meshes, symbol scaling, glow animation
+  // ═══════════════════════════════════════════════════════════════════
+
+  const ST_COLORS = {
+    0: [232, 105, 90, 190],   // model school, not connected
+    1: [122, 158, 205, 225],  // model school, equipped only
+    2: [63, 208, 192, 235],   // model school, connected
+    3: [63, 208, 192, 160],   // baseline connected
+    4: [122, 158, 205, 150],  // baseline equipped
+    5: [232, 105, 90, 120],   // baseline not connected
+  };
+  const ST_LABELS = {
+    0: ['No Connect', 'var(--coral)'],
+    1: ['Equipped (no coverage)', 'var(--equipped-blue)'],
+    2: ['Connected', 'var(--cyan)'],
+    3: ['Connected (Baseline)', 'var(--cyan)'],
+    4: ['Has Device (Not Connected)', 'var(--equipped-blue)'],
+    5: ['Not Connected (Baseline)', 'var(--coral)'],
+  };
+
+  // ─── Mesh builder: accumulates triangles with face normals ───
+  function meshBuilder() {
+    const P = [], N = [];
+    function tri(a, b, c) {
+      const ux = b[0] - a[0], uy = b[1] - a[1], uz = b[2] - a[2];
+      const vx = c[0] - a[0], vy = c[1] - a[1], vz = c[2] - a[2];
+      let nx = uy * vz - uz * vy, ny = uz * vx - ux * vz, nz = ux * vy - uy * vx;
+      const len = Math.hypot(nx, ny, nz) || 1;
+      nx /= len; ny /= len; nz /= len;
+      P.push(a[0], a[1], a[2], b[0], b[1], b[2], c[0], c[1], c[2]);
+      N.push(nx, ny, nz, nx, ny, nz, nx, ny, nz);
+    }
+    function quad(a, b, c, d) { tri(a, b, c); tri(a, c, d); }
+    function quad2(a, b, c, d) { quad(a, b, c, d); quad(d, c, b, a); } // double-sided
+    function box(cx, cy, z0, z1, hw, hd) {
+      const x0 = cx - hw, x1 = cx + hw, y0 = cy - hd, y1 = cy + hd;
+      quad([x0, y0, z1], [x1, y0, z1], [x1, y1, z1], [x0, y1, z1]);
+      quad([x0, y1, z0], [x1, y1, z0], [x1, y0, z0], [x0, y0, z0]);
+      quad([x0, y0, z0], [x1, y0, z0], [x1, y0, z1], [x0, y0, z1]);
+      quad([x1, y0, z0], [x1, y1, z0], [x1, y1, z1], [x1, y0, z1]);
+      quad([x1, y1, z0], [x0, y1, z0], [x0, y1, z1], [x1, y1, z1]);
+      quad([x0, y1, z0], [x0, y0, z0], [x0, y0, z1], [x0, y1, z1]);
+    }
+    // thin two-ribbon strut between two points — reads as lattice steel
+    function strut(a, b, r) {
+      const dx = b[0] - a[0], dy = b[1] - a[1], dz = b[2] - a[2];
+      const hl = Math.hypot(dx, dy) || 0.0001;
+      const px = -dy / hl * r, py = dx / hl * r;
+      quad2([a[0] - px, a[1] - py, a[2]], [a[0] + px, a[1] + py, a[2]],
+            [b[0] + px, b[1] + py, b[2]], [b[0] - px, b[1] - py, b[2]]);
+      const len = Math.hypot(dx, dy, dz) || 1;
+      let qx = dy * 0 - dz * py, qy = dz * px - dx * 0, qz = dx * py - dy * px;
+      const ql = Math.hypot(qx, qy, qz) || 1;
+      qx = qx / ql * r; qy = qy / ql * r; qz = qz / ql * r;
+      quad2([a[0] - qx, a[1] - qy, a[2] - qz], [a[0] + qx, a[1] + qy, a[2] + qz],
+            [b[0] + qx, b[1] + qy, b[2] + qz], [b[0] - qx, b[1] - qy, b[2] - qz]);
+    }
+    function build() {
+      return {
+        positions: { value: new Float32Array(P), size: 3 },
+        normals: { value: new Float32Array(N), size: 3 },
+      };
+    }
+    return { tri, quad, quad2, box, strut, build };
+  }
+
+  // Lattice communications mast — nominal height 1.0, antenna tip at 1.18
+  function buildTowerMesh() {
+    const m = meshBuilder();
+    const baseHW = 0.30, topHW = 0.055, legR = 0.030;
+    const corners = [[1, 1], [1, -1], [-1, -1], [-1, 1]];
+    corners.forEach(c => m.strut(
+      [c[0] * baseHW, c[1] * baseHW, 0],
+      [c[0] * topHW, c[1] * topHW, 0.92], legR));
+    [0.30, 0.58, 0.82].forEach(t => {
+      const hw = baseHW + (topHW - baseHW) * t;
+      for (let i = 0; i < 4; i++) {
+        const c1 = corners[i], c2 = corners[(i + 1) % 4];
+        m.strut([c1[0] * hw, c1[1] * hw, t], [c2[0] * hw, c2[1] * hw, t], legR * 0.7);
+      }
+    });
+    m.box(0, 0, 0.90, 0.96, 0.095, 0.095);   // head platform
+    m.box(0, 0, 0.96, 1.18, 0.018, 0.018);   // antenna mast
+    m.box(0.11, 0, 0.84, 0.95, 0.014, 0.05); // panel antennas
+    m.box(-0.11, 0, 0.84, 0.95, 0.014, 0.05);
+    m.box(0, 0.11, 0.84, 0.95, 0.05, 0.014);
+    return m.build();
+  }
+
+  // Schoolhouse — gabled hall, nominal footprint ≈1.1 × 0.85, ridge at 0.72
+  function buildSchoolMesh() {
+    const m = meshBuilder();
+    m.box(0, 0, 0, 0.42, 0.5, 0.36);
+    const x0 = -0.56, x1 = 0.56, y0 = -0.43, y1 = 0.43, ze = 0.40, zr = 0.72;
+    m.quad([x0, y0, ze], [x1, y0, ze], [x1, 0, zr], [x0, 0, zr]);
+    m.quad([x1, y1, ze], [x0, y1, ze], [x0, 0, zr], [x1, 0, zr]);
+    m.tri([x0, y0, ze], [x0, 0, zr], [x0, y1, ze]);
+    m.tri([x1, y1, ze], [x1, 0, zr], [x1, y0, ze]);
+    return m.build();
+  }
+
+  // Slim obelisk — existing towers, kept quiet so new builds read as events
+  function buildObeliskMesh() {
+    const m = meshBuilder();
+    const b = 0.10, t = 0.022;
+    const sq = h => [[-h, -h], [h, -h], [h, h], [-h, h]];
+    const lo = sq(b), hi = sq(t);
+    for (let i = 0; i < 4; i++) {
+      const j = (i + 1) % 4;
+      m.quad([lo[i][0], lo[i][1], 0], [lo[j][0], lo[j][1], 0], [hi[j][0], hi[j][1], 1], [hi[i][0], hi[i][1], 1]);
+    }
+    m.quad([hi[0][0], hi[0][1], 1], [hi[1][0], hi[1][1], 1], [hi[2][0], hi[2][1], 1], [hi[3][0], hi[3][1], 1]);
+    return m.build();
+  }
+
+  const MESH_MATERIAL = { ambient: 0.5, diffuse: 0.55, shininess: 40, specularColor: [70, 76, 84] };
+  let TOWER_MESH = null, SCHOOL_MESH = null, OBELISK_MESH = null;
+  function ensureMeshes() {
+    if (!TOWER_MESH && typeof deck !== 'undefined' && deck.SimpleMeshLayer) {
+      TOWER_MESH = buildTowerMesh();
+      SCHOOL_MESH = buildSchoolMesh();
+      OBELISK_MESH = buildObeliskMesh();
+    }
+    return !!TOWER_MESH;
+  }
+
+  // ─── Screen-calibrated symbol scales (constant on-screen size, floor in meters) ───
+  function metersPerPixel() {
+    const z = map ? map.getZoom() : 7;
+    const lat = map ? map.getCenter().lat : 14.65;
+    return 156543.03392 * Math.cos(lat * Math.PI / 180) / Math.pow(2, z);
+  }
+  function symbolScales() {
+    const z = map ? map.getZoom() : 7;
+    const mpp = metersPerPixel();
+    // small at national zoom so 12.5k schools stay readable as a field of
+    // points; grow toward z11+ so the 3D renders reveal themselves up close
+    const g = Math.min(Math.max((z - 7) / 4, 0), 1);
+    const px = (lo, hi) => lo + (hi - lo) * g;
+    return {
+      school: Math.max(px(3.2, 16) * mpp, 40),
+      tower: Math.max(px(13, 44) * mpp, 70),
+      mast: Math.max(px(4.5, 22) * mpp, 50),
+      mpp: mpp,
+    };
+  }
+  // deterministic per-feature yaw so rooftops don't align into a grid
+  function yawOf(d) {
+    const s = Math.abs(d.lat * 7919 + d.lon * 104729);
+    return (s - Math.floor(s)) * 360;
+  }
+
+  // ─── Glow / pulse animation engine ───
+  let staticLayers = [];
+  let ringSites = [];       // WISP sites whose 10 km radius pulses
+  let beaconData = [];      // mast-tip beacon billboards
+  let burstInfo = null;     // one-shot bright ring when new WISPs light up
+  let pendingBurst = false;
+  let pulseBoost = false;   // stronger glow while the timeline plays
+  let rafId = null, lastFrame = 0;
+  let arcCacheKey = '', arcCacheData = null;
+
+  const GOLD = [231, 185, 79];
+
+  function ringLayer(id, t, alpha, sites, color, widthPx) {
+    return new deck.ScatterplotLayer({
+      id: id, data: sites,
+      getPosition: d => [d.lon, d.lat],
+      radiusUnits: 'meters', getRadius: 10000,
+      radiusScale: Math.max(t, 0.001),
+      filled: false, stroked: true,
+      getLineColor: [color[0], color[1], color[2], 255],
+      lineWidthUnits: 'pixels', getLineWidth: widthPx,
+      opacity: Math.max(0, 1 - t) * alpha,
+      pickable: false,
+      parameters: { depthWriteEnabled: false, depthCompare: 'always' },
+    });
+  }
+
+  function dynamicLayers(now) {
+    const out = [];
+    if (ringSites.length) {
+      const period = pulseBoost ? 1900 : 3800;
+      const t1 = (now % period) / period;
+      const t2 = ((now + period / 2) % period) / period;
+      const a = pulseBoost ? 0.85 : 0.4;
+      out.push(ringLayer('pulse-ring-1', t1, a, ringSites, GOLD, 1.6));
+      out.push(ringLayer('pulse-ring-2', t2, a * 0.65, ringSites, GOLD, 1.1));
+    }
+    if (burstInfo) {
+      const bt = (performance.now() - burstInfo.t0) / 1500;
+      if (bt >= 1) burstInfo = null;
+      else out.push(ringLayer('burst-ring', bt, 1.0, burstInfo.sites, [255, 244, 200], 2.6));
+    }
+    if (beaconData.length) {
+      const s = 1 + 0.3 * Math.sin(now / 420);
+      out.push(new deck.ScatterplotLayer({
+        id: 'beacon-glow', data: beaconData,
+        getPosition: d => d.pos,
+        radiusUnits: 'pixels', getRadius: 6.5, radiusScale: s,
+        getFillColor: [255, 244, 200, 30],
+        billboard: true, pickable: false,
+        parameters: { depthWriteEnabled: false, depthCompare: 'always' },
+      }));
+      out.push(new deck.ScatterplotLayer({
+        id: 'beacon-core', data: beaconData,
+        getPosition: d => d.pos,
+        radiusUnits: 'pixels', getRadius: 2.2, radiusScale: s,
+        getFillColor: [255, 250, 225, 210],
+        billboard: true, pickable: false,
+        parameters: { depthWriteEnabled: false, depthCompare: 'always' },
+      }));
+    }
+    return out;
+  }
+
+  function renderNow(now) {
+    if (!deckOverlay) return;
+    deckOverlay.setProps({ layers: staticLayers.concat(dynamicLayers(now || performance.now())) });
+  }
+
+  function startPulseLoop() {
+    if (rafId) return;
+    const frame = now => {
+      rafId = requestAnimationFrame(frame);
+      if (now - lastFrame < 33) return;   // ~30 fps is plenty for a glow
+      lastFrame = now;
+      if (!ringSites.length && !burstInfo && !beaconData.length) return;
+      renderNow(now);
+    };
+    rafId = requestAnimationFrame(frame);
+  }
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) { if (rafId) { cancelAnimationFrame(rafId); rafId = null; } }
+    else startPulseLoop();
+  });
+
+  // ─── Uplink arcs: this year's newly connected schools → nearest live site ───
+  function computeArcData(newConn, anchors) {
+    if (!newConn.length || !anchors.length) return null;
+    const cosLat = Math.cos(14.65 * Math.PI / 180);
+    const arcs = [];
+    for (let k = 0; k < newConn.length; k++) {
+      const s = newConn[k];
+      let best = null, bestD = Infinity;
+      for (let i = 0; i < anchors.length; i++) {
+        const a = anchors[i];
+        const dlat = s.lat - a.lat;
+        const dlon = (s.lon - a.lon) * cosLat;
+        const d2 = dlat * dlat + dlon * dlon;
+        if (d2 < bestD) { bestD = d2; best = a; }
+      }
+      // only draw a link when the school sits within plausible reach (≤20 km)
+      if (best && bestD * 111.32 * 111.32 <= 400) {
+        arcs.push({ from: [s.lon, s.lat], to: [best.lon, best.lat] });
+      }
+    }
+    return arcs.length ? arcs : null;
   }
 
   // ─── Scale bar ───
@@ -1003,8 +1328,27 @@ const DATA_NO_MILESTONE_SITES = [{"site_id":"1176","lat":15.312,"lon":-85.672,"i
     }
   }
 
+  // ─── Prerequisite chain strip (Tower → WISP → Devices = Connected) ───
+  const chainPrev = { tower: -1, wisp: -1, dev: -1, conn: -1 };
+  function setChainStrip(tower, wisp, dev, conn) {
+    const vals = { tower: tower, wisp: wisp, dev: dev, conn: conn };
+    for (const k in vals) {
+      const el = document.getElementById('chain-' + k + '-n');
+      const stage = document.getElementById('chain-' + k);
+      if (!el || !stage) continue;
+      el.textContent = vals[k].toLocaleString();
+      if (chainPrev[k] >= 0 && vals[k] > chainPrev[k]) {
+        stage.classList.remove('tick');
+        void stage.offsetWidth;   // restart the flash animation
+        stage.classList.add('tick');
+      }
+      chainPrev[k] = vals[k];
+    }
+  }
+
   // ─── Stats update helper ───
   function updateStats(totalSchools, totalEquipped, totalConnected, modelNotConnected, towerCount, wispCount, capexYr, capexCum, equippedOnlyCount, opexYr, opexCum) {
+    setChainStrip(towerCount, wispCount, totalEquipped, totalConnected);
     document.getElementById('st-total').textContent = totalSchools.toLocaleString();
     document.getElementById('st-equipped').textContent = totalEquipped.toLocaleString();
     document.getElementById('st-connected').textContent = totalConnected.toLocaleString();
@@ -1060,8 +1404,6 @@ const DATA_NO_MILESTONE_SITES = [{"site_id":"1176","lat":15.312,"lon":-85.672,"i
     const showSites = document.getElementById('layer-sites').checked;
     const showCoverage = document.getElementById('layer-coverage').checked;
 
-    const layers = [];
-
     // ─── Baseline schools (always present) ───
     let bSchools = baselineSchoolObjects;
     if (dept) bSchools = bSchools.filter(d => d.dept === dept);
@@ -1071,62 +1413,6 @@ const DATA_NO_MILESTONE_SITES = [{"site_id":"1176","lat":15.312,"lon":-85.672,"i
 
     // ─── Baseline towers (always present) ───
     let bTowers = baselineTowerObjects;
-
-    // ─── Year 0: Just baseline data ───
-    if (yr === 0) {
-      const totalConn = baselineConnected.length;
-      const totalEquipped = totalConn + baselineWithDevice.length;
-      // Not connected from model: all model schools start unconnected at year 0
-      let modelSchools = schoolsByScenario[sc] || [];
-      if (dept) modelSchools = modelSchools.filter(d => d.dept === dept);
-      updateStats(bSchools.length, totalEquipped, totalConn, modelSchools.length,
-                  bTowers.length, 0, 0, 0, baselineWithDevice.length, 0, 0);
-      updateCharts();
-      document.getElementById('bar-wisps').style.width = '0%';
-
-      if (showSchools) {
-        if (baselineNoDevice.length > 0) {
-          layers.push(new deck.ScatterplotLayer({
-            id: 'baseline-schools-nodev', data: baselineNoDevice,
-            getPosition: d => [d.lon, d.lat],
-            getRadius: 50, radiusMinPixels: 1.5, radiusMaxPixels: 3,
-            getFillColor: [232, 105, 90, 100],
-            pickable: true, autoHighlight: true, highlightColor: [232, 105, 90, 80],
-          }));
-        }
-        if (baselineWithDevice.length > 0) {
-          layers.push(new deck.ScatterplotLayer({
-            id: 'baseline-schools-equipped', data: baselineWithDevice,
-            getPosition: d => [d.lon, d.lat],
-            getRadius: 50, radiusMinPixels: 2, radiusMaxPixels: 5,
-            getFillColor: [122, 158, 205, 200],
-            pickable: true, autoHighlight: true, highlightColor: [122, 158, 205, 100],
-          }));
-        }
-        if (baselineConnected.length > 0) {
-          layers.push(new deck.ScatterplotLayer({
-            id: 'baseline-schools-connected', data: baselineConnected,
-            getPosition: d => [d.lon, d.lat],
-            getRadius: 50, radiusMinPixels: 2, radiusMaxPixels: 5,
-            getFillColor: [63, 208, 192, 220],
-            pickable: true, autoHighlight: true, highlightColor: [63, 208, 192, 120],
-          }));
-        }
-      }
-
-      if (showSites && bTowers.length > 0) {
-        layers.push(new deck.ScatterplotLayer({
-          id: 'baseline-towers', data: bTowers,
-          getPosition: d => [d.lon, d.lat],
-          getRadius: 150, radiusMinPixels: 2, radiusMaxPixels: 5,
-          getFillColor: [231, 185, 79, 180],
-          pickable: true, autoHighlight: true, highlightColor: [231, 185, 79, 120],
-        }));
-      }
-
-      deckOverlay.setProps({ layers });
-      return;
-    }
 
     // ─── Years 1-5: Deterministic results overlaid on baseline ───
     let schools = schoolsByScenario[sc] || [];
@@ -1195,143 +1481,206 @@ const DATA_NO_MILESTONE_SITES = [{"site_id":"1176","lat":15.312,"lon":-85.672,"i
       cumOpex += countModelConnectedByYear(schools, y - 1) * OPEX_PER_SCHOOL;
     }
 
-    updateStats(bSchools.length, totalEquipped, totalConnected, detNotEquipped.length,
+    updateStats(bSchools.length || schools.length, totalEquipped, totalConnected, detNotEquipped.length,
                 allTowers, wispSites.length, capexThisYear, cumCapex, totalEquippedOnly, opexThisYear, cumOpex);
     updateCharts();
 
     const totalSites = sites.length;
     document.getElementById('bar-wisps').style.width = (totalSites > 0 ? (wispSites.length / totalSites * 100) : 0) + '%';
 
-    // ─── Build deck.gl layers ───
+    // ─── Build 3D deck.gl layers ───
+    const layers = [];
+    const scales = symbolScales();
+    const hasMesh = ensureMeshes();
 
-    // 0. Baseline towers (always shown, dimmer)
-    if (showSites && bTowers.length > 0) {
+    // Site classification for rendering
+    const existingQuiet = [];   // pre-existing towers without WISP — quiet obelisks
+    const heroTowers = [];      // towers built by the model — full lattice masts
+    const wispActive = [];      // live WISP sites — masts + beams + pulsing radius
+    activeSites.forEach(s => {
+      if (s._hasWisp) wispActive.push(s);
+      else if (s.is_existing === 1) existingQuiet.push(s);
+      else heroTowers.push(s);
+    });
+
+    // consume a pending year-change burst: fresh WISPs flash a bright ring
+    if (pendingBurst) {
+      pendingBurst = false;
+      const fresh = wispActive.filter(s => s._wispThisYear);
+      if (fresh.length) burstInfo = { sites: fresh, t0: performance.now() };
+    }
+
+    // 1. WISP coverage — 10 km discs with glowing rim (pulse rings animate on top)
+    const allWispSites = (sitesByScenario[sc] || []).filter(s => {
+      if (dept && s.dept !== dept) return false;
+      return hasWispByYear(s, yr);
+    });
+    if (showCoverage && allWispSites.length > 0) {
       layers.push(new deck.ScatterplotLayer({
-        id: 'baseline-towers', data: bTowers,
+        id: 'coverage-fill', data: allWispSites,
         getPosition: d => [d.lon, d.lat],
-        getRadius: 150, radiusMinPixels: 2, radiusMaxPixels: 5,
-        getFillColor: [231, 185, 79, 100],
-        pickable: true, autoHighlight: true, highlightColor: [231, 185, 79, 80],
+        radiusUnits: 'meters', getRadius: 10000,
+        filled: true, stroked: true,
+        getFillColor: [231, 185, 79, 13],
+        getLineColor: [231, 185, 79, 80],
+        lineWidthUnits: 'pixels', getLineWidth: 1,
+        pickable: false,
+        parameters: { depthWriteEnabled: false, depthCompare: 'always' },
       }));
+      ringSites = allWispSites;
+    } else {
+      ringSites = [];
     }
 
-    // 1. WISP Coverage circles
+    // 2. Uplink arcs — this year's newly connected schools ↔ nearest live site
     if (showCoverage) {
-      const allWispSites = (sitesByScenario[sc] || []).filter(s => {
-        if (dept && s.dept !== dept) return false;
-        return hasWispByYear(s, yr);
-      });
-      if (allWispSites.length > 0) {
-        const coverageData = allWispSites.map(s => ({
-          polygon: makeCircle(s.lon, s.lat, 10),
-          _newThisYear: gotWispThisYear(s, yr)
-        }));
-        layers.push(new deck.PolygonLayer({
-          id: 'coverage', data: coverageData,
-          getPolygon: d => d.polygon,
-          getFillColor: [231, 185, 79, 10],
-          getLineColor: [231, 185, 79, 50],
-          getLineWidth: 1, lineWidthMinPixels: 1,
-          filled: true, stroked: true, pickable: false,
-          parameters: { depthTest: false },
+      const key = sc + '|' + yr + '|' + dept;
+      if (key !== arcCacheKey) {
+        arcCacheKey = key;
+        const newConn = schools.filter(s => s.connected === 1 && s.year === yr);
+        arcCacheData = computeArcData(newConn, wispActive.length ? wispActive : activeSites);
+      }
+      if (arcCacheData) {
+        layers.push(new deck.ArcLayer({
+          id: 'net-links', data: arcCacheData,
+          getSourcePosition: d => d.to,
+          getTargetPosition: d => d.from,
+          getSourceColor: [231, 185, 79, 175],
+          getTargetColor: [63, 208, 192, 115],
+          getWidth: 1.4, getHeight: 0.5,
+          pickable: false,
+          parameters: { depthWriteEnabled: false, depthCompare: 'always' },
         }));
       }
     }
 
-    // 2. Baseline schools
+    // 3. Schools — rendered schoolhouses, color-coded by status
     if (showSchools) {
-      // Baseline connected (always green)
-      if (baselineConnected.length > 0) {
-        layers.push(new deck.ScatterplotLayer({
-          id: 'baseline-schools-connected', data: baselineConnected,
-          getPosition: d => [d.lon, d.lat],
-          getRadius: 50, radiusMinPixels: 2, radiusMaxPixels: 5,
-          getFillColor: [63, 208, 192, 150],
-          pickable: true, autoHighlight: true, highlightColor: [63, 208, 192, 80],
-        }));
-      }
-      // Baseline with device but not connected (blue)
-      if (baselineWithDevice.length > 0) {
-        layers.push(new deck.ScatterplotLayer({
-          id: 'baseline-schools-equipped', data: baselineWithDevice,
-          getPosition: d => [d.lon, d.lat],
-          getRadius: 50, radiusMinPixels: 1.5, radiusMaxPixels: 4,
-          getFillColor: [122, 158, 205, 150],
-          pickable: true, autoHighlight: true, highlightColor: [122, 158, 205, 80],
-        }));
-      }
+      const schoolData = [];
+      baselineConnected.forEach(s => { s._st = 3; schoolData.push(s); });
+      baselineWithDevice.forEach(s => { s._st = 4; schoolData.push(s); });
+      baselineNoDevice.forEach(s => { s._st = 5; schoolData.push(s); });
+      detConnected.forEach(s => { s._st = 2; schoolData.push(s); });
+      detEquipped.forEach(s => { s._st = 1; schoolData.push(s); });
+      detNotEquipped.forEach(s => { s._st = 0; schoolData.push(s); });
 
-      // 3. Deterministic school results
-      if (detNotEquipped.length > 0) {
-        layers.push(new deck.ScatterplotLayer({
-          id: 'schools-notequipped', data: detNotEquipped,
-          getPosition: d => [d.lon, d.lat],
-          getRadius: 50, radiusMinPixels: 1.5, radiusMaxPixels: 3,
-          getFillColor: [232, 105, 90, 100],
-          pickable: true, autoHighlight: true, highlightColor: [232, 105, 90, 80],
-        }));
-      }
-      if (detEquipped.length > 0) {
-        layers.push(new deck.ScatterplotLayer({
-          id: 'schools-equipped', data: detEquipped,
-          getPosition: d => [d.lon, d.lat],
-          getRadius: 50, radiusMinPixels: 2, radiusMaxPixels: 5,
-          getFillColor: [122, 158, 205, 200],
-          pickable: true, autoHighlight: true, highlightColor: [122, 158, 205, 100],
-        }));
-      }
       if (detConnected.length > 0) {
         layers.push(new deck.ScatterplotLayer({
-          id: 'schools-conn-glow', data: detConnected,
+          id: 'schools-halo', data: detConnected,
           getPosition: d => [d.lon, d.lat],
-          getRadius: 300, radiusMinPixels: 4, radiusMaxPixels: 10,
-          getFillColor: [63, 208, 192, 15], pickable: false,
+          radiusUnits: 'pixels', getRadius: 6,
+          getFillColor: [63, 208, 192, 22],
+          pickable: false,
+          parameters: { depthWriteEnabled: false, depthCompare: 'always' },
         }));
+      }
+
+      if (hasMesh) {
+        layers.push(new deck.SimpleMeshLayer({
+          id: 'schools-3d', data: schoolData,
+          mesh: SCHOOL_MESH, material: MESH_MATERIAL,
+          getPosition: d => [d.lon, d.lat],
+          getColor: d => ST_COLORS[d._st],
+          getOrientation: d => [0, yawOf(d), 0],
+          sizeScale: scales.school,
+          pickable: true, autoHighlight: true, highlightColor: [255, 255, 255, 90],
+        }));
+      } else {
         layers.push(new deck.ScatterplotLayer({
-          id: 'schools-connected', data: detConnected,
+          id: 'schools-3d', data: schoolData,
           getPosition: d => [d.lon, d.lat],
           getRadius: 50, radiusMinPixels: 2, radiusMaxPixels: 5,
-          getFillColor: [63, 208, 192, 220],
-          pickable: true, autoHighlight: true, highlightColor: [63, 208, 192, 120],
+          getFillColor: d => ST_COLORS[d._st],
+          pickable: true, autoHighlight: true, highlightColor: [255, 255, 255, 90],
         }));
       }
     }
 
-    // 4. Deterministic Tower Sites
-    if (showSites && activeSites.length > 0) {
-      const towerOnlySites = activeSites.filter(s => !s._hasWisp);
-      const wispActiveSites = activeSites.filter(s => s._hasWisp);
-
-      if (towerOnlySites.length > 0) {
-        layers.push(new deck.ScatterplotLayer({
-          id: 'sites-tower', data: towerOnlySites,
-          getPosition: d => [d.lon, d.lat],
-          getRadius: 200, radiusMinPixels: 4, radiusMaxPixels: 8,
-          getFillColor: [231, 185, 79, 220],
-          getLineColor: [168, 130, 52, 255], lineWidthMinPixels: 1, stroked: true,
-          pickable: true, autoHighlight: true, highlightColor: [231, 185, 79, 120],
-        }));
+    // 4. Towers
+    beaconData = [];
+    if (showSites) {
+      // pre-existing towers (plus any baseline towers) — quiet dim masts
+      const quiet = existingQuiet.concat(bTowers.map(t => ({ lat: t.lat, lon: t.lon, _baseline: true })));
+      if (quiet.length > 0) {
+        if (hasMesh) {
+          layers.push(new deck.SimpleMeshLayer({
+            id: 'sites-existing', data: quiet,
+            mesh: OBELISK_MESH, material: MESH_MATERIAL,
+            getPosition: d => [d.lon, d.lat],
+            getColor: [231, 185, 79, 95],
+            sizeScale: scales.mast,
+            pickable: true, autoHighlight: true, highlightColor: [231, 185, 79, 140],
+          }));
+        } else {
+          layers.push(new deck.ScatterplotLayer({
+            id: 'sites-existing', data: quiet,
+            getPosition: d => [d.lon, d.lat],
+            getRadius: 150, radiusMinPixels: 2, radiusMaxPixels: 5,
+            getFillColor: [231, 185, 79, 110],
+            pickable: true, autoHighlight: true, highlightColor: [231, 185, 79, 120],
+          }));
+        }
       }
 
-      if (wispActiveSites.length > 0) {
-        layers.push(new deck.ScatterplotLayer({
-          id: 'sites-wisp-glow', data: wispActiveSites,
+      // model-built towers — full lattice masts, white-hot the year they rise
+      if (heroTowers.length > 0) {
+        if (hasMesh) {
+          layers.push(new deck.SimpleMeshLayer({
+            id: 'sites-hero', data: heroTowers,
+            mesh: TOWER_MESH, material: MESH_MATERIAL,
+            getPosition: d => [d.lon, d.lat],
+            getColor: d => d._newThisYear ? [255, 240, 190, 255] : [231, 185, 79, 235],
+            sizeScale: scales.tower,
+            pickable: true, autoHighlight: true, highlightColor: [255, 244, 200, 150],
+          }));
+        } else {
+          layers.push(new deck.ScatterplotLayer({
+            id: 'sites-hero', data: heroTowers,
+            getPosition: d => [d.lon, d.lat],
+            getRadius: 200, radiusMinPixels: 4, radiusMaxPixels: 8,
+            getFillColor: [231, 185, 79, 220],
+            pickable: true, autoHighlight: true, highlightColor: [231, 185, 79, 120],
+          }));
+        }
+      }
+
+      // live WISP sites — lattice mast + light beam + animated mast-tip beacon
+      if (wispActive.length > 0) {
+        layers.push(new deck.ColumnLayer({
+          id: 'wisp-beams', data: wispActive,
           getPosition: d => [d.lon, d.lat],
-          getRadius: 600, radiusMinPixels: 10, radiusMaxPixels: 20,
-          getFillColor: [231, 185, 79, 20], pickable: false,
+          diskResolution: 14,
+          radius: Math.max(scales.tower * 0.04, 30),
+          extruded: true, getElevation: scales.tower * 1.05,
+          getFillColor: [255, 236, 170, 32],
+          pickable: false,
+          parameters: { depthWriteEnabled: false },
         }));
-        layers.push(new deck.ScatterplotLayer({
-          id: 'sites-wisp', data: wispActiveSites,
-          getPosition: d => [d.lon, d.lat],
-          getRadius: 250, radiusMinPixels: 5, radiusMaxPixels: 10,
-          getFillColor: [255, 255, 240, 255],
-          getLineColor: [231, 185, 79, 255], lineWidthMinPixels: 2, stroked: true,
-          pickable: true, autoHighlight: true, highlightColor: [255, 255, 200, 120],
-        }));
+        if (hasMesh) {
+          layers.push(new deck.SimpleMeshLayer({
+            id: 'sites-wisp', data: wispActive,
+            mesh: TOWER_MESH, material: MESH_MATERIAL,
+            getPosition: d => [d.lon, d.lat],
+            getColor: d => d._wispThisYear ? [255, 250, 225, 255] : [245, 214, 130, 245],
+            sizeScale: scales.tower,
+            pickable: true, autoHighlight: true, highlightColor: [255, 255, 220, 160],
+          }));
+        } else {
+          layers.push(new deck.ScatterplotLayer({
+            id: 'sites-wisp', data: wispActive,
+            getPosition: d => [d.lon, d.lat],
+            getRadius: 250, radiusMinPixels: 5, radiusMaxPixels: 10,
+            getFillColor: [255, 255, 240, 255],
+            getLineColor: [231, 185, 79, 255], lineWidthMinPixels: 2, stroked: true,
+            pickable: true, autoHighlight: true, highlightColor: [255, 255, 200, 120],
+          }));
+        }
+        beaconData = wispActive.map(s => ({ pos: [s.lon, s.lat, scales.tower * 1.18] }));
       }
     }
 
-    deckOverlay.setProps({ layers });
+    staticLayers = layers;
+    renderNow();
   }
 
   // ─── Tooltip ───
@@ -1350,32 +1699,16 @@ const DATA_NO_MILESTONE_SITES = [{"site_id":"1176","lat":15.312,"lon":-85.672,"i
 
     const body = document.getElementById('tt-body');
 
-    // ─── Baseline tooltips ───
-    if (layerId === 'baseline-towers') {
-      document.getElementById('tt-name').textContent = 'Existing Cell Tower';
-      tooltip.style.borderLeftColor = 'var(--gold)';
-      body.innerHTML =
-        '<div class="tt-row"><span class="tt-key">Status</span><span class="tt-val">Pre-existing</span></div>' +
-        '<div class="tt-row"><span class="tt-key">Coordinates</span><span class="tt-val">' + Number(d.lat).toFixed(4) + ', ' + Number(d.lon).toFixed(4) + '</span></div>';
-    } else if (layerId.startsWith('baseline-schools')) {
-      document.getElementById('tt-name').textContent = d.name || 'Unknown';
-      let statusText, statusColor;
-      if (layerId.includes('connected')) {
-        statusText = 'Connected (Baseline)'; statusColor = 'var(--cyan)';
-      } else if (layerId.includes('equipped')) {
-        statusText = 'Has Device (Not Connected)'; statusColor = 'var(--equipped-blue)';
-      } else {
-        statusText = 'Not Connected'; statusColor = 'var(--coral)';
+    // ─── Tower / site tooltips ───
+    if (layerId.startsWith('sites')) {
+      if (d._baseline) {
+        document.getElementById('tt-name').textContent = 'Existing Cell Tower';
+        tooltip.style.borderLeftColor = 'var(--gold)';
+        body.innerHTML =
+          '<div class="tt-row"><span class="tt-key">Status</span><span class="tt-val">Pre-existing</span></div>' +
+          '<div class="tt-row"><span class="tt-key">Coordinates</span><span class="tt-val">' + Number(d.lat).toFixed(4) + ', ' + Number(d.lon).toFixed(4) + '</span></div>';
+        return;
       }
-      tooltip.style.borderLeftColor = statusColor;
-      body.innerHTML =
-        '<div class="tt-row"><span class="tt-key">Department</span><span class="tt-val">' + (d.dept || '') + '</span></div>' +
-        '<div class="tt-row"><span class="tt-key">Status</span><span class="tt-val" style="color:' + statusColor + '"><span class="tt-status-dot" style="background:' + statusColor + ';box-shadow:0 0 4px ' + statusColor + ';"></span>' + statusText + '</span></div>' +
-        '<div class="tt-row"><span class="tt-key">Device</span><span class="tt-val">' + (d.has_device ? 'Yes' : 'No') + '</span></div>' +
-        '<div class="tt-row"><span class="tt-key">Coordinates</span><span class="tt-val">' + Number(d.lat).toFixed(4) + ', ' + Number(d.lon).toFixed(4) + '</span></div>';
-
-    // ─── Deterministic tooltips ───
-    } else if (layerId.startsWith('det-sites') || layerId.startsWith('sites')) {
       document.getElementById('tt-name').textContent = 'Site ' + (d.site_id || '');
       tooltip.style.borderLeftColor = 'var(--gold)';
       const existing = d.is_existing === 1 ? 'Existing' : 'New';
@@ -1387,25 +1720,36 @@ const DATA_NO_MILESTONE_SITES = [{"site_id":"1176","lat":15.312,"lon":-85.672,"i
         '<div class="tt-row"><span class="tt-key">Tower Built</span><span class="tt-val">' + (d.is_existing === 1 ? 'Pre-existing' : (tyr > 0 ? 'Year ' + tyr : 'None')) + '</span></div>' +
         '<div class="tt-row"><span class="tt-key">WISP Installed</span><span class="tt-val">' + (wyr > 0 ? 'Year ' + wyr : 'None') + '</span></div>' +
         '<div class="tt-row"><span class="tt-key">Coordinates</span><span class="tt-val">' + d.lat.toFixed(4) + ', ' + d.lon.toFixed(4) + '</span></div>';
-    } else if (layerId.startsWith('det-schools') || layerId.startsWith('schools')) {
-      document.getElementById('tt-name').textContent = d.name || 'Unknown';
-      const devYr = deviceYear(d);
-      let statusText, statusColor;
 
-      if (layerId.includes('connected') || layerId.includes('conn-glow')) {
-        statusText = 'Connected'; statusColor = 'var(--cyan)';
-      } else if (layerId.includes('equipped')) {
-        statusText = 'Equipped (no coverage)'; statusColor = 'var(--equipped-blue)';
-      } else {
-        statusText = 'No Connect'; statusColor = 'var(--coral)';
-      }
+    // ─── School tooltips (status carried on the picked object) ───
+    } else if (layerId.startsWith('schools')) {
+      document.getElementById('tt-name').textContent = d.name || 'Unknown';
+      const st = ST_LABELS[d._st] || ST_LABELS[0];
+      const statusText = st[0], statusColor = st[1];
+      const isBaseline = d._st >= 3;
+      const devYr = isBaseline ? -1 : deviceYear(d);
+      const deviceText = isBaseline
+        ? (d.has_device ? 'Yes' : 'No')
+        : (devYr === 0 ? 'Had at baseline' : (devYr > 0 ? 'Installed Year ' + devYr : 'None'));
+
+      // prerequisite chain state: coverage is known-missing for equipped-only
+      // schools; unknowable for schools that never received a device
+      const connectedNow = d._st === 2 || d._st === 3;
+      const hasDev = !(d._st === 0 || d._st === 5);
+      const covTick = connectedNow
+        ? '<span style="color:var(--cyan)">&#10003;</span>'
+        : (hasDev ? '<span style="color:var(--coral)">&#10007;</span>' : '<span style="color:var(--text-secondary)">&mdash;</span>');
+      const devTick = hasDev
+        ? '<span style="color:var(--cyan)">&#10003;</span>'
+        : '<span style="color:var(--coral)">&#10007;</span>';
 
       tooltip.style.borderLeftColor = statusColor;
       body.innerHTML =
         '<div class="tt-row"><span class="tt-key">Department</span><span class="tt-val">' + (d.dept || '') + '</span></div>' +
         '<div class="tt-row"><span class="tt-key">Status</span><span class="tt-val" style="color:' + statusColor + '"><span class="tt-status-dot" style="background:' + statusColor + ';box-shadow:0 0 4px ' + statusColor + ';"></span>' + statusText + '</span></div>' +
-        '<div class="tt-row"><span class="tt-key">Device</span><span class="tt-val">' + (devYr === 0 ? 'Had at baseline' : (devYr > 0 ? 'Installed Year ' + devYr : 'None')) + '</span></div>' +
-        '<div class="tt-row"><span class="tt-key">Coordinates</span><span class="tt-val">' + d.lat.toFixed(4) + ', ' + d.lon.toFixed(4) + '</span></div>';
+        '<div class="tt-row"><span class="tt-key">Prerequisites</span><span class="tt-val">Tower+WISP ' + covTick + ' &nbsp;&middot;&nbsp; Device ' + devTick + '</span></div>' +
+        '<div class="tt-row"><span class="tt-key">Device</span><span class="tt-val">' + deviceText + '</span></div>' +
+        '<div class="tt-row"><span class="tt-key">Coordinates</span><span class="tt-val">' + Number(d.lat).toFixed(4) + ', ' + Number(d.lon).toFixed(4) + '</span></div>';
     } else {
       tooltip.style.display = 'none';
     }
@@ -1417,13 +1761,14 @@ const DATA_NO_MILESTONE_SITES = [{"site_id":"1176","lat":15.312,"lon":-85.672,"i
       container: 'map',
       style: 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json',
       center: [-86.25, 14.65],
-      zoom: 7,
-      pitch: 45,
-      bearing: -10,
+      zoom: 6.3,
+      pitch: 28,
+      bearing: -22,
+      maxPitch: 72,
       antialias: true,
     });
 
-    map.addControl(new maplibregl.NavigationControl(), 'top-right');
+    map.addControl(new maplibregl.NavigationControl({ visualizePitch: true }), 'top-right');
 
     map.on('mousemove', e => {
       document.getElementById('header-center').textContent =
@@ -1433,11 +1778,13 @@ const DATA_NO_MILESTONE_SITES = [{"site_id":"1176","lat":15.312,"lon":-85.672,"i
     map.on('zoom', () => {
       document.getElementById('header-zoom').textContent = 'Z ' + map.getZoom().toFixed(2);
       updateScaleBar();
+      scheduleUpdate();   // re-calibrate 3D symbol scale to the new zoom
     });
 
     map.on('move', () => { updateScaleBar(); });
 
     map.on('load', () => {
+      addTerrainShading();
       deckOverlay = new deck.MapboxOverlay({
         interleaved: false,
         layers: [],
@@ -1448,7 +1795,50 @@ const DATA_NO_MILESTONE_SITES = [{"site_id":"1176","lat":15.312,"lon":-85.672,"i
       map.addControl(deckOverlay);
       updateScaleBar();
       setTimeout(() => updateLayers(), 200);
+      startPulseLoop();
+      // Cinematic fly-in to the operating view
+      setTimeout(() => {
+        map.easeTo({ zoom: 7.05, pitch: 55, bearing: -12, duration: 3200, easing: t => 1 - Math.pow(1 - t, 3) });
+      }, 400);
     });
+  }
+
+  // ─── Terrain relief + atmosphere (decorative — never blocks the dashboard) ───
+  function addTerrainShading() {
+    try {
+      map.addSource('dem', {
+        type: 'raster-dem',
+        tiles: ['https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png'],
+        encoding: 'terrarium', tileSize: 256, maxzoom: 12,
+        attribution: 'Terrain tiles: Mapzen / AWS Open Data',
+      });
+      // Slot the hillshade beneath water fills and labels so relief reads on land only
+      const styleLayers = map.getStyle().layers || [];
+      let before;
+      for (const l of styleLayers) {
+        if ((l.id && l.id.indexOf('water') !== -1) || l.type === 'symbol') { before = l.id; break; }
+      }
+      map.addLayer({
+        id: 'relief', type: 'hillshade', source: 'dem',
+        paint: {
+          'hillshade-exaggeration': 0.55,
+          'hillshade-shadow-color': '#000a10',
+          'hillshade-highlight-color': '#1d3a44',
+          'hillshade-accent-color': '#0e2229',
+          'hillshade-illumination-direction': 335,
+        },
+      }, before);
+      if (typeof map.setSky === 'function') {
+        map.setSky({
+          'sky-color': '#0B141A',
+          'horizon-color': '#123038',
+          'fog-color': '#0B141A',
+          'sky-horizon-blend': 0.7,
+          'horizon-fog-blend': 0.6,
+          'fog-ground-blend': 0.85,
+        });
+      }
+    } catch (e) { /* relief unavailable — flat dark basemap still works */ }
   }
 
   // ─── Auto-load CSVs via fetch (works when served from a server) ───
@@ -1484,6 +1874,7 @@ const DATA_NO_MILESTONE_SITES = [{"site_id":"1176","lat":15.312,"lon":-85.672,"i
     document.getElementById('charts-toggle-btn').style.display = 'block';
     document.getElementById('scanlines').style.display = '';
     document.getElementById('timeline').style.display = 'flex';
+    document.getElementById('chain-strip').style.display = 'flex';
     setYear(1);
     initMap();
   }
@@ -1563,11 +1954,15 @@ const DATA_NO_MILESTONE_SITES = [{"site_id":"1176","lat":15.312,"lon":-85.672,"i
   #embed-legend span { display: flex; align-items: center; gap: 6px; font-size: 10px; color: var(--text-label); white-space: nowrap; }
   #embed-legend i { width: 8px; height: 8px; border-radius: 50%; display: inline-block; flex: none; }
 
+  body.embed-mode #chain-strip { bottom: 132px; }
+
   @media (max-width: 560px) {
     #embed-counter { display: none; }
     #embed-scenario { top: 40px; }
     #embed-legend { gap: 10px; padding: 6px 10px; }
     .embed-scn-btn { padding: 8px 10px; font-size: 9px; }
+    body.embed-mode #chain-strip { bottom: 126px; gap: 6px; padding: 6px 8px; }
+    body.embed-mode #chain-strip .cs-count { font-size: 11px; }
   }
 </style>
 <div id="embed-ui">
