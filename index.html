@@ -7,7 +7,7 @@
 <meta name="robots" content="noindex, nofollow">
 <meta name="description" content="Portfolio of Farhang Bakhshi. Machine learning, statistical modelling and optimisation. University of Edinburgh, Computer Science and Management Science.">
 <meta property="og:title" content="Farhang Bakhshi · Data Science &amp; Quantitative Modelling">
-<meta property="og:description" content="Models that hold up out of sample, software that survives contact with real users.">
+<meta property="og:description" content="Case studies in machine learning, optimisation and software engineering. University of Edinburgh.">
 <meta name="theme-color" content="#FDFDFC">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23FDFDFC'/%3E%3Crect x='6' y='18' width='4' height='8' fill='%23B3612F'/%3E%3Crect x='11' y='12' width='4' height='14' fill='%230072A3'/%3E%3Crect x='16' y='7' width='4' height='19' fill='%23005F87'/%3E%3Crect x='21' y='14' width='4' height='12' fill='%230072A3'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -127,14 +127,10 @@ h1{font-size:clamp(42px,7vw,72px);font-weight:700;line-height:1.02;letter-spacin
 .hero-contact a.primary:hover{background:#00506F}
 
 /* ---------- headline results (the 10-second layer) ---------- */
-.results-intro{
-  margin:46px 0 0;font-size:16px;color:var(--muted);max-width:640px;
-}
-.results-intro strong{color:var(--ink);font-weight:700}
 .results{
   display:grid;grid-template-columns:repeat(3,1fr);gap:0;
   border:1px solid var(--line);border-radius:6px;overflow:hidden;
-  margin:16px 0 0;background:var(--panel);
+  margin:46px 0 0;background:var(--panel);
 }
 .result .r-field{
   font-family:var(--mono);font-size:10px;letter-spacing:.13em;text-transform:uppercase;
@@ -472,8 +468,7 @@ footer{margin-top:104px;border-top:1px solid var(--line);background:var(--panel)
   <p class="hero-role">Machine learning · Econometrics · Mathematical optimisation</p>
   <p class="hero-thesis">
     Penultimate-year Computer Science and Management Science student at the University of Edinburgh,
-    currently a Data Science intern at Ekimetrics, London. I build <strong>models that hold up out of
-    sample</strong> and software that survives contact with real users.
+    currently a Data Science intern at Ekimetrics, London.
   </p>
   <div class="hero-contact">
     <a class="primary" href="mailto:farhangbak@gmail.com">farhangbak@gmail.com</a>
@@ -481,24 +476,23 @@ footer{margin-top:104px;border-top:1px solid var(--line);background:var(--panel)
     <a href="https://github.com/Farhangbakhs" target="_blank" rel="noopener">GitHub</a>
   </div>
 
-  <p class="results-intro"><strong>Three projects, three different disciplines.</strong> The domain changes every time; the problem solving is what carries over.</p>
   <div class="results" role="list" aria-label="Headline results">
     <a class="result" role="listitem" href="#p1">
       <span class="r-field">Software engineering</span>
       <span class="r-num">3 models shipped</span>
-      <span class="r-what">Turned three research computer-vision models into a desktop app that surveyors install and use like any normal software.</span>
+      <span class="r-what">Three research computer-vision models, shipped as one desktop app with signed installers for Windows, macOS and Linux.</span>
       <span class="r-link">Case study 01 ↓</span>
     </a>
     <a class="result" role="listitem" href="#p2">
       <span class="r-field">Operations research</span>
       <span class="r-num">12,578 schools</span>
-      <span class="r-what">Planned a five-year, $125M national internet rollout for Honduras, optimised to stay robust when the budget gets cut.</span>
+      <span class="r-what">A five-year, $125M internet rollout for Honduras, planned against a 20% budget cut.</span>
       <span class="r-link">Case study 02 ↓</span>
     </a>
     <a class="result" role="listitem" href="#p3">
       <span class="r-field">Machine learning</span>
       <span class="r-num">9 of 9 tournaments</span>
-      <span class="r-what">Built a World Cup predictor that beat the baseline in every one of nine held-out tournaments, with zero data leakage.</span>
+      <span class="r-what">A World Cup predictor that beat the baseline in all nine held-out tournaments, 1990 to 2022.</span>
       <span class="r-link">Case study 03 ↓</span>
     </a>
   </div>
@@ -535,7 +529,7 @@ footer{margin-top:104px;border-top:1px solid var(--line);background:var(--panel)
   <article class="project reveal" id="p1">
     <div class="proj-eyebrow"><b>01</b><span class="disc">Software engineering</span><span>· Industry placement, Loopsio · 2026</span></div>
     <h3>ALICS: productionising computer vision for structural inspection</h3>
-    <p class="proj-tldr"><b>In one line:</b> I built the application layer that turned three research crack-detection models into a desktop product that non-technical surveyors install and run like any normal app.</p>
+    <p class="proj-tldr">The application layer that turned three research crack-detection models into a desktop product surveyors install and run on site.</p>
     <div class="facts">
       <span><b>Role</b> Software developer (team of 4)</span>
       <span><b>Duration</b> 16 weeks</span>
@@ -588,7 +582,7 @@ footer{margin-top:104px;border-top:1px solid var(--line);background:var(--panel)
   <article class="project reveal" id="p2">
     <div class="proj-eyebrow"><b>02</b><span class="disc">Operations research</span><span>· Coursework, Mathematical Programming in Advanced Analytics · 2026</span></div>
     <h3>School connectivity optimisation under budget uncertainty</h3>
-    <p class="proj-tldr"><b>In one line:</b> a multi-period MILP and two-stage stochastic programme allocating a $125M national budget to connect 12,578 Honduran schools, solved twice to put a price on political deployment milestones.</p>
+    <p class="proj-tldr">A multi-period MILP and two-stage stochastic programme allocating a $125M national budget across 12,578 Honduran schools, solved twice to put a price on political deployment milestones.</p>
     <div class="facts">
       <span><b>Role</b> Geospatial pipeline &amp; modelling (team project)</span>
       <span><b>Solver</b> Gurobi via Julia/JuMP</span>
@@ -658,16 +652,16 @@ footer{margin-top:104px;border-top:1px solid var(--line);background:var(--panel)
   <article class="project reveal" id="p3">
     <div class="proj-eyebrow"><b>03</b><span class="disc">Machine learning &amp; statistics</span><span>· Personal project · 2026</span></div>
     <h3>World Cup 2026 bracket predictor</h3>
-    <p class="proj-tldr"><b>In one line:</b> a LightGBM + Poisson ensemble built leakage-free on 96 years of history that beats the baseline in every one of nine held-out tournaments.</p>
+    <p class="proj-tldr">A LightGBM + Poisson ensemble trained on 96 years of tournament history. It beats the baseline in all nine held-out World Cups.</p>
     <div class="facts">
       <span><b>Role</b> Solo, data pipeline to validation</span>
       <span><b>Validation</b> Leave-one-tournament-out CV · 100k Monte Carlo</span>
     </div>
     <div class="proj-grid">
       <div class="proj-body">
-        <p><strong>Problem.</strong> Sports prediction is notorious for leakage and overfitting: features quietly built on future information, and test tournaments that bleed into training. The design constraint here was generalisation first, predictive power second.</p>
+        <p><strong>Problem.</strong> Sports prediction is notorious for leakage and overfitting: features quietly built on future information, test tournaments that bleed into training. The whole pipeline is built around preventing that.</p>
         <p><strong>Approach.</strong> Custom regex state machines parse 1,402 matches across every World Cup since 1930 plus Euro and Copa América data. A sequential FeatureBuilder enforces a strict read-then-update invariant, so features for match <em>i</em> use only matches 0 to <em>i</em>−1. 42 features cover Elo (with confederation-tuned K-factors), career goal statistics, recent form, tournament experience and head-to-head record, feeding a LightGBM classifier blended 75/25 with a Poisson expected-goals GLM, tuned over 300 Optuna trials.</p>
-        <p><strong>Outcome.</strong> The model beats the majority-class baseline in all nine LOTO folds (1990 to 2022), averaging 52.4% accuracy with a +7.4pp lift. Interpretation surfaced a genuine signal: World Cup experience features outrank raw Elo, while confederation membership carries zero importance once performance features are included. The 100k-simulation bracket makes Brazil the most likely 2026 champion at 15.3%.</p>
+        <p><strong>Outcome.</strong> The model beats the majority-class baseline in all nine LOTO folds (1990 to 2022), averaging 52.4% accuracy with a +7.4pp lift. World Cup experience features turn out to matter more than raw Elo, and confederation membership carries no weight once performance features are included. The 100k-simulation bracket makes Brazil the most likely 2026 champion at 15.3%.</p>
       </div>
       <aside class="proj-aside">
         <div class="metric-strip">
@@ -769,7 +763,7 @@ footer{margin-top:104px;border-top:1px solid var(--line);background:var(--panel)
     <div>
       <h4>Ekimetrics · London</h4>
       <div class="role">Data Science Intern, Marketing Effectiveness</div>
-      <p>Building and validating marketing mix models and forecasting tools in Python for global retail, automotive and luxury clients; engineering features from large multi-source marketing datasets and translating findings into strategic recommendations, including an individual R&amp;D project presented to firm leadership.</p>
+      <p>Building and validating marketing mix models and forecasting tools in Python for retail, automotive and luxury clients, plus an individual R&amp;D project presented to firm leadership.</p>
     </div>
   </div>
 
@@ -787,7 +781,7 @@ footer{margin-top:104px;border-top:1px solid var(--line);background:var(--panel)
     <div>
       <h4>Olivieros Restaurant · Edinburgh</h4>
       <div class="role">Team Manager</div>
-      <p>Led a team of six across high-volume 100+ cover shifts. Later built the restaurant&rsquo;s analytics platform (Python, FastAPI, Streamlit) over 22 weeks of data and £210K+ revenue; it remains in daily use by the owner and surfaced £400–900/month of identified savings.</p>
+      <p>Led a team of six across 100+ cover shifts. Later built the restaurant&rsquo;s analytics platform (Python, FastAPI, Streamlit) over 22 weeks of data and £210K+ revenue; it&rsquo;s still in daily use by the owner and has found £400–900 a month in savings.</p>
     </div>
   </div>
 
