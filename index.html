@@ -3,967 +3,1195 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Farhang Bakhshi · Data Science &amp; Quantitative Modelling</title>
+<title>Farhang Bakhshi &middot; Data Science &amp; Quantitative Modelling</title>
 <meta name="robots" content="noindex, nofollow">
 <meta name="description" content="Portfolio of Farhang Bakhshi. Machine learning, statistical modelling and optimisation. University of Edinburgh, Computer Science and Management Science.">
-<meta property="og:title" content="Farhang Bakhshi · Data Science &amp; Quantitative Modelling">
+<meta property="og:title" content="Farhang Bakhshi &middot; Data Science &amp; Quantitative Modelling">
 <meta property="og:description" content="Case studies in machine learning, optimisation and software engineering. University of Edinburgh.">
-<meta name="theme-color" content="#FDFDFC">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23FDFDFC'/%3E%3Crect x='6' y='18' width='4' height='8' fill='%23B3612F'/%3E%3Crect x='11' y='12' width='4' height='14' fill='%230072A3'/%3E%3Crect x='16' y='7' width='4' height='19' fill='%23005F87'/%3E%3Crect x='21' y='14' width='4' height='12' fill='%230072A3'/%3E%3C/svg%3E">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<meta name="theme-color" content="#EAE4D6">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23EAE4D6'/%3E%3Crect x='3' y='3' width='26' height='26' fill='none' stroke='%232B2A26' stroke-width='1'/%3E%3Ctext x='16' y='22' font-family='Georgia,serif' font-size='14' letter-spacing='1' text-anchor='middle' fill='%232B2A26'%3EFB%3C/text%3E%3C/svg%3E">
+<link rel="preload" href="fonts/eb-garamond-latin.woff2" as="font" type="font/woff2" crossorigin>
 <style>
 /* ============================================================
-   TOKENS: "the analyst's brief"
-   paper white · single blue accent · evidence-first
-   chart series (validated, light surface, CVD-safe):
-   primary #0072A3 · comparison #B3612F
+   A calling card, set in metal and pressed into paper.
+   One face — EB Garamond. Four values plus a single accent.
+   Bone stock on a dark desk. Hairlines, cut corners, no chrome.
+   ============================================================ */
+
+/* ---------- the typeface: self-hosted, latin subset ---------- */
+@font-face{
+  font-family:"EB Garamond";
+  src:url("fonts/eb-garamond-latin.woff2") format("woff2");
+  font-weight:400 600;
+  font-style:normal;
+  font-display:swap;
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face{
+  font-family:"EB Garamond";
+  src:url("fonts/eb-garamond-latin-italic.woff2") format("woff2");
+  font-weight:400 500;
+  font-style:italic;
+  font-display:swap;
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+/* ============================================================
+   TOKENS — retune the whole site from here
    ============================================================ */
 :root{
-  --bg:#FDFDFC;
-  --panel:#F6F8F9;
-  --line:#E4E9EC;
-  --line-strong:#1A2733;
-  --ink:#1A2733;
-  --body-c:#2E3F50;
-  --muted:#5A6B7E;
-  --faint:#5F7185;
-  --accent:#005F87;        /* links & key values (AA on white) */
-  --accent-soft:#DCEBF3;
-  --data-1:#0072A3;        /* chart: primary series */
-  --data-2:#B3612F;        /* chart: comparison series */
-  --track:#EAEFF2;
-  --heading:"Archivo",system-ui,sans-serif;
-  --body:"Source Sans 3",system-ui,sans-serif;
-  --mono:"IBM Plex Mono",ui-monospace,monospace;
+  /* ink & stock */
+  --stock:#F0ECE4;         /* the card face — warm, but only just */
+  --stock-deep:#E4DFD4;    /* shadowed edge of the stock */
+  --ink:#2B2A26;           /* warm near-black, never pure black */
+  --ink-soft:#5C594E;      /* secondary type and metadata (5.9:1 on clean stock,
+                              4.8:1 with the paper texture over it) */
+  --surface:#191817;       /* the desk the card lies on */
+  --accent:#6B3A32;        /* desaturated oxblood — live links, current marker */
+
+  /* rules */
+  --rule:rgba(92,89,78,.30);       /* hairline — links only, no dividers */
+  --rule-firm:rgba(43,42,38,.48);  /* engraved rule */
+
+  /* type */
+  --face:"EB Garamond",Georgia,"Times New Roman",serif;
+  --body-size:1.0625rem;
+  --body-leading:1.7;
+  --measure:64ch;
+  --track-caps:.14em;      /* small-caps tracking */
+
+  /* the card */
+  --card-w:clamp(304px,62vw,616px);
+  --card-tilt:-0.4deg;
+
+  /* sheets */
+  --sheet-w:1080px;
+  --gutter:clamp(18px,4vw,40px);
+  --pad:clamp(26px,5vw,64px);
+
+  /* motion */
+  --ease:cubic-bezier(.22,.85,.24,1);
+  --rise:520ms;
+
+  /* paper: fractal tooth, then low-frequency cloudiness.
+     Layer opacity is baked into each SVG so the blend stays honest. */
+  --tooth:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='t'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23t)' opacity='0.105'/%3E%3C/svg%3E");
+  --cloud:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320'%3E%3Cfilter id='c'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.035' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='320' height='320' filter='url(%23c)' opacity='0.06'/%3E%3C/svg%3E");
+  --fibre:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.006 0.16' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='600' height='600' filter='url(%23f)' opacity='0.045'/%3E%3C/svg%3E");
 }
-*{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:86px}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{
+  scroll-behavior:smooth;
+  scroll-padding-top:96px;
+  -webkit-text-size-adjust:100%;
+}
 body{
-  background:var(--bg);
-  color:var(--body-c);
-  font-family:var(--body);
-  font-size:17px;
-  line-height:1.65;
+  background:var(--surface);
+  color:var(--ink);
+  font-family:var(--face);
+  font-size:var(--body-size);
+  line-height:var(--body-leading);
+  font-variant-numeric:oldstyle-nums;
+  font-kerning:normal;
   -webkit-font-smoothing:antialiased;
   text-rendering:optimizeLegibility;
 }
-::selection{background:var(--accent);color:#fff}
+img,video,iframe{max-width:100%}
+::selection{background:var(--ink);color:var(--stock)}
+
 a{color:var(--accent);text-decoration:none}
-a:hover{text-decoration:underline;text-underline-offset:3px}
-a:focus-visible,button:focus-visible,[tabindex]:focus-visible{
-  outline:2px solid var(--accent);outline-offset:3px;border-radius:2px;
-}
+a:hover{text-decoration:underline;text-underline-offset:.22em;text-decoration-thickness:.5px}
+:focus-visible{outline:1px solid var(--accent);outline-offset:4px}
+.on-desk :focus-visible{outline-color:var(--stock)}
+
 .skip{
-  position:fixed;top:-60px;left:16px;z-index:200;
-  background:var(--accent);color:#fff;font-family:var(--mono);font-size:12px;
-  padding:10px 16px;transition:top .2s;border-radius:0 0 4px 4px;
+  position:fixed;top:-70px;left:var(--gutter);z-index:300;
+  background:var(--ink);color:var(--stock);
+  padding:12px 20px;transition:top .18s ease;
+  font-variant-caps:all-small-caps;letter-spacing:var(--track-caps);
 }
-.skip:focus{top:0;color:#fff}
+.skip:focus{top:12px;text-decoration:none}
 
-.wrap{max-width:1040px;margin:0 auto;padding:0 28px}
-@media(max-width:640px){.wrap{padding:0 20px}}
-
-h1,h2,h3,h4{font-family:var(--heading);color:var(--ink);letter-spacing:-.012em}
-
-/* ---------- nav ---------- */
-nav{
-  position:sticky;top:0;z-index:50;
-  background:rgba(253,253,252,.92);
-  backdrop-filter:blur(10px);
-  -webkit-backdrop-filter:blur(10px);
-  border-bottom:1px solid var(--line);
-}
-.nav-inner{
-  max-width:1040px;margin:0 auto;padding:0 28px;
-  height:60px;display:flex;align-items:center;gap:22px;
-}
-.nav-name{
-  font-family:var(--heading);font-weight:700;font-size:15px;color:var(--ink);white-space:nowrap;
-}
-.nav-name:hover{text-decoration:none}
-.nav-links{display:flex;gap:22px;margin-left:auto}
-.nav-links a{
-  font-size:14px;font-weight:600;color:var(--muted);padding:4px 0;
-  border-bottom:2px solid transparent;
-}
-.nav-links a:hover{color:var(--ink);text-decoration:none}
-.nav-links a.active{color:var(--accent);border-bottom-color:var(--accent)}
-.nav-cta{
-  font-size:13.5px;font-weight:600;color:#fff;background:var(--accent);
-  padding:8px 16px;border-radius:4px;white-space:nowrap;
-}
-.nav-cta:hover{background:#00506F;color:#fff;text-decoration:none}
-@media(max-width:820px){.nav-cta{display:none}}
-@media(max-width:720px){
-  .nav-inner{height:54px;gap:14px}
-  .nav-links{gap:14px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
-  .nav-links::-webkit-scrollbar{display:none}
-  .nav-links a{font-size:13px;white-space:nowrap}
+/* ============================================================
+   PAPER — four layers, composited by the background painter
+   rather than by blended pseudo-elements: sheets run to several
+   thousand pixels tall and a mix-blend-mode layer at that size
+   is a compositing hazard.
+     1. long fibre grain, drawn out along the sheet
+     2. fractal tooth — the cotton grain
+     3. low-frequency cloudiness of uncoated stock
+     4. radial lightening, as if one window light is on it
+   ============================================================ */
+.paper{
+  position:relative;
+  border-radius:2px;
+  background-color:var(--stock);
+  background-image:
+    var(--fibre),
+    var(--tooth),
+    var(--cloud),
+    radial-gradient(122% 96% at 20% 6%,#FBF8F3 0%,var(--stock) 44%,var(--stock-deep) 100%);
+  background-size:600px 600px,160px 160px,320px 320px,100% 100%;
+  background-repeat:repeat,repeat,repeat,no-repeat;
+  background-blend-mode:multiply,multiply,multiply,normal;
 }
 
-/* ---------- hero ---------- */
-header.wrap{margin:72px auto 0}
-.hero-eyebrow{
-  font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;
-  color:var(--faint);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
-  padding-bottom:28px;
+/* ============================================================
+   THE CARD
+   ============================================================ */
+.desk{
+  min-height:100svh;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  gap:clamp(26px,5vh,48px);
+  padding:clamp(56px,10vh,96px) var(--gutter);
 }
-h1{font-size:clamp(42px,7vw,72px);font-weight:700;line-height:1.02;letter-spacing:-.022em}
-.hero-role{
-  font-size:19px;font-weight:600;color:var(--accent);margin:16px 0 14px;
+.card{
+  width:var(--card-w);
+  aspect-ratio:3.5/2;
+  transform:rotate(var(--card-tilt));
+  box-shadow:
+    0 1px 2px rgba(0,0,0,.55),
+    0 24px 60px rgba(0,0,0,.42);
 }
-.hero-thesis{max-width:640px;font-size:18.5px;line-height:1.6;color:var(--body-c)}
-.hero-thesis strong{color:var(--ink);font-weight:700}
-.hero-contact{display:flex;flex-wrap:wrap;gap:10px;margin:26px 0 0}
-.hero-contact a{
-  font-size:14px;font-weight:600;border:1px solid var(--line);border-radius:4px;
-  padding:9px 16px;color:var(--ink);display:inline-flex;align-items:center;gap:7px;
+.card-type{
+  position:absolute;inset:0;
+  padding:calc(var(--card-w) * .052) calc(var(--card-w) * .062);
+  display:grid;grid-template-rows:auto 1fr auto;
+  text-align:center;color:var(--ink);
 }
-.hero-contact a:hover{border-color:var(--accent);color:var(--accent);text-decoration:none}
-.hero-contact a.primary{background:var(--accent);border-color:var(--accent);color:#fff}
-.hero-contact a.primary:hover{background:#00506F}
 
-/* ---------- headline results (the 10-second layer) ---------- */
-.results{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:0;
-  border:1px solid var(--line);border-radius:6px;overflow:hidden;
-  margin:46px 0 0;background:var(--panel);
+/* intentional misregistration — do not "fix" */
+.card-type{transform:translate(-6px,4px)}   /* type block sits left of, and below, true centre */
+.card-name{letter-spacing:-.01em}           /* name set a hair tighter than comfortable */
+/* and no watermark. */
+
+.card-top{display:flex;justify-content:space-between;align-items:start;gap:1.6em}
+.card-mid{display:flex;flex-direction:column;align-items:center;justify-content:center}
+.card-base{display:flex;justify-content:center}
+
+.card .hs{
+  color:inherit;text-decoration:none;
+  display:block;position:relative;
+  text-shadow:0 1px 0 rgba(255,255,255,.55),0 -1px 1px rgba(0,0,0,.30);
+  transition:text-shadow .2s ease;
 }
-.result .r-field{
-  font-family:var(--mono);font-size:10px;letter-spacing:.13em;text-transform:uppercase;
-  color:var(--faint);
+.card .hs::after{
+  content:"";position:absolute;left:0;right:0;bottom:-.45em;height:1px;
+  background:var(--ink-soft);opacity:0;transition:opacity .2s ease;
 }
+.card .hs:hover,.card .hs:focus-visible{
+  text-decoration:none;
+  text-shadow:0 1px 0 rgba(255,255,255,.72),0 -1px 1.4px rgba(0,0,0,.44);
+}
+.card .hs:hover::after,.card .hs:focus-visible::after{opacity:.5}
+.card .hs:focus-visible{outline-offset:6px}
+
+.hs-tl,.hs-tr{
+  font-size:calc(var(--card-w) * .0182);
+  line-height:1.55;
+  font-variant-caps:all-small-caps;letter-spacing:.18em;font-weight:500;
+  color:var(--ink-soft);
+}
+.hs-tl{text-align:left;max-width:20ch}
+.hs-tr{text-align:right;margin-left:auto;max-width:13ch}
+.card-name{
+  font-size:calc(var(--card-w) * .058);
+  line-height:1.05;font-weight:500;
+  font-variant-caps:small-caps;
+  word-spacing:.12em;
+}
+.hs-disc{
+  margin-top:calc(var(--card-w) * .030);
+  font-size:calc(var(--card-w) * .0206);
+  font-variant-caps:all-small-caps;letter-spacing:.19em;font-weight:500;
+  color:var(--ink-soft);
+}
+.hs-base{
+  font-size:calc(var(--card-w) * .0166);
+  font-variant-caps:all-small-caps;letter-spacing:.13em;font-weight:500;
+  color:var(--ink-soft);white-space:nowrap;
+}
+
+/* the quiet affordance */
+.cue{
+  font-variant-caps:all-small-caps;letter-spacing:.28em;
+  color:var(--stock);opacity:.55;
+  font-size:.8125rem;
+  transition:opacity .45s ease;
+}
+.cue[data-spent]{opacity:0}
+@media(max-width:640px){.cue{display:none}}
+
+/* Below 640px the hotspots are too small to aim at: the card becomes a
+   static object and this plain list takes over the navigation. The type
+   is stepped up so the fine print still reads as print, not as texture. */
+.card-index{display:none}
+@media(max-width:640px){
+  :root{--card-w:min(100vw - 36px,384px)}
+  .card-index{
+    display:flex;flex-wrap:wrap;justify-content:center;
+    gap:.35em 1.6em;max-width:32ch;
+  }
+  .card-index a{
+    color:var(--stock);opacity:.86;
+    font-variant-caps:all-small-caps;letter-spacing:.16em;
+    font-size:.9375rem;
+  }
+  .card-index a:hover{opacity:1}
+  .card .hs::after{display:none}
+  .hs-tl,.hs-tr{font-size:calc(var(--card-w) * .0235)}
+  .hs-disc{font-size:calc(var(--card-w) * .0262)}
+  .hs-base{font-size:calc(var(--card-w) * .0215);letter-spacing:.1em}
+}
+
+
+/* ============================================================
+   SHEETS — the back of the card, and the sheets after it
+   ============================================================ */
+.sheet{
+  width:min(100% - (var(--gutter) * 2),var(--sheet-w));
+  margin:0 auto clamp(18px,3vw,30px);
+  padding:var(--pad);
+  scroll-margin-top:92px;
+  box-shadow:
+    0 1px 2px rgba(0,0,0,.5),
+    0 18px 48px rgba(0,0,0,.34);
+}
+main{padding-top:clamp(18px,3vw,30px)}
+
+.sheet-head{
+  display:flex;align-items:baseline;gap:1.4em;flex-wrap:wrap;
+  margin-bottom:clamp(32px,4.4vw,52px);
+}
+.sheet-head h2{
+  font-size:clamp(1.25rem,2.4vw,1.5rem);font-weight:500;
+  font-variant-caps:all-small-caps;letter-spacing:.2em;
+}
+.sheet-head .aside{
+  margin-left:auto;color:var(--ink-soft);
+  font-variant-caps:all-small-caps;letter-spacing:var(--track-caps);
+  font-size:.9375rem;
+}
+@media(max-width:600px){.sheet-head .aside{display:none}}
+
+/* the measure applies to running prose only — label rows, fact lines and
+   chart furniture are laid out across the full column */
+.study-body p,.post p,.about-body p{max-width:var(--measure)}
+em{font-style:italic}
+strong{font-weight:600;color:var(--ink)}
+
+/* ============================================================
+   ABOUT
+   ============================================================ */
+.about-body p+p{margin-top:1em}
+
+.contact-row{display:flex;flex-wrap:wrap;gap:.5em 1.6em;margin-top:2em}
+.contact-row a{
+  font-variant-caps:all-small-caps;letter-spacing:var(--track-caps);
+  border-bottom:1px solid var(--rule);
+}
+.contact-row a:hover{text-decoration:none;border-bottom-color:var(--accent)}
+
+/* headline results */
+.results{margin-top:clamp(38px,5vw,60px)}
 .result{
-  padding:22px 24px 20px;border-right:1px solid var(--line);
-  display:flex;flex-direction:column;gap:6px;color:inherit;
+  display:grid;grid-template-columns:minmax(0,10rem) minmax(0,1fr) auto;
+  gap:.6em clamp(20px,3vw,40px);align-items:baseline;
+  padding:.9em 0;color:var(--ink);
 }
-.result:last-child{border-right:none}
-.result:hover{text-decoration:none;background:#F0F4F6}
+.result+.result{margin-top:1.6em}
+.result:hover{text-decoration:none}
+.result:hover .r-num{color:var(--accent)}
+.result .r-field{
+  font-variant-caps:all-small-caps;letter-spacing:var(--track-caps);
+  color:var(--ink-soft);
+}
 .result .r-num{
-  font-family:var(--mono);font-size:23px;font-weight:600;color:var(--accent);
-  letter-spacing:-.02em;font-variant-numeric:tabular-nums;
+  font-size:clamp(1.5rem,3.2vw,2rem);line-height:1.1;font-weight:500;
+  font-variant-numeric:lining-nums tabular-nums;letter-spacing:.005em;
 }
-.result .r-what{font-size:14.5px;line-height:1.5;color:var(--body-c)}
-.result .r-link{font-size:13px;font-weight:600;color:var(--accent);margin-top:auto;padding-top:8px}
-.result:hover .r-link{text-decoration:underline;text-underline-offset:3px}
-@media(max-width:820px){
-  .results{grid-template-columns:1fr}
-  .result{border-right:none;border-bottom:1px solid var(--line)}
-  .result:last-child{border-bottom:none}
+.result .r-what{grid-column:2;font-size:1rem;color:var(--ink);max-width:52ch}
+.result .r-go{
+  grid-column:3;grid-row:1;
+  font-variant-caps:all-small-caps;letter-spacing:var(--track-caps);
+  color:var(--accent);white-space:nowrap;
+}
+.result:hover .r-go{text-decoration:underline;text-underline-offset:.22em}
+@media(max-width:760px){
+  .result{grid-template-columns:1fr auto}
+  .result .r-field{grid-column:1/-1}
+  .result .r-what{grid-column:1/-1}
+  .result .r-go{grid-column:2;grid-row:2}
 }
 
-/* ---------- at a glance ---------- */
+/* at a glance */
 .glance{
-  display:grid;grid-template-columns:repeat(4,1fr);gap:26px;
-  border-top:1px solid var(--line-strong);
-  margin-top:46px;padding:18px 0 0;
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:clamp(20px,3vw,34px);margin-top:clamp(30px,4vw,44px);
 }
-.g-label{
-  font-family:var(--mono);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;
-  color:var(--faint);display:block;margin-bottom:5px;
+.glance dt{
+  font-variant-caps:all-small-caps;letter-spacing:var(--track-caps);
+  color:var(--ink-soft);margin-bottom:.2em;
 }
-.g-value{font-size:15px;font-weight:600;color:var(--ink);line-height:1.5}
-.g-value a{border-bottom:1px solid var(--line)}
-.g-value a:hover{text-decoration:none;border-color:var(--accent)}
-@media(max-width:820px){.glance{grid-template-columns:1fr 1fr;gap:18px 26px}}
+.glance dd{font-size:1rem;line-height:1.5}
+@media(max-width:820px){.glance{grid-template-columns:1fr 1fr}}
 @media(max-width:480px){.glance{grid-template-columns:1fr}}
 
-/* ---------- section chrome ---------- */
-section.wrap{margin:88px auto 0}
-.sec-head{
-  display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;
-  border-bottom:2px solid var(--line-strong);padding-bottom:12px;
+/* ============================================================
+   CASE STUDIES
+   ============================================================ */
+.study{padding-bottom:clamp(48px,7vw,84px)}
+.study+.study{padding-top:clamp(56px,8vw,96px)}
+.study-eyebrow{
+  display:flex;flex-wrap:wrap;gap:.4em 1.2em;margin-bottom:.9em;
+  font-variant-caps:all-small-caps;letter-spacing:var(--track-caps);
+  color:var(--ink-soft);
 }
-.sec-title{font-size:clamp(24px,3.2vw,31px);font-weight:700}
-.sec-note{
-  margin-left:auto;font-family:var(--mono);font-size:11px;letter-spacing:.1em;
-  text-transform:uppercase;color:var(--faint);
+.study-eyebrow .no{color:var(--accent);font-variant-numeric:lining-nums}
+.study h3{
+  font-size:clamp(1.5rem,3.4vw,2.125rem);font-weight:500;
+  line-height:1.18;max-width:26ch;letter-spacing:.002em;
 }
-@media(max-width:640px){.sec-note{display:none}}
-
-/* ---------- projects ---------- */
-.project{padding:52px 0 58px;border-bottom:1px solid var(--line)}
-.project:last-child{border-bottom:none}
-.proj-eyebrow{
-  font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;
-  color:var(--faint);display:flex;gap:12px;align-items:center;margin-bottom:12px;
-}
-.proj-eyebrow b{color:var(--accent);font-weight:600}
-.proj-eyebrow .disc{color:var(--ink);font-weight:600}
-.project h3{font-size:clamp(23px,3.2vw,30px);font-weight:700;line-height:1.18;max-width:760px}
-.proj-tldr{
-  margin:14px 0 26px;padding:13px 18px;background:var(--panel);
-  border-left:3px solid var(--accent);border-radius:0 4px 4px 0;
-  font-size:16.5px;line-height:1.55;color:var(--ink);max-width:740px;
-}
-.proj-tldr b{font-weight:700}
-.proj-grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:48px;align-items:start}
-@media(max-width:880px){.proj-grid{grid-template-columns:1fr;gap:30px}}
-.proj-body p{margin-bottom:15px;max-width:66ch}
-.proj-body p:last-child{margin-bottom:0}
-.proj-body p>strong:first-child{color:var(--ink);font-weight:700}
-.proj-body em{font-style:italic}
-.proj-aside{position:sticky;top:88px}
-@media(max-width:880px){.proj-aside{position:static}}
-
 .facts{
-  font-size:14px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 18px;
-  margin:0 0 26px;padding-bottom:22px;border-bottom:1px solid var(--line);
+  display:flex;flex-wrap:wrap;gap:.35em 2em;
+  margin:1.4em 0 0;color:var(--ink-soft);
 }
-.facts b{color:var(--ink);font-weight:600}
+.facts b{
+  font-weight:500;color:var(--ink-soft);
+  font-variant-caps:all-small-caps;letter-spacing:var(--track-caps);
+}
+.facts span>span{color:var(--ink)}
 
-.metric-strip{border:1px solid var(--line);border-radius:6px;overflow:hidden;background:#fff}
-.m-row{display:grid;grid-template-columns:1fr 1fr}
-.metric{padding:16px 18px 15px;border-bottom:1px solid var(--line)}
-.m-row .metric:first-child{border-right:1px solid var(--line)}
-.m-row:last-child .metric{border-bottom:none}
-.metric .val{
-  font-family:var(--mono);font-size:22px;font-weight:600;color:var(--accent);
-  letter-spacing:-.02em;line-height:1.15;font-variant-numeric:tabular-nums;
+.study-grid{
+  display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);
+  gap:clamp(30px,4.5vw,60px);align-items:start;margin-top:clamp(26px,3.6vw,40px);
 }
-.metric .lab{
-  font-size:12.5px;color:var(--muted);display:block;margin-top:5px;line-height:1.45;
+@media(max-width:880px){.study-grid{grid-template-columns:1fr}}
+.study-body p+p{margin-top:1.1em}
+.study-body p>strong:first-child{
+  font-weight:500;font-variant-caps:all-small-caps;
+  letter-spacing:var(--track-caps);
 }
-.tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:20px}
-.tag{
-  font-family:var(--mono);font-size:11.5px;color:var(--muted);
-  border:1px solid var(--line);padding:4px 10px;border-radius:3px;background:#fff;
+.study-aside{position:sticky;top:96px}
+@media(max-width:880px){.study-aside{position:static}}
+
+/* metric figures — the loudest type on the page */
+.metrics{list-style:none}
+.metrics li{display:flex;align-items:baseline;gap:.9em}
+.metrics li+li{margin-top:1.15em}
+.metrics .fig{
+  font-size:clamp(1.625rem,3.6vw,2.25rem);line-height:1;font-weight:500;
+  font-variant-numeric:lining-nums tabular-nums;letter-spacing:.004em;
+  flex:none;min-width:4.2ch;
+}
+.metrics .fig-word{font-size:1.25rem;min-width:0}
+.metrics .cap{
+  font-variant-caps:all-small-caps;letter-spacing:var(--track-caps);
+  color:var(--ink-soft);line-height:1.35;
+}
+.tags{
+  margin-top:1.8em;color:var(--ink-soft);line-height:1.6;
+  font-variant-caps:all-small-caps;letter-spacing:var(--track-caps);
 }
 
-/* ---------- charts ---------- */
-.chart{margin-top:20px;border:1px solid var(--line);border-radius:6px;background:#fff;padding:18px 18px 16px}
+/* ============================================================
+   TABLES OF FIGURES — set, not plotted
+   ============================================================ */
+table.figures{
+  width:100%;max-width:34rem;border-collapse:collapse;
+  font-variant-numeric:lining-nums tabular-nums;
+}
+table.figures caption{
+  text-align:left;padding-bottom:.8em;color:var(--ink-soft);
+  font-variant-caps:all-small-caps;letter-spacing:var(--track-caps);
+  font-variant-numeric:normal;
+}
+table.figures thead th{
+  text-align:left;font-weight:500;padding:0 0 .9em;
+  white-space:nowrap;vertical-align:bottom;
+  font-variant-caps:all-small-caps;letter-spacing:var(--track-caps);
+  color:var(--ink-soft);font-variant-numeric:normal;
+}
+table.figures tbody th{
+  text-align:left;font-weight:400;font-variant-numeric:normal;
+  padding:.45em 1.6em .45em 0;
+}
+/* the row label takes the slack so the figures sit hard against the
+   right edge of the column, the way a set table would */
+table.figures th:first-child{width:99%}
+table.figures td,table.figures thead th:not(:first-child){min-width:7ch;padding-left:2em}
+/* narrow columns: let a long label stack rather than starve the row label */
+@media(max-width:560px){
+  table.figures thead th{white-space:normal}
+  table.figures td,table.figures thead th:not(:first-child){padding-left:1.1em}
+}
+table.figures td{padding:.45em 0;text-align:right;white-space:nowrap;letter-spacing:.02em}
+table.figures thead th:not(:first-child){text-align:right}
+table.figures td.dim{color:var(--ink-soft)}
+table.figures .won{
+  margin-left:.7em;color:var(--accent);
+  font-variant-caps:all-small-caps;letter-spacing:var(--track-caps);
+}
+table.figures.spaced{margin-top:2.6em}
+.table-note{margin-top:1em;color:var(--ink-soft)}
+
+/* ============================================================
+   THE ONE CHART — ink columns, hairline axis, no gridlines
+   ============================================================ */
+.chart{margin-top:2.2em}
 .chart-title{
-  font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);
-  margin-bottom:16px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:.4em 1.2em;
+  font-variant-caps:all-small-caps;letter-spacing:var(--track-caps);
+  color:var(--ink-soft);margin-bottom:1.4em;
 }
-.legend{display:flex;gap:14px;text-transform:none;letter-spacing:.02em}
-.legend span{display:flex;align-items:center;gap:6px}
-.legend i{width:9px;height:9px;border-radius:2px;display:inline-block}
-.legend .l-model i{background:var(--data-1)}
-.legend .l-base i{background:var(--data-2)}
-.bars{display:flex;align-items:flex-end;gap:8px;height:120px;border-bottom:1px solid var(--line)}
-.bar-group{flex:1;display:flex;align-items:flex-end;gap:2px;height:100%;position:relative;cursor:default}
-.bar{flex:1;min-width:4px;border-radius:3px 3px 0 0}
-.bar.model{background:var(--data-1)}
-.bar.base{background:var(--data-2)}
-.bar-group:hover .bar,.bar-group:focus-visible .bar{filter:brightness(1.18)}
+.legend{display:flex;gap:1.2em}
+.legend span{display:flex;align-items:center;gap:.5em}
+.legend i{width:9px;height:9px;flex:none}
+.legend .l-model i{background:var(--ink)}
+.legend .l-base i{border:1px solid var(--ink-soft)}
+
+.bars{
+  display:flex;align-items:flex-end;gap:.6em;height:132px;
+  border-bottom:1px solid var(--rule-firm);
+}
+.bar-group{
+  flex:1;display:flex;align-items:flex-end;gap:2px;height:100%;
+  position:relative;cursor:default;
+}
+.bar{flex:1;min-width:4px}
+.bar.model{background:var(--ink)}
+.bar.base{border:1px solid var(--ink-soft);border-bottom:none}
+.bar-group:hover .bar.model,.bar-group:focus-visible .bar.model{background:var(--accent)}
 .bar-year{
-  position:absolute;bottom:-21px;left:0;right:0;text-align:center;
-  font-family:var(--mono);font-size:9.5px;color:var(--faint);
+  position:absolute;bottom:-1.7em;left:0;right:0;text-align:center;
+  font-variant-caps:all-small-caps;letter-spacing:.08em;
+  color:var(--ink-soft);font-size:.875rem;
 }
-.chart-foot{margin-top:34px;font-size:13px;color:var(--muted);line-height:1.6}
-.chart-foot b{color:var(--accent);font-weight:600}
+.chart-foot{
+  margin-top:3em;color:var(--ink-soft);
+  font-variant-caps:all-small-caps;letter-spacing:var(--track-caps);
+}
+.chart-foot b{color:var(--ink);font-weight:500;font-variant-numeric:lining-nums tabular-nums}
 
 #tooltip{
-  position:fixed;z-index:100;pointer-events:none;opacity:0;transition:opacity .12s;
-  background:var(--ink);color:#F2F6F9;padding:8px 12px;border-radius:4px;
-  font-family:var(--mono);font-size:11.5px;line-height:1.7;
-  box-shadow:0 6px 18px rgba(26,39,51,.25);white-space:nowrap;
+  position:fixed;z-index:250;pointer-events:none;opacity:0;
+  transition:opacity .12s ease;
+  background:var(--ink);color:var(--stock);
+  padding:.5em .8em;font-size:.9375rem;line-height:1.5;white-space:nowrap;
+  font-variant-caps:all-small-caps;letter-spacing:.08em;
+  box-shadow:0 8px 22px rgba(0,0,0,.4);
 }
-#tooltip b{color:#8FD4F5;font-weight:600}
-#tooltip .tt-base{color:#F0B285}
+#tooltip b{font-weight:500;font-variant-numeric:lining-nums tabular-nums}
 
-.compare{margin-top:20px;border:1px solid var(--line);border-radius:6px;background:#fff;padding:18px}
-.cmp-row{margin-bottom:14px}
-.cmp-row:last-child{margin-bottom:0}
-.cmp-lab{
-  display:flex;justify-content:space-between;gap:10px;font-size:13.5px;
-  color:var(--body-c);margin-bottom:5px;
+/* ============================================================
+   PLATES — video, map, framed like figures in a printed report
+   ============================================================ */
+.plate{margin-top:clamp(38px,5vw,58px)}
+.plate-frame{border:1px solid var(--rule-firm);background:var(--stock-deep)}
+.plate-frame video{display:block;width:100%;height:auto;background:#141210;color:var(--stock)}
+.plate figcaption{
+  margin-top:.9em;display:flex;flex-wrap:wrap;align-items:baseline;
+  gap:.3em 1em;
 }
-.cmp-lab b{font-family:var(--mono);color:var(--accent);font-weight:600;font-variant-numeric:tabular-nums;font-size:12.5px}
-.cmp-track{height:9px;background:var(--track);border-radius:3px;overflow:hidden}
-.cmp-fill{height:100%;background:var(--data-1);border-radius:3px;width:var(--w,0%);transition:width .8s cubic-bezier(.2,.7,.2,1)}
-@media (prefers-reduced-motion:reduce){.cmp-fill{transition:none}}
-
-/* ---------- figures ---------- */
-.figure{margin-top:44px;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:#fff}
-.media-head{
-  display:flex;align-items:center;gap:14px;padding:11px 16px;
-  border-bottom:1px solid var(--line);
-  font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+.fig-no{
+  font-variant-caps:all-small-caps;letter-spacing:.2em;
+  color:var(--accent);flex:none;
 }
-.media-head .ref{color:var(--accent);font-weight:600}
-.media-head .m-title{color:var(--body-c)}
-.media-head .m-meta{margin-left:auto;color:var(--faint)}
-@media(max-width:560px){.media-head .m-meta{display:none}}
-.figure video{display:block;width:100%;height:auto;background:#10181F}
-.fig-cap{
-  display:flex;justify-content:space-between;align-items:baseline;gap:14px;flex-wrap:wrap;
-  padding:12px 16px;border-top:1px solid var(--line);background:var(--panel);
-  font-size:13px;color:var(--muted);
+.fig-title{
+  font-variant-caps:all-small-caps;letter-spacing:var(--track-caps);
+  color:var(--ink);
 }
-.fig-cap b{color:var(--ink);font-weight:600}
-.fig-cap a{font-weight:600;white-space:nowrap}
+.fig-desc{
+  flex-basis:100%;font-style:italic;color:var(--ink-soft);
+  max-width:var(--measure);line-height:1.6;
+}
+.fig-link{
+  margin-left:auto;font-variant-caps:all-small-caps;
+  letter-spacing:var(--track-caps);white-space:nowrap;
+}
+@media(max-width:780px){.fig-link{margin-left:0}}
 
 .map-shell{
-  position:relative;background:var(--panel);width:100%;aspect-ratio:16/9;min-height:320px;
+  position:relative;width:100%;aspect-ratio:16/9;min-height:300px;
+  background:var(--stock);
   display:flex;align-items:center;justify-content:center;overflow:hidden;
 }
 .map-shell iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 .map-facade{
-  position:relative;z-index:2;text-align:center;color:var(--muted);
-  display:flex;flex-direction:column;align-items:center;gap:14px;padding:24px;
+  display:flex;flex-direction:column;align-items:center;gap:1.2em;
+  padding:2em;text-align:center;color:var(--ink-soft);
 }
-.map-facade .grid-deco{
-  position:absolute;inset:-200px;z-index:-1;
-  background-image:linear-gradient(rgba(0,114,163,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(0,114,163,.06) 1px,transparent 1px);
-  background-size:34px 34px;
+.map-facade p{
+  font-variant-caps:all-small-caps;letter-spacing:var(--track-caps);
+  max-width:38ch;
 }
-.map-facade p{font-size:14px;max-width:420px;line-height:1.6}
 .map-load-btn{
-  font-family:var(--body);font-size:14.5px;font-weight:600;
-  color:#fff;background:var(--accent);border:none;border-radius:4px;
-  padding:12px 24px;cursor:pointer;transition:background .15s;
+  font-family:inherit;font-size:1rem;
+  font-variant-caps:all-small-caps;letter-spacing:var(--track-caps);
+  color:var(--stock);background:var(--ink);border:0;border-radius:1px;
+  padding:.6em 1.6em;cursor:pointer;transition:background .18s ease;
 }
-.map-load-btn:hover{background:#00506F}
-.map-note{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint)}
-
-/* Monte Carlo outcomes */
-.mc-final{
-  padding:13px 16px;border-bottom:1px solid var(--line);
-  font-size:14px;color:var(--body-c);
-  display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
-}
-.mc-final b{color:var(--ink);font-weight:700}
-.mc-final .p{font-family:var(--mono);font-size:12.5px;color:var(--accent);font-weight:600}
-.mc-body{padding:18px 16px 8px}
-.mc-legend{
-  display:flex;gap:16px;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;
-  text-transform:uppercase;color:var(--muted);margin-bottom:14px;
-}
-.mc-legend span{display:flex;align-items:center;gap:6px}
-.mc-legend i{width:9px;height:9px;border-radius:2px;display:inline-block}
-.mc-legend .win i{background:var(--data-1)}
-.mc-legend .fin i{background:var(--data-2)}
-.mc-row{display:grid;grid-template-columns:86px 1fr 120px;gap:14px;align-items:center;margin-bottom:10px}
-.mc-team{font-size:14.5px;font-weight:600;color:var(--ink)}
-.mc-track{position:relative;height:14px;background:var(--track);border-radius:3px;display:flex;gap:2px;overflow:hidden}
-.mc-track .win-bar{background:var(--data-1);width:var(--w,0%);transition:width .8s cubic-bezier(.2,.7,.2,1)}
-.mc-track .fin-bar{background:var(--data-2);width:var(--w,0%);transition:width .8s cubic-bezier(.2,.7,.2,1) .08s}
-@media (prefers-reduced-motion:reduce){.mc-track .win-bar,.mc-track .fin-bar{transition:none}}
-.mc-vals{font-family:var(--mono);font-size:11.5px;color:var(--muted);text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
-.mc-vals b{color:var(--accent);font-weight:600}
-@media(max-width:560px){.mc-row{grid-template-columns:70px 1fr 102px;gap:10px}.mc-team{font-size:13px}}
-
-/* ---------- experience ---------- */
-.xp{display:grid;grid-template-columns:180px 1fr;gap:28px;padding:30px 0;border-bottom:1px solid var(--line)}
-.xp:last-child{border-bottom:none}
-.xp-when{
-  font-family:var(--mono);font-size:12px;color:var(--faint);padding-top:5px;
-  font-variant-numeric:tabular-nums;
-}
-.xp h4{font-size:18.5px;font-weight:700}
-.xp .role{font-size:14.5px;color:var(--accent);font-weight:600;margin:2px 0 9px}
-.xp p{font-size:16px;max-width:68ch}
-@media(max-width:680px){.xp{grid-template-columns:1fr;gap:5px}}
-
-/* ---------- education ---------- */
-.edu-intro{padding:32px 0 6px;display:grid;grid-template-columns:1fr auto;gap:22px;align-items:start}
-.edu-intro h4{font-size:20px;font-weight:700}
-.edu-intro .degree{color:var(--muted);margin-top:3px;font-size:15.5px}
-.pred{
-  font-size:13px;font-weight:700;color:var(--accent);
-  background:var(--accent-soft);border-radius:4px;padding:8px 14px;
-  white-space:nowrap;align-self:center;
-}
-@media(max-width:600px){.edu-intro{grid-template-columns:1fr}.pred{justify-self:start}}
-.grades{margin-top:22px;border-top:2px solid var(--line-strong)}
-.grade-row{
-  display:grid;grid-template-columns:minmax(0,1.4fr) 70px minmax(0,1fr);
-  gap:18px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line);
-}
-.grade-row .course{font-size:15.5px;font-weight:600;color:var(--ink)}
-.grade-row .mark{
-  font-family:var(--mono);font-size:13px;font-weight:600;color:var(--accent);text-align:right;
-  font-variant-numeric:tabular-nums;
-}
-.grade-bar{height:7px;background:var(--track);border-radius:3px;overflow:hidden}
-.grade-bar i{display:block;height:100%;background:var(--data-1);border-radius:3px;width:var(--w,0%);transition:width .8s cubic-bezier(.2,.7,.2,1)}
-@media (prefers-reduced-motion:reduce){.grade-bar i{transition:none}}
-.grade-note{font-size:13px;color:var(--muted);padding-top:13px}
-@media(max-width:600px){.grade-row{grid-template-columns:1fr 58px}.grade-bar{display:none}}
-
-/* ---------- skills ---------- */
-.skill-row{display:grid;grid-template-columns:220px 1fr;gap:24px;padding:18px 0;border-bottom:1px solid var(--line)}
-.skill-row:last-child{border-bottom:none}
-.skill-cat{
-  font-family:var(--mono);font-size:11px;letter-spacing:.11em;text-transform:uppercase;
-  color:var(--faint);padding-top:4px;
-}
-.skill-items{font-size:16px;line-height:1.7}
-.skill-items b{font-weight:700;color:var(--ink)}
-@media(max-width:640px){.skill-row{grid-template-columns:1fr;gap:4px}}
-.award{
-  margin-top:36px;border:1px solid var(--line);border-radius:6px;background:var(--panel);
-  padding:18px 22px;display:flex;gap:18px;align-items:baseline;
-}
-.award .g-label{margin-bottom:0;white-space:nowrap;color:var(--accent)}
-.award p{font-size:15.5px}
-.award strong{color:var(--ink);font-weight:700}
-@media(max-width:520px){.award{flex-direction:column;gap:6px}}
-
-/* ---------- footer ---------- */
-footer{margin-top:104px;border-top:1px solid var(--line);background:var(--panel)}
-.foot-inner{max-width:1040px;margin:0 auto;padding:64px 28px 36px}
-.foot-inner h2{font-size:clamp(26px,4vw,40px);font-weight:700;line-height:1.15;max-width:680px}
-.foot-sub{margin-top:12px;font-size:16.5px;color:var(--muted);max-width:600px}
-.foot-links{display:flex;flex-wrap:wrap;gap:12px;margin:30px 0 56px}
-.foot-links a{
-  font-size:14.5px;font-weight:600;border:1px solid var(--line);border-radius:4px;
-  padding:11px 20px;color:var(--ink);background:#fff;
-}
-.foot-links a:hover{border-color:var(--accent);color:var(--accent);text-decoration:none}
-.foot-links a.primary{background:var(--accent);border-color:var(--accent);color:#fff}
-.foot-links a.primary:hover{background:#00506F}
-.foot-base{
-  border-top:1px solid var(--line);padding-top:20px;
-  display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;
-  font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);
+.map-load-btn:hover{background:var(--accent)}
+.map-note{
+  font-variant-caps:all-small-caps;letter-spacing:var(--track-caps);
+  font-size:.9375rem;
 }
 
-/* ---------- reveal (subtle) ---------- */
-.reveal{opacity:0;transform:translateY(10px);transition:opacity .45s ease,transform .45s ease}
-.reveal.in{opacity:1;transform:none}
-@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+/* ============================================================
+   SKILLS · EDUCATION · EXPERIENCE
+   ============================================================ */
+.row{
+  display:grid;grid-template-columns:minmax(0,14rem) minmax(0,1fr);
+  gap:.4em clamp(20px,3vw,40px);
+}
+.row+.row{margin-top:1.6em}
+.row>dt,.row .k{
+  font-variant-caps:all-small-caps;letter-spacing:var(--track-caps);
+  color:var(--ink-soft);
+}
+.row .v{max-width:var(--measure)}
+.row .v b{font-weight:600;color:var(--ink)}
+@media(max-width:680px){.row{grid-template-columns:1fr}}
 
-/* ---------- print ---------- */
+.award{margin-top:3em;display:flex;flex-wrap:wrap;gap:.4em 1.4em}
+.award .k{
+  font-variant-caps:all-small-caps;letter-spacing:var(--track-caps);
+  color:var(--accent);flex:none;
+}
+
+.degree-line{
+  display:flex;flex-wrap:wrap;align-items:baseline;gap:.4em 1.4em;
+  margin-bottom:2em;
+}
+.degree-line h3{font-size:1.25rem;font-weight:500}
+.degree-line .sub{color:var(--ink-soft)}
+.degree-line .pred{
+  margin-left:auto;color:var(--accent);white-space:nowrap;
+  font-variant-caps:all-small-caps;letter-spacing:var(--track-caps);
+}
+@media(max-width:760px){.degree-line .pred{margin-left:0}}
+
+/* experience */
+.post{
+  display:grid;grid-template-columns:minmax(0,11rem) minmax(0,1fr);
+  gap:.4em clamp(20px,3vw,40px);
+}
+.post+.post{margin-top:2.4em}
+.post .when{
+  font-variant-caps:all-small-caps;letter-spacing:var(--track-caps);
+  color:var(--ink-soft);
+}
+.post h3{font-size:1.1875rem;font-weight:500}
+.post .role{
+  color:var(--ink-soft);margin-bottom:.5em;
+  font-variant-caps:all-small-caps;letter-spacing:var(--track-caps);
+}
+@media(max-width:680px){.post{grid-template-columns:1fr}}
+
+/* ============================================================
+   COLOPHON
+   ============================================================ */
+.colophon .statement{
+  font-size:clamp(1.375rem,3vw,1.875rem);font-weight:500;
+  line-height:1.3;max-width:24ch;
+}
+.colophon .sub{margin-top:.8em;color:var(--ink-soft);max-width:var(--measure)}
+.colophon-base{
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:.4em 1.4em;
+  margin-top:clamp(44px,6vw,64px);color:var(--ink-soft);
+  font-variant-caps:all-small-caps;letter-spacing:var(--track-caps);
+}
+
+/* ============================================================
+   MOTION — one transition, reused
+   ============================================================ */
+.rise{
+  opacity:0;transform:translateY(18px);
+  transition:opacity var(--rise) var(--ease),transform var(--rise) var(--ease);
+}
+.rise.settled{opacity:1;transform:none}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{
+    animation-duration:.001ms !important;
+    transition-duration:120ms !important;
+  }
+  .rise{transform:none}
+}
+
+/* ============================================================
+   PRINT — a clean document on white. No stock, no desk, no shadow.
+   ============================================================ */
 @media print{
-  nav,.skip,.hero-contact,.map-load-btn,#tooltip,.scroll-cue{display:none !important}
-  body{font-size:11pt;color:#000}
+  :root{--ink:#000;--ink-soft:#333;--accent:#000;--rule:#bbb;--rule-firm:#000}
+  html{scroll-padding-top:0}
+  body{background:#fff;color:#000;font-size:10.5pt;line-height:1.45}
+  .cue,.card-index,.skip,#tooltip,.map-shell,.plate-frame video,
+  .results .r-go,.legend{display:none !important}
+  .plate-frame{border:0}
+  .paper{background:#fff !important;background-image:none !important;box-shadow:none !important}
+  .desk{min-height:0;padding:0 0 12pt;display:block}
+  .card{
+    width:100%;aspect-ratio:auto;transform:none;box-shadow:none;
+    border-bottom:1pt solid #000;padding-bottom:8pt;
+  }
+  .card-type{position:static;padding:0;transform:none;text-align:left;display:block}
+  .card-top{gap:1em}
+  .card-mid{align-items:flex-start;margin:6pt 0 4pt}
+  .card-base{justify-content:flex-start}
+  .hs-tl,.hs-tr,.hs-disc,.hs-base{font-size:8.5pt;color:#333;max-width:none}
+  .card-name{font-size:20pt}
+  .card .hs{text-shadow:none}
+  .sheet{
+    width:100%;max-width:none;margin:0;padding:10pt 0 0;
+    box-shadow:none;break-inside:auto;
+  }
+  main{padding-top:0}
+  .study,.post,.plate,.result,.metrics li,.sheet-head{break-inside:avoid}
+  .sheet-head{margin-bottom:10pt;padding-bottom:4pt}
+  /* two columns survive on paper: the aside is what keeps this to a
+     readable page count without dropping any of the content */
+  .study-grid{grid-template-columns:1.7fr 1fr;gap:16pt;margin-top:10pt}
+  .study-aside{position:static}
+  .study{padding-bottom:14pt}
+  .study+.study{padding-top:14pt}
+  .study h3{font-size:14pt}
+  .facts{margin-top:8pt;padding-bottom:6pt}
+  .metrics .fig{font-size:13pt}
+  .bars{height:52pt}
+  .chart-foot{margin-top:20pt}
+  .plate{margin-top:12pt}
+  .post{padding:8pt 0}
+  .colophon-base{margin-top:14pt}
+  table.figures tbody th,table.figures td{padding:3pt 0}
+  table.figures tbody th{padding-right:14pt}
+  .rise{opacity:1 !important;transform:none !important}
   a{color:#000;text-decoration:none}
-  .reveal{opacity:1 !important;transform:none !important}
-  [data-w]{width:attr(data-w) !important}
-  .project,.xp{break-inside:avoid}
-  section.wrap{margin:32pt auto 0}
-  .figure video{display:none}
-  .fig-cap a::after{content:" (" attr(href) ")";font-size:9pt;color:#555}
+  .fig-link::after,.contact-row a::after{content:" (" attr(href) ")";font-size:8pt;color:#555}
 }
 </style>
 </head>
-<body>
-<a class="skip" href="#projects">Skip to case studies</a>
+<body class="on-desk">
+<a class="skip" href="#about">Skip to content</a>
 
-<nav aria-label="Main">
-  <div class="nav-inner">
-    <a class="nav-name" href="#top">Farhang Bakhshi</a>
-    <div class="nav-links">
-      <a href="#projects">Case studies</a>
-      <a href="#experience">Experience</a>
-      <a href="#education">Education</a>
-      <a href="#skills">Skills</a>
+<!-- ============ the card ============ -->
+<header class="desk" id="top">
+  <article class="card paper" aria-label="Calling card — select a line to open a section">
+    <div class="card-type">
+      <div class="card-top">
+        <a class="hs hs-tl" href="#skills"
+           aria-label="Data science and quantitative modelling — open Skills">Data Science &amp; Quantitative Modelling</a>
+        <a class="hs hs-tr" href="#education"
+           aria-label="University of Edinburgh — open Education">University of Edinburgh</a>
+      </div>
+      <div class="card-mid">
+        <h1 class="card-name"><a class="hs" href="#about"
+           aria-label="Farhang Bakhshi — open About">Farhang Bakhshi</a></h1>
+        <a class="hs hs-disc" href="#work"
+           aria-label="Machine learning, econometrics, optimisation — open Case studies">Machine Learning &middot; Econometrics &middot; Optimisation</a>
+      </div>
+      <div class="card-base">
+        <a class="hs hs-base" href="#experience"
+           aria-label="London, email, LinkedIn, GitHub — open Experience and contact">London &middot; farhangbak@gmail.com &middot; LinkedIn &middot; GitHub</a>
+      </div>
     </div>
-    <a class="nav-cta" href="mailto:farhangbak@gmail.com">Email me</a>
-  </div>
-</nav>
+  </article>
 
-<header id="top" class="wrap">
-  <div class="hero-eyebrow">
-    <span>Data science portfolio</span>
-    <span>London, UK · 2026</span>
+  <p class="cue" id="cue">Select a line</p>
+
+  <nav class="card-index" aria-label="Sections">
+    <a href="#about">About</a>
+    <a href="#education">Education</a>
+    <a href="#experience">Experience</a>
+    <a href="#work">Case studies</a>
+    <a href="#skills">Skills</a>
+    <a href="#coursework">Coursework</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<main>
+<!-- ============ ABOUT ============ -->
+<section class="sheet paper" id="about">
+  <div class="sheet-head">
+    <h2>About</h2>
+    <span class="aside">Edinburgh &middot; London &mdash; MMXXVI</span>
   </div>
-  <h1>Farhang Bakhshi</h1>
-  <p class="hero-role">Machine learning · Econometrics · Mathematical optimisation</p>
-  <p class="hero-thesis">
-    Penultimate-year Computer Science and Management Science student at the University of Edinburgh,
-    currently a Data Science intern at Ekimetrics, London.
-  </p>
-  <div class="hero-contact">
-    <a class="primary" href="mailto:farhangbak@gmail.com">farhangbak@gmail.com</a>
+
+  <div class="about-body">
+    <p>I am a Computer Science and Management Science student at the University of Edinburgh, graduating in 2028 with a predicted First. I am currently a <strong>Business Science intern at Ekimetrics</strong> in London, where I work on marketing mix modelling alongside the data engineering and analysis that support it. Before joining Ekimetrics I spent sixteen weeks at Loopsio, building the application layer of a computer-vision product for structural inspection.</p>
+  </div>
+
+  <div class="contact-row">
+    <a href="mailto:farhangbak@gmail.com">farhangbak@gmail.com</a>
     <a href="https://www.linkedin.com/in/farhang-bakhshi-854423347/" target="_blank" rel="noopener">LinkedIn</a>
     <a href="https://github.com/Farhangbakhs" target="_blank" rel="noopener">GitHub</a>
   </div>
 
-  <div class="results" role="list" aria-label="Headline results">
-    <a class="result" role="listitem" href="#p1">
+  <div class="results rise">
+    <a class="result" href="#p1">
       <span class="r-field">Software engineering</span>
       <span class="r-num">3 models shipped</span>
-      <span class="r-what">Three research computer-vision models, shipped as one desktop app with signed installers for Windows, macOS and Linux.</span>
-      <span class="r-link">Case study 01 ↓</span>
+      <span class="r-go">Case study 01</span>
+      <span class="r-what">Three research vision models, shipped as one desktop application with signed installers for Windows, macOS and Linux.</span>
     </a>
-    <a class="result" role="listitem" href="#p2">
+    <a class="result" href="#p2">
       <span class="r-field">Operations research</span>
       <span class="r-num">12,578 schools</span>
+      <span class="r-go">Case study 02</span>
       <span class="r-what">A five-year, $125M internet rollout for Honduras, planned against a 20% budget cut.</span>
-      <span class="r-link">Case study 02 ↓</span>
     </a>
-    <a class="result" role="listitem" href="#p3">
+    <a class="result" href="#p3">
       <span class="r-field">Machine learning</span>
       <span class="r-num">9 of 9 tournaments</span>
-      <span class="r-what">A World Cup predictor that beat the baseline in all nine held-out tournaments, 1990 to 2022.</span>
-      <span class="r-link">Case study 03 ↓</span>
+      <span class="r-go">Case study 03</span>
+      <span class="r-what">A leakage-free pipeline that beats the majority-class baseline in every held-out World Cup from 1990 to 2022.</span>
     </a>
   </div>
 
-  <div class="glance">
+  <dl class="glance rise">
     <div>
-      <span class="g-label">Currently</span>
-      <span class="g-value">Data Science Intern, Ekimetrics (Jul&ndash;Dec 2026)</span>
+      <dt>Currently</dt>
+      <dd>Business Science Intern, Ekimetrics</dd>
     </div>
     <div>
-      <span class="g-label">Education</span>
-      <span class="g-value">BSc CS &amp; Management Science, Edinburgh · predicted First</span>
+      <dt>Education</dt>
+      <dd>BSc CS &amp; Management Science, Edinburgh</dd>
     </div>
     <div>
-      <span class="g-label">Focus</span>
-      <span class="g-value">ML · econometrics · optimisation</span>
+      <dt>Focus</dt>
+      <dd>ML &middot; econometrics &middot; optimisation</dd>
     </div>
     <div>
-      <span class="g-label">Open to</span>
-      <span class="g-value">2027 data science &amp; quantitative internships</span>
+      <dt>Graduating</dt>
+      <dd>2028</dd>
+    </div>
+  </dl>
+</section>
+
+<!-- ============ EDUCATION ============ -->
+<section class="sheet paper" id="education">
+  <div class="sheet-head">
+    <h2>Education</h2>
+    <span class="aside">Edinburgh</span>
+  </div>
+
+  <div class="rise">
+    <div class="degree-line">
+      <h3>University of Edinburgh</h3>
+      <span class="sub">BSc (Hons) Computer Science and Management Science &middot; graduating 2028</span>
+      <span class="pred">Predicted First-Class Honours</span>
     </div>
   </div>
-</header>
+</section>
 
-<main>
-<!-- ================= PROJECTS ================= -->
-<section id="projects" class="wrap">
-  <div class="sec-head">
-    <h2 class="sec-title">Case studies</h2>
-    <span class="sec-note">Problem · Approach · Outcome</span>
+<!-- ============ EXPERIENCE ============ -->
+<section class="sheet paper" id="experience">
+  <div class="sheet-head">
+    <h2>Experience</h2>
+    <span class="aside">Edinburgh &middot; London</span>
   </div>
 
-  <!-- ALICS -->
-  <article class="project reveal" id="p1">
-    <div class="proj-eyebrow"><b>01</b><span class="disc">Software engineering</span><span>· Industry placement, Loopsio · 2026</span></div>
+  <div class="rise">
+    <article class="post">
+      <p class="when">Jul 2026 &ndash; present</p>
+      <div>
+        <h3>Ekimetrics &middot; London</h3>
+        <p class="role">Business Science Intern</p>
+        <p>I build and validate marketing mix models and forecasting tools in Python for retail, automotive and luxury clients, working across econometric and Bayesian specifications depending on the brief. The role also covers the data engineering that feeds those models, ingesting and reconciling client media, sales and market data, along with the exploratory analysis that goes into client deliverables.</p>
+      </div>
+    </article>
+
+    <article class="post">
+      <p class="when">2026</p>
+      <div>
+        <h3>Loopsio &middot; UK</h3>
+        <p class="role">Software Developer, ALICS</p>
+        <p>A sixteen-week project in a team of four. I built the application layer that turned three research computer-vision models into a cross-platform desktop tool for structural crack surveying, described in full in case study 01 below.</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ============ CASE STUDIES ============ -->
+<section class="sheet paper" id="work">
+  <div class="sheet-head">
+    <h2>Case studies</h2>
+    <span class="aside">Problem &middot; Approach &middot; Outcome</span>
+  </div>
+
+  <!-- ---- 01 ALICS ---- -->
+  <article class="study rise" id="p1">
+    <p class="study-eyebrow">
+      <span class="no">01</span>
+      <span>Software engineering</span>
+      <span>Loopsio &middot; 2026</span>
+    </p>
     <h3>ALICS: productionising computer vision for structural inspection</h3>
-    <p class="proj-tldr">The application layer that turned three research crack-detection models into a desktop product surveyors install and run on site.</p>
-    <div class="facts">
-      <span><b>Role</b> Software developer (team of 4)</span>
-      <span><b>Duration</b> 16 weeks</span>
-      <span><b>Evidence</b> <a href="#fig1">demo video below</a></span>
-    </div>
-    <div class="proj-grid">
-      <div class="proj-body">
-        <p><strong>Problem.</strong> Three research computer-vision models (YOLO detection, U-Net segmentation, photometric-stereo 3D reconstruction) existed only as lab code. Civil engineers needed to run calibrated crack analysis offline, on site, and export engineering-grade reports, without installing Python or touching a terminal.</p>
-        <p><strong>Approach.</strong> I built the entire application layer around the pre-existing analysis code: a Tauri 2 / Rust backend, a React 19 + TypeScript frontend, and a zero-copy Rust-to-Python inference bridge using PyO3 with NumPy ndarray views, so multi-megapixel images cross the language boundary without serialisation. A 12-migration SQLite layer persists per-scan, per-cell analysis results, including a BLOB migration that resolved row-size limits on large scans.</p>
-        <p><strong>Outcome.</strong> Shipped as signed installers for Windows, macOS and Linux with a fully bundled Python runtime. The tool outputs calibrated crack-width measurements in millimetres, a Three.js 3D mesh viewer with a signed depth scale, and templated PDF inspection reports suitable for structural documentation.</p>
+    <p class="facts">
+      <span><b>Role</b> <span>Software developer, team of 4</span></span>
+      <span><b>Duration</b> <span>16 weeks</span></span>
+      <span><b>Evidence</b> <a href="#fig1">film below</a></span>
+    </p>
+
+    <div class="study-grid">
+      <div class="study-body">
+        <p><strong>Problem.</strong> Three research computer-vision models existed only as lab code: YOLO detection, U-Net segmentation and photometric-stereo 3D reconstruction. Civil engineers needed to run all three offline and on site, without installing Python or working in a terminal.</p>
+        <p><strong>Approach.</strong> I built the application layer around the existing analysis code: a Tauri 2 and Rust backend, a React 19 and TypeScript frontend, and a zero-copy Rust-to-Python inference bridge over PyO3 that uses NumPy ndarray views, so that multi-megapixel images cross the language boundary without serialisation. Results are persisted per scan and per cell in a SQLite layer with twelve migrations, one of which moved image data into BLOB storage to resolve row-size limits on large scans.</p>
+        <p><strong>Outcome.</strong> The tool ships as signed installers for Windows, macOS and Linux with the Python runtime bundled, so a surveyor installs it like any other desktop application. It reports crack width in millimetres against a calibration target, renders a Three.js mesh with a signed depth scale, and exports templated PDF inspection reports suitable for structural documentation.</p>
       </div>
-      <aside class="proj-aside">
-        <div class="metric-strip">
-          <div class="m-row">
-            <div class="metric"><span class="val">3</span><span class="lab">Research vision models shipped</span></div>
-            <div class="metric"><span class="val">Zero-copy</span><span class="lab">Rust to Python image bridge (PyO3)</span></div>
-          </div>
-          <div class="m-row">
-            <div class="metric"><span class="val">4</span><span class="lab">Platforms with signed installers</span></div>
-            <div class="metric"><span class="val">12</span><span class="lab">SQLite schema migrations</span></div>
-          </div>
-        </div>
-        <div class="tags">
-          <span class="tag">Tauri 2</span><span class="tag">Rust</span><span class="tag">React 19</span>
-          <span class="tag">TypeScript</span><span class="tag">PyO3</span><span class="tag">SQLite</span>
-          <span class="tag">Three.js</span><span class="tag">GitHub Actions</span>
-        </div>
+      <aside class="study-aside">
+        <ul class="metrics">
+          <li><span class="fig">3</span><span class="cap">Research vision models shipped</span></li>
+          <li><span class="fig">4</span><span class="cap">Platforms with signed installers</span></li>
+          <li><span class="fig">12</span><span class="cap">SQLite schema migrations</span></li>
+          <li><span class="fig fig-word">Zero-copy</span><span class="cap">Rust to Python image bridge (PyO3)</span></li>
+        </ul>
+        <p class="tags">Tauri 2 &middot; Rust &middot; React 19 &middot; TypeScript &middot; PyO3 &middot; SQLite &middot; Three.js &middot; GitHub Actions</p>
       </aside>
     </div>
 
-    <figure class="figure reveal" id="fig1">
-      <div class="media-head">
-        <span class="ref">Fig. 1</span>
-        <span class="m-title">ALICS desktop application · recorded demo</span>
-        <span class="m-meta">MP4 · 00:33 · 720p</span>
+    <figure class="plate rise" id="fig1">
+      <div class="plate-frame">
+        <video controls preload="metadata" poster="alics_poster.jpg" playsinline
+               aria-label="Screen recording of the ALICS desktop application running crack detection and analysis">
+          <source src="alics.mp4" type="video/mp4">
+          Your browser does not support embedded video. <a href="alics.mp4">Download the demo</a>.
+        </video>
       </div>
-      <video controls preload="metadata" poster="alics_poster.jpg" playsinline
-             aria-label="Screen recording of the ALICS desktop application running crack detection and analysis">
-        <source src="alics.mp4" type="video/mp4">
-        Your browser does not support embedded video. <a href="alics.mp4">Download the demo</a>.
-      </video>
-      <figcaption class="fig-cap">
-        <span>Detection · segmentation · 3D reconstruction · PDF export</span>
-        <a href="alics.mp4" download>Download video ↓</a>
+      <figcaption>
+        <span class="fig-no">Fig. 1</span>
+        <span class="fig-title">ALICS desktop application</span>
+        <a class="fig-link" href="alics.mp4" download>Download the film</a>
+        <em class="fig-desc">Detection, segmentation, 3D reconstruction and PDF export, in sequence. MP4, 33 seconds, 720p.</em>
       </figcaption>
     </figure>
   </article>
 
-  <!-- MILP -->
-  <article class="project reveal" id="p2">
-    <div class="proj-eyebrow"><b>02</b><span class="disc">Operations research</span><span>· Coursework, Mathematical Programming in Advanced Analytics · 2026</span></div>
+  <!-- ---- 02 MILP ---- -->
+  <article class="study rise" id="p2">
+    <p class="study-eyebrow">
+      <span class="no">02</span>
+      <span>Operations research</span>
+      <span>Coursework, Mathematical Programming in Advanced Analytics &middot; 2026</span>
+    </p>
     <h3>School connectivity optimisation under budget uncertainty</h3>
-    <p class="proj-tldr">A multi-period MILP and two-stage stochastic programme allocating a $125M national budget across 12,578 Honduran schools, solved twice to put a price on political deployment milestones.</p>
-    <div class="facts">
-      <span><b>Role</b> Geospatial pipeline &amp; modelling (team project)</span>
-      <span><b>Solver</b> Gurobi via Julia/JuMP</span>
-      <span><b>Evidence</b> <a href="#fig2">interactive dashboard below</a></span>
-    </div>
-    <div class="proj-grid">
-      <div class="proj-body">
-        <p><strong>Problem.</strong> Roughly 93% of Honduran public schools have no internet connection. Connectivity requires a three-layer prerequisite chain (tower, then WISP equipment, then school devices) with an 18:1 cost gap between equipping an existing tower and building a new one, phased over five years against an uncertain budget.</p>
-        <p><strong>Approach.</strong> Our team formulated a multi-period mixed-integer linear programme: budgeted maximal covering, prerequisite sequencing constraints, soft annual deployment milestones, and a two-stage stochastic extension hedging a ±20% budget shock in years 3 to 5. I built the geospatial data pipeline over 15,000+ schools and 7,297 candidate tower sites using a 10 km Haversine coverage radius.</p>
-        <p><strong>Outcome.</strong> We solved the model twice on purpose: once unrestricted, connecting 98.7% of in-scope schools, and once with political deployment milestones, which costs 24.3 percentage points of final coverage, roughly 125 schools per point of early visibility. Both solutions are embedded in the dashboard below; switching scenario shows the 3,046-school gap materialise on the map. The stochastic extension adds a 1,067-school robust core immune to budget cuts, with EVPI and VSS bounds of at least 263 and 177 schools.</p>
+    <p class="facts">
+      <span><b>Role</b> <span>Geospatial pipeline and modelling, team project</span></span>
+      <span><b>Solver</b> <span>Gurobi via Julia/JuMP</span></span>
+      <span><b>Evidence</b> <a href="#fig2">dashboard below</a></span>
+    </p>
+
+    <div class="study-grid">
+      <div class="study-body">
+        <p><strong>Problem.</strong> Around 93% of Honduran public schools have no internet connection. Connecting one requires a three-layer prerequisite chain that has to be built in order: a tower, then WISP equipment, then devices in the school itself. Building a new tower costs eighteen times as much as equipping an existing one, and the national budget is both phased over five years and uncertain at the outset.</p>
+        <p><strong>Approach.</strong> The team formulated a multi-period mixed-integer linear programme: budgeted maximal covering, prerequisite sequencing constraints, soft annual deployment milestones, and a two-stage stochastic extension hedging a &plusmn;20% budget shock in years 3 to 5. I built the geospatial pipeline over 15,000+ schools and 7,297 candidate tower sites, using a 10 km Haversine coverage radius.</p>
+        <p><strong>Outcome.</strong> Left unrestricted, the model connects 98.7% of in-scope schools. Imposing the political deployment milestones brings that down to 74.4%, a gap of 3,046 schools, or roughly 125 schools for every percentage point of early visibility bought. We solved both versions deliberately, so that the cost of the milestones could be quoted as a figure rather than argued about, and both are embedded in the dashboard below. The stochastic extension secures a 1,067-school core that survives a budget cut, with EVPI and VSS bounds of at least 263 and 177 schools respectively.</p>
       </div>
-      <aside class="proj-aside">
-        <div class="metric-strip">
-          <div class="m-row">
-            <div class="metric"><span class="val">12,578</span><span class="lab">Schools in scope · 7,297 candidate towers</span></div>
-            <div class="metric"><span class="val">$125M</span><span class="lab">Five-year national budget</span></div>
-          </div>
-          <div class="m-row">
-            <div class="metric"><span class="val">24.3pp</span><span class="lab">Coverage given up to hit annual milestones</span></div>
-            <div class="metric"><span class="val">≥177</span><span class="lab">Extra schools secured by hedging the budget</span></div>
-          </div>
-        </div>
-        <div class="compare reveal">
-          <div class="chart-title"><span>Year-5 connectivity by model variant</span></div>
-          <div class="cmp-row">
-            <div class="cmp-lab"><span>Deterministic, no milestones</span><b>98.7%</b></div>
-            <div class="cmp-track"><div class="cmp-fill" data-w="98.7%"></div></div>
-          </div>
-          <div class="cmp-row">
-            <div class="cmp-lab"><span>Deterministic, with milestones</span><b>74.4%</b></div>
-            <div class="cmp-track"><div class="cmp-fill" data-w="74.4%"></div></div>
-          </div>
-          <div class="cmp-row">
-            <div class="cmp-lab"><span>Stochastic, pessimistic budget (−20%)</span><b>50.2%</b></div>
-            <div class="cmp-track"><div class="cmp-fill" data-w="50.2%"></div></div>
-          </div>
-        </div>
-        <div class="tags">
-          <span class="tag">Julia</span><span class="tag">JuMP</span><span class="tag">Gurobi</span>
-          <span class="tag">MILP</span><span class="tag">Stochastic programming</span><span class="tag">Python</span>
-        </div>
+      <aside class="study-aside">
+        <ul class="metrics">
+          <li><span class="fig">12,578</span><span class="cap">Schools in scope &middot; 7,297 candidate towers</span></li>
+          <li><span class="fig">$125M</span><span class="cap">Five-year national budget</span></li>
+          <li><span class="fig">24.3pp</span><span class="cap">Coverage given up to hit annual milestones</span></li>
+          <li><span class="fig">&ge;177</span><span class="cap">Extra schools secured by hedging the budget</span></li>
+        </ul>
+
+        <table class="figures lead spaced">
+          <caption>Year-5 connectivity by model variant</caption>
+          <tbody>
+            <tr><th scope="row">Deterministic, no milestones</th><td>98.7%</td></tr>
+            <tr><th scope="row">Deterministic, with milestones</th><td>74.4%</td></tr>
+            <tr><th scope="row">Stochastic, pessimistic budget (&minus;20%)</th><td>50.2%</td></tr>
+          </tbody>
+        </table>
+
+        <p class="tags">Julia &middot; JuMP &middot; Gurobi &middot; MILP &middot; Stochastic programming &middot; Python</p>
       </aside>
     </div>
 
-    <figure class="figure reveal" id="fig2">
-      <div class="media-head">
-        <span class="ref">Fig. 2</span>
-        <span class="m-title">Honduras deployment dashboard · both deterministic solutions</span>
-        <span class="m-meta">Interactive · MapLibre + deck.gl</span>
-      </div>
-      <div class="map-shell" id="milp-map">
-        <div class="map-facade">
-          <div class="grid-deco" aria-hidden="true"></div>
-          <p>12,578 schools · both solved rollouts embedded · year-by-year playback</p>
-          <button class="map-load-btn" id="milp-map-btn" type="button">Load interactive map</button>
-          <span class="map-note">Loads a 5.6 MB embed</span>
+    <figure class="plate rise" id="fig2">
+      <div class="plate-frame">
+        <div class="map-shell" id="milp-map">
+          <div class="map-facade">
+            <p>12,578 schools &middot; both solved rollouts embedded &middot; year-by-year playback</p>
+            <button class="map-load-btn" id="milp-map-btn" type="button">Load interactive map</button>
+            <span class="map-note">Loads a 5.6 MB embed</span>
+          </div>
         </div>
       </div>
-      <figcaption class="fig-cap">
-        <span>Opens on the milestone rollout · use the scenario switch to compare against the unrestricted optimum</span>
-        <a href="DeterministicMap_embedded.html" target="_blank" rel="noopener">Open full screen ↗</a>
+      <figcaption>
+        <span class="fig-no">Fig. 2</span>
+        <span class="fig-title">Honduras deployment dashboard</span>
+        <a class="fig-link" href="DeterministicMap_embedded.html" target="_blank" rel="noopener">Open full screen</a>
+        <em class="fig-desc">Opens on the milestone rollout. The scenario switch compares it against the unrestricted optimum. MapLibre and deck.gl.</em>
       </figcaption>
     </figure>
   </article>
 
-  <!-- WC2026 -->
-  <article class="project reveal" id="p3">
-    <div class="proj-eyebrow"><b>03</b><span class="disc">Machine learning &amp; statistics</span><span>· Personal project · 2026</span></div>
-    <h3>World Cup 2026 bracket predictor</h3>
-    <p class="proj-tldr">A LightGBM + Poisson ensemble trained on 96 years of tournament history. It beats the baseline in all nine held-out World Cups.</p>
-    <div class="facts">
-      <span><b>Role</b> Solo, data pipeline to validation</span>
-      <span><b>Validation</b> Leave-one-tournament-out CV · 100k Monte Carlo</span>
-    </div>
-    <div class="proj-grid">
-      <div class="proj-body">
-        <p><strong>Problem.</strong> Sports prediction is notorious for leakage and overfitting: features quietly built on future information, test tournaments that bleed into training. The whole pipeline is built around preventing that.</p>
-        <p><strong>Approach.</strong> Custom regex state machines parse 1,402 matches across every World Cup since 1930 plus Euro and Copa América data. A sequential FeatureBuilder enforces a strict read-then-update invariant, so features for match <em>i</em> use only matches 0 to <em>i</em>−1. 42 features cover Elo (with confederation-tuned K-factors), career goal statistics, recent form, tournament experience and head-to-head record, feeding a LightGBM classifier blended 75/25 with a Poisson expected-goals GLM, tuned over 300 Optuna trials.</p>
-        <p><strong>Outcome.</strong> The model beats the majority-class baseline in all nine LOTO folds (1990 to 2022), averaging 52.4% accuracy with a +7.4pp lift. World Cup experience features turn out to matter more than raw Elo, and confederation membership carries no weight once performance features are included. The 100k-simulation bracket makes Brazil the most likely 2026 champion at 15.3%.</p>
+  <!-- ---- 03 World Cup ---- -->
+  <article class="study rise" id="p3">
+    <p class="study-eyebrow">
+      <span class="no">03</span>
+      <span>Machine learning &amp; statistics</span>
+      <span>Personal project &middot; 2026</span>
+    </p>
+    <h3>World Cup predictor, validated tournament by tournament</h3>
+    <p class="facts">
+      <span><b>Role</b> <span>Solo, data pipeline to validation</span></span>
+      <span><b>Validation</b> <span>Leave-one-tournament-out CV &middot; 100k Monte Carlo</span></span>
+    </p>
+
+    <div class="study-grid">
+      <div class="study-body">
+        <p><strong>Problem.</strong> Sports prediction is unusually prone to leakage. Features are easily built on information that did not exist at the time of the match, and held-out tournaments bleed into training through shared history. The pipeline is designed around preventing both.</p>
+        <p><strong>Approach.</strong> Regex state machines parse 1,402 matches from every World Cup since 1930, plus Euro and Copa Am&eacute;rica. A sequential FeatureBuilder enforces read-then-update, so features for match <em>i</em> use only matches 0 to <em>i</em>&minus;1. 42 features cover Elo with confederation-tuned K-factors, career goal statistics, recent form, tournament experience and head-to-head record. A LightGBM classifier is blended 75/25 with a Poisson expected-goals GLM, tuned over 300 Optuna trials.</p>
+        <p><strong>Outcome.</strong> The model beats the majority-class baseline in all nine leave-one-tournament-out folds, 1990 to 2022, averaging 52.4% against 45.0%. Its best fold is 2006, at 64.1%; its worst is 2002, at 43.8%, where the baseline was also at its weakest. Tournament experience carries more weight than raw Elo. Confederation membership carries none once performance features are in.</p>
+        <p><strong>2026.</strong> The bracket simulation was run before the tournament and put no team above 15.3%, which is to say it treated the field as open rather than backing a favourite. Spain went on to win. The model placed Spain fourth, at 9.2% to win the tournament and 16.0% to reach the final.</p>
       </div>
-      <aside class="proj-aside">
-        <div class="metric-strip">
-          <div class="m-row">
-            <div class="metric"><span class="val">+7.4pp</span><span class="lab">Accuracy above baseline, mean of 9 folds</span></div>
-            <div class="metric"><span class="val">100k</span><span class="lab">Simulated tournament brackets</span></div>
-          </div>
-          <div class="m-row">
-            <div class="metric"><span class="val">42</span><span class="lab">Leakage-free features</span></div>
-            <div class="metric"><span class="val">1,402</span><span class="lab">Matches parsed: World Cup, Euro, Copa</span></div>
-          </div>
-        </div>
-        <div class="chart reveal" aria-label="Leave-one-tournament-out cross-validation accuracy versus majority-class baseline by tournament year. Model beats baseline in all nine folds, mean 52.4 percent versus 45.0 percent.">
-          <div class="chart-title">
+      <aside class="study-aside">
+        <ul class="metrics">
+          <li><span class="fig">+7.4pp</span><span class="cap">Accuracy above baseline, mean of 9 folds</span></li>
+          <li><span class="fig">100k</span><span class="cap">Simulated tournament brackets</span></li>
+          <li><span class="fig">42</span><span class="cap">Leakage-free features</span></li>
+          <li><span class="fig">1,402</span><span class="cap">Matches parsed: World Cup, Euro, Copa</span></li>
+        </ul>
+
+        <div class="chart" aria-label="Leave-one-tournament-out cross-validation accuracy versus majority-class baseline by tournament year. Model beats baseline in all nine folds, mean 52.4 percent versus 45.0 percent.">
+          <p class="chart-title">
             <span>LOTO-CV accuracy by held-out tournament</span>
             <span class="legend">
               <span class="l-model"><i></i>Model</span>
               <span class="l-base"><i></i>Baseline</span>
             </span>
-          </div>
+          </p>
           <div class="bars" id="loto">
-            <div class="bar-group" tabindex="0" data-year="1990" data-model="57.7" data-base="51.9"><div class="bar model" style="height:57.7%"></div><div class="bar base" style="height:51.9%"></div><span class="bar-year">'90</span></div>
-            <div class="bar-group" tabindex="0" data-year="1994" data-model="55.8" data-base="48.1"><div class="bar model" style="height:55.8%"></div><div class="bar base" style="height:48.1%"></div><span class="bar-year">'94</span></div>
-            <div class="bar-group" tabindex="0" data-year="1998" data-model="45.3" data-base="43.8"><div class="bar model" style="height:45.3%"></div><div class="bar base" style="height:43.8%"></div><span class="bar-year">'98</span></div>
-            <div class="bar-group" tabindex="0" data-year="2002" data-model="43.8" data-base="42.2"><div class="bar model" style="height:43.8%"></div><div class="bar base" style="height:42.2%"></div><span class="bar-year">'02</span></div>
-            <div class="bar-group" tabindex="0" data-year="2006" data-model="64.1" data-base="50.0"><div class="bar model" style="height:64.1%"></div><div class="bar base" style="height:50%"></div><span class="bar-year">'06</span></div>
-            <div class="bar-group" tabindex="0" data-year="2010" data-model="45.3" data-base="39.1"><div class="bar model" style="height:45.3%"></div><div class="bar base" style="height:39.1%"></div><span class="bar-year">'10</span></div>
-            <div class="bar-group" tabindex="0" data-year="2014" data-model="54.7" data-base="43.8"><div class="bar model" style="height:54.7%"></div><div class="bar base" style="height:43.8%"></div><span class="bar-year">'14</span></div>
-            <div class="bar-group" tabindex="0" data-year="2018" data-model="54.7" data-base="40.6"><div class="bar model" style="height:54.7%"></div><div class="bar base" style="height:40.6%"></div><span class="bar-year">'18</span></div>
-            <div class="bar-group" tabindex="0" data-year="2022" data-model="50.0" data-base="45.3"><div class="bar model" style="height:50%"></div><div class="bar base" style="height:45.3%"></div><span class="bar-year">'22</span></div>
+            <div class="bar-group" tabindex="0" role="img" aria-label="1990: model 57.7%, baseline 51.9%" data-year="1990" data-model="57.7" data-base="51.9"><div class="bar model" style="height:57.7%"></div><div class="bar base" style="height:51.9%"></div><span class="bar-year">&rsquo;90</span></div>
+            <div class="bar-group" tabindex="0" role="img" aria-label="1994: model 55.8%, baseline 48.1%" data-year="1994" data-model="55.8" data-base="48.1"><div class="bar model" style="height:55.8%"></div><div class="bar base" style="height:48.1%"></div><span class="bar-year">&rsquo;94</span></div>
+            <div class="bar-group" tabindex="0" role="img" aria-label="1998: model 45.3%, baseline 43.8%" data-year="1998" data-model="45.3" data-base="43.8"><div class="bar model" style="height:45.3%"></div><div class="bar base" style="height:43.8%"></div><span class="bar-year">&rsquo;98</span></div>
+            <div class="bar-group" tabindex="0" role="img" aria-label="2002: model 43.8%, baseline 42.2%" data-year="2002" data-model="43.8" data-base="42.2"><div class="bar model" style="height:43.8%"></div><div class="bar base" style="height:42.2%"></div><span class="bar-year">&rsquo;02</span></div>
+            <div class="bar-group" tabindex="0" role="img" aria-label="2006: model 64.1%, baseline 50.0%" data-year="2006" data-model="64.1" data-base="50.0"><div class="bar model" style="height:64.1%"></div><div class="bar base" style="height:50%"></div><span class="bar-year">&rsquo;06</span></div>
+            <div class="bar-group" tabindex="0" role="img" aria-label="2010: model 45.3%, baseline 39.1%" data-year="2010" data-model="45.3" data-base="39.1"><div class="bar model" style="height:45.3%"></div><div class="bar base" style="height:39.1%"></div><span class="bar-year">&rsquo;10</span></div>
+            <div class="bar-group" tabindex="0" role="img" aria-label="2014: model 54.7%, baseline 43.8%" data-year="2014" data-model="54.7" data-base="43.8"><div class="bar model" style="height:54.7%"></div><div class="bar base" style="height:43.8%"></div><span class="bar-year">&rsquo;14</span></div>
+            <div class="bar-group" tabindex="0" role="img" aria-label="2018: model 54.7%, baseline 40.6%" data-year="2018" data-model="54.7" data-base="40.6"><div class="bar model" style="height:54.7%"></div><div class="bar base" style="height:40.6%"></div><span class="bar-year">&rsquo;18</span></div>
+            <div class="bar-group" tabindex="0" role="img" aria-label="2022: model 50.0%, baseline 45.3%" data-year="2022" data-model="50.0" data-base="45.3"><div class="bar model" style="height:50%"></div><div class="bar base" style="height:45.3%"></div><span class="bar-year">&rsquo;22</span></div>
           </div>
-          <div class="chart-foot">Mean <b>52.4%</b> vs 45.0% baseline · beats baseline in every fold</div>
+          <p class="chart-foot">Mean <b>52.4%</b> against a <b>45.0%</b> baseline</p>
         </div>
-        <div class="tags">
-          <span class="tag">Python</span><span class="tag">LightGBM</span><span class="tag">Poisson GLM</span>
-          <span class="tag">Optuna</span><span class="tag">pandas</span><span class="tag">Monte Carlo</span>
-        </div>
+
+        <p class="tags">Python &middot; LightGBM &middot; Poisson GLM &middot; Optuna &middot; pandas &middot; Monte Carlo</p>
       </aside>
     </div>
 
-    <figure class="figure reveal">
-      <div class="mc-final">
-        <span>Deterministic bracket path: <b>Brazil defeats France in the final</b></span>
-        <span class="p">P(match) = 52.7%</span>
-      </div>
-      <div class="mc-body" role="img" aria-label="Tournament outcome probabilities from 100,000 Monte Carlo simulations. Brazil 15.3 percent to win, Argentina 14.3, France 11.2, Spain 9.2, Portugal 6.6, England 6.2.">
-        <div class="mc-legend">
-          <span class="win"><i></i>Wins tournament</span>
-          <span class="fin"><i></i>Reaches final, eliminated</span>
-        </div>
-        <div class="mc-row">
-          <span class="mc-team">Brazil</span>
-          <div class="mc-track"><div class="win-bar" data-w="58.8%"></div><div class="fin-bar" data-w="40.4%"></div></div>
-          <span class="mc-vals"><b>15.3%</b> / 25.8%</span>
-        </div>
-        <div class="mc-row">
-          <span class="mc-team">Argentina</span>
-          <div class="mc-track"><div class="win-bar" data-w="55.0%"></div><div class="fin-bar" data-w="39.2%"></div></div>
-          <span class="mc-vals"><b>14.3%</b> / 24.5%</span>
-        </div>
-        <div class="mc-row">
-          <span class="mc-team">France</span>
-          <div class="mc-track"><div class="win-bar" data-w="43.1%"></div><div class="fin-bar" data-w="30.7%"></div></div>
-          <span class="mc-vals"><b>11.2%</b> / 19.2%</span>
-        </div>
-        <div class="mc-row">
-          <span class="mc-team">Spain</span>
-          <div class="mc-track"><div class="win-bar" data-w="35.4%"></div><div class="fin-bar" data-w="26.1%"></div></div>
-          <span class="mc-vals"><b>9.2%</b> / 16.0%</span>
-        </div>
-        <div class="mc-row">
-          <span class="mc-team">Portugal</span>
-          <div class="mc-track"><div class="win-bar" data-w="25.4%"></div><div class="fin-bar" data-w="21.9%"></div></div>
-          <span class="mc-vals"><b>6.6%</b> / 12.3%</span>
-        </div>
-        <div class="mc-row">
-          <span class="mc-team">England</span>
-          <div class="mc-track"><div class="win-bar" data-w="23.8%"></div><div class="fin-bar" data-w="21.6%"></div></div>
-          <span class="mc-vals"><b>6.2%</b> / 11.8%</span>
-        </div>
-      </div>
-      <figcaption class="fig-cap">
-        <span><b>Fig. 3</b> · Tournament outcomes across 100,000 simulated brackets</span>
-        <span>Top 6 of 16 remaining teams</span>
+    <figure class="plate rise">
+      <table class="figures">
+        <thead>
+          <tr>
+            <th scope="col">Team</th>
+            <th scope="col">Wins</th>
+            <th scope="col">Reaches final</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">Brazil</th><td>15.3%</td><td class="dim">25.8%</td></tr>
+          <tr><th scope="row">Argentina</th><td>14.3%</td><td class="dim">24.5%</td></tr>
+          <tr><th scope="row">France</th><td>11.2%</td><td class="dim">19.2%</td></tr>
+          <tr><th scope="row">Spain <span class="won">won</span></th><td>9.2%</td><td class="dim">16.0%</td></tr>
+          <tr><th scope="row">Portugal</th><td>6.6%</td><td class="dim">12.3%</td></tr>
+          <tr><th scope="row">England</th><td>6.2%</td><td class="dim">11.8%</td></tr>
+        </tbody>
+      </table>
+      <figcaption>
+        <span class="fig-no">Fig. 3</span>
+        <span class="fig-title">Pre-tournament distribution, 100,000 simulated brackets</span>
+        <em class="fig-desc">The top six of the sixteen teams still in contention when the simulation was run. The distribution is flat: nine percentage points separate first from sixth.</em>
       </figcaption>
     </figure>
   </article>
 </section>
 
-<!-- ================= EXPERIENCE ================= -->
-<section id="experience" class="wrap">
-  <div class="sec-head">
-    <h2 class="sec-title">Experience</h2>
-    <span class="sec-note">2022&ndash;present</span>
+<!-- ============ SKILLS ============ -->
+<section class="sheet paper" id="skills">
+  <div class="sheet-head">
+    <h2>Skills</h2>
   </div>
 
-  <div class="xp reveal">
-    <div class="xp-when">Jul&ndash;Dec 2026</div>
-    <div>
-      <h4>Ekimetrics · London</h4>
-      <div class="role">Data Science Intern, Marketing Effectiveness</div>
-      <p>Building and validating marketing mix models and forecasting tools in Python for retail, automotive and luxury clients, plus an individual R&amp;D project presented to firm leadership.</p>
+  <dl class="rows rise">
+    <div class="row">
+      <dt>Machine learning</dt>
+      <dd class="v"><b>scikit-learn, XGBoost, LightGBM, PyTorch</b> &middot; cross-validation, hyperparameter tuning, probability calibration, feature engineering</dd>
     </div>
-  </div>
+    <div class="row">
+      <dt>Statistics &amp; optimisation</dt>
+      <dd class="v"><b>Mixed-integer and two-stage stochastic programming (JuMP/Gurobi)</b> &middot; regression, ANOVA, time-series and econometric modelling</dd>
+    </div>
+    <div class="row">
+      <dt>Data &amp; visualisation</dt>
+      <dd class="v"><b>pandas, NumPy</b> &middot; Matplotlib, Plotly, Seaborn, Streamlit, web scraping (Selenium)</dd>
+    </div>
+    <div class="row">
+      <dt>Data engineering</dt>
+      <dd class="v"><b>SQL</b> &middot; SQLite, PostgreSQL, ETL pipelines, database design</dd>
+    </div>
+    <div class="row">
+      <dt>Languages &amp; tools</dt>
+      <dd class="v"><b>Python, SQL, Julia</b> &middot; Git, Docker, FastAPI, REST APIs, Jupyter &middot; working knowledge of Rust and TypeScript</dd>
+    </div>
+  </dl>
 
-  <div class="xp reveal">
-    <div class="xp-when">2026</div>
-    <div>
-      <h4>Loopsio · UK</h4>
-      <div class="role">Software Developer, ALICS (16-week placement, team of 4)</div>
-      <p>Built the application layer productionising three research computer-vision models into a cross-platform desktop tool for structural crack surveying. Full case study above.</p>
-    </div>
-  </div>
-
-  <div class="xp reveal">
-    <div class="xp-when">2023&ndash;2025</div>
-    <div>
-      <h4>Olivieros Restaurant · Edinburgh</h4>
-      <div class="role">Team Manager</div>
-      <p>Led a team of six across 100+ cover shifts. Later built the restaurant&rsquo;s analytics platform (Python, FastAPI, Streamlit) over 22 weeks of data and £210K+ revenue; it&rsquo;s still in daily use by the owner and has found £400–900 a month in savings.</p>
-    </div>
-  </div>
-
-  <div class="xp reveal">
-    <div class="xp-when">2022</div>
-    <div>
-      <h4>Kodland · Remote</h4>
-      <div class="role">Python Instructor</div>
-      <p>Taught four weekly Python classes to students aged 7 to 12, maintaining over 90% retention.</p>
-    </div>
-  </div>
+  <p class="award rise">
+    <span class="k">Award</span>
+    <span><strong>Second of thirty teams at an Anthropic-sponsored hackathon, 2024.</strong> Built and presented a working prototype in three hours.</span>
+  </p>
 </section>
 
-<!-- ================= EDUCATION ================= -->
-<section id="education" class="wrap">
-  <div class="sec-head">
-    <h2 class="sec-title">Education</h2>
-    <span class="sec-note">University of Edinburgh</span>
+<!-- ============ COURSEWORK ============ -->
+<section class="sheet paper" id="coursework">
+  <div class="sheet-head">
+    <h2>Coursework</h2>
+    <span class="aside">Selected, 2022&ndash;2026</span>
   </div>
 
-  <div class="edu-intro reveal">
-    <div>
-      <h4>University of Edinburgh</h4>
-      <div class="degree">BSc (Hons) Computer Science and Management Science · expected 2028</div>
-    </div>
-    <div class="pred">Predicted First-Class Honours</div>
-  </div>
-
-  <div class="grades reveal">
-    <div class="grade-row">
-      <span class="course">Informatics Large Practical</span>
-      <span class="mark">89 · A2</span>
-      <div class="grade-bar"><i data-w="89%"></i></div>
-    </div>
-    <div class="grade-row">
-      <span class="course">Entrepreneurship and Business Growth</span>
-      <span class="mark">72 · A3</span>
-      <div class="grade-bar"><i data-w="72%"></i></div>
-    </div>
-    <div class="grade-row">
-      <span class="course">Mathematical Programming in Advanced Analytics</span>
-      <span class="mark">68 · B</span>
-      <div class="grade-bar"><i data-w="68%"></i></div>
-    </div>
-    <div class="grade-row">
-      <span class="course">The Strategy of Digital Transformation</span>
-      <span class="mark">66 · B</span>
-      <div class="grade-bar"><i data-w="66%"></i></div>
-    </div>
-    <div class="grade-row">
-      <span class="course">Machine Learning</span>
-      <span class="mark">64 · B</span>
-      <div class="grade-bar"><i data-w="64%"></i></div>
-    </div>
-    <div class="grade-row">
-      <span class="course">Management Science and Operations Analytics</span>
-      <span class="mark">62 · B</span>
-      <div class="grade-bar"><i data-w="62%"></i></div>
-    </div>
-    <div class="grade-note">Third-year results, 2025/26 · Edinburgh common marking scheme (70+ First, 60–69 Upper Second)</div>
-  </div>
-</section>
-
-<!-- ================= SKILLS ================= -->
-<section id="skills" class="wrap">
-  <div class="sec-head">
-    <h2 class="sec-title">Skills</h2>
-  </div>
-
-  <div class="reveal">
-    <div class="skill-row">
-      <div class="skill-cat">Machine learning</div>
-      <div class="skill-items"><b>scikit-learn, XGBoost, LightGBM, PyTorch</b> · cross-validation, hyperparameter tuning, probability calibration, feature engineering</div>
-    </div>
-    <div class="skill-row">
-      <div class="skill-cat">Statistics &amp; optimisation</div>
-      <div class="skill-items"><b>Mixed-integer &amp; two-stage stochastic programming (JuMP/Gurobi)</b> · regression, ANOVA, time-series and econometric modelling</div>
-    </div>
-    <div class="skill-row">
-      <div class="skill-cat">Data &amp; visualisation</div>
-      <div class="skill-items"><b>pandas, NumPy</b> · Matplotlib, Plotly, Seaborn, Streamlit, web scraping (Selenium)</div>
-    </div>
-    <div class="skill-row">
-      <div class="skill-cat">Data engineering</div>
-      <div class="skill-items"><b>SQL</b> · SQLite, PostgreSQL, ETL pipelines, database design</div>
-    </div>
-    <div class="skill-row">
-      <div class="skill-cat">Languages &amp; tools</div>
-      <div class="skill-items"><b>Python, SQL, Julia</b> · Git, Docker, FastAPI, REST APIs, Jupyter · familiar with Rust &amp; TypeScript</div>
-    </div>
-  </div>
-
-  <div class="award reveal">
-    <span class="g-label">Award</span>
-    <p><strong>2nd place of 30 teams, Anthropic-sponsored hackathon (2024)</strong>: built and presented a working software prototype in three hours.</p>
+  <div class="rise">
+    <dl class="rows">
+      <div class="row">
+        <dt>Computing &amp; data science</dt>
+        <dd class="v">Machine Learning &middot; Informatics Large Practical &middot; Foundations of Data Science &middot; Algorithms and Data Structures &middot; Introduction to Computation &middot; Object Oriented Programming</dd>
+      </div>
+      <div class="row">
+        <dt>Mathematics &amp; optimisation</dt>
+        <dd class="v">Mathematical Programming in Advanced Analytics &middot; Management Science and Operations Analytics &middot; Discrete Mathematics and Probability &middot; Introduction to Linear Algebra &middot; Calculus and its Applications</dd>
+      </div>
+      <div class="row">
+        <dt>Business &amp; strategy</dt>
+        <dd class="v">Business Analytics and Information Systems &middot; Principles of Finance &middot; The Strategy of Digital Transformation &middot; Entrepreneurship and Business Growth</dd>
+      </div>
+    </dl>
+    <p class="table-note">The full transcript is available on request.</p>
   </div>
 </section>
 </main>
 
-<!-- ================= FOOTER ================= -->
-<footer id="contact">
-  <div class="foot-inner">
-    <h2>Open to 2027 data science and quantitative analytics internships.</h2>
-    <p class="foot-sub">Based in London. Happy to talk through any of the case studies above, or share code and write-ups on request.</p>
-    <div class="foot-links">
-      <a class="primary" href="mailto:farhangbak@gmail.com">farhangbak@gmail.com</a>
-      <a href="https://www.linkedin.com/in/farhang-bakhshi-854423347/" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="https://github.com/Farhangbakhs" target="_blank" rel="noopener">GitHub</a>
-    </div>
-    <div class="foot-base">
-      <span>Farhang Bakhshi · London, UK</span>
-      <span>Last updated July 2026</span>
-    </div>
+<!-- ============ CONTACT ============ -->
+<footer class="sheet paper colophon" id="contact">
+  <div class="sheet-head">
+    <h2>Contact</h2>
+    <span class="aside">London, United Kingdom</span>
   </div>
+
+  <p class="statement">I am happy to talk through any of the work on this page.</p>
+  <p class="sub">Code and write-ups for the case studies are available on request. I graduate in 2028.</p>
+
+  <div class="contact-row">
+    <a href="mailto:farhangbak@gmail.com">farhangbak@gmail.com</a>
+    <a href="https://www.linkedin.com/in/farhang-bakhshi-854423347/" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="https://github.com/Farhangbakhs" target="_blank" rel="noopener">GitHub</a>
+  </div>
+
+  <p class="colophon-base">
+    <span>Farhang Bakhshi &middot; London</span>
+    <span>Set in EB Garamond &middot; last revised July 2026</span>
+  </p>
 </footer>
 
-<div id="tooltip" role="status" aria-hidden="true"></div>
+<div id="tooltip" aria-hidden="true"></div>
 
 <script>
 (function(){
 "use strict";
 
-/* subtle reveals + bar growth */
-const io=new IntersectionObserver(es=>{
-  es.forEach(e=>{
-    if(!e.isIntersecting)return;
-    e.target.classList.add('in');
-    e.target.querySelectorAll('[data-w]').forEach(el=>{
-      requestAnimationFrame(()=>{ el.style.width=el.dataset.w; });
+var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/* ---- sections rise from below on first sight ---- */
+if("IntersectionObserver" in window){
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(!e.isIntersecting) return;
+      e.target.classList.add("settled");
+      io.unobserve(e.target);
     });
-    io.unobserve(e.target);
-  });
-},{threshold:.12});
-document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
-document.querySelectorAll('[data-w]').forEach(el=>{
-  if(!el.closest('.reveal'))el.style.width=el.dataset.w;
-});
-
-/* LOTO chart tooltip (hover + keyboard) */
-const tt=document.getElementById('tooltip');
-function showTT(g,cx,cy){
-  tt.innerHTML='<b>'+g.dataset.year+'</b> · model <b>'+g.dataset.model+'%</b> · baseline <span class="tt-base">'+g.dataset.base+'%</span>';
-  tt.style.opacity=1; tt.setAttribute('aria-hidden','false');
-  const r=tt.getBoundingClientRect();
-  tt.style.left=Math.min(innerWidth-r.width-10,Math.max(10,cx-r.width/2))+'px';
-  tt.style.top=(cy-r.height-12)+'px';
+  },{threshold:.1});
+  document.querySelectorAll(".rise").forEach(function(el){ io.observe(el); });
+}else{
+  document.querySelectorAll(".rise").forEach(function(el){ el.classList.add("settled"); });
 }
-function hideTT(){ tt.style.opacity=0; tt.setAttribute('aria-hidden','true'); }
-document.querySelectorAll('#loto .bar-group').forEach(g=>{
-  g.addEventListener('mouseenter',()=>{const r=g.getBoundingClientRect();showTT(g,r.left+r.width/2,r.top);});
-  g.addEventListener('mouseleave',hideTT);
-  g.addEventListener('focus',()=>{const r=g.getBoundingClientRect();showTT(g,r.left+r.width/2,r.top);});
-  g.addEventListener('blur',hideTT);
+window.addEventListener("beforeprint", function(){
+  document.querySelectorAll(".rise").forEach(function(el){ el.classList.add("settled"); });
 });
-document.addEventListener('scroll',hideTT,{passive:true});
 
-/* click-to-load MILP map (keeps the 5.6 MB embed off initial load) */
-const mapBtn=document.getElementById('milp-map-btn');
+/* ---- the affordance retires after the first interaction ---- */
+var cue = document.getElementById("cue");
+function spendCue(){ if(cue) cue.setAttribute("data-spent",""); }
+window.addEventListener("scroll", spendCue, {passive:true, once:true});
+document.querySelectorAll(".card .hs").forEach(function(a){
+  a.addEventListener("focus", spendCue);
+  a.addEventListener("mouseenter", spendCue);
+  a.addEventListener("click", spendCue);
+});
+
+/* ---- below 640px the card is an object, not a control ---- */
+var narrow = window.matchMedia("(max-width: 640px)");
+function setCardMode(){
+  document.querySelectorAll(".card .hs").forEach(function(a){
+    if(narrow.matches){
+      a.setAttribute("tabindex","-1");
+      a.style.pointerEvents = "none";
+    }else{
+      a.removeAttribute("tabindex");
+      a.style.pointerEvents = "";
+    }
+  });
+}
+setCardMode();
+if(narrow.addEventListener) narrow.addEventListener("change", setCardMode);
+else if(narrow.addListener) narrow.addListener(setCardMode);
+window.addEventListener("resize", setCardMode, {passive:true});
+
+/* ---- LOTO chart readout, on hover and on focus ---- */
+var tt = document.getElementById("tooltip");
+function showTip(g){
+  var r = g.getBoundingClientRect();
+  tt.innerHTML = "<b>" + g.dataset.year + "</b> &middot; model <b>" + g.dataset.model +
+                 "%</b> &middot; baseline <b>" + g.dataset.base + "%</b>";
+  tt.style.opacity = 1;
+  var t = tt.getBoundingClientRect();
+  tt.style.left = Math.min(window.innerWidth - t.width - 10,
+                           Math.max(10, r.left + r.width/2 - t.width/2)) + "px";
+  tt.style.top = (r.top - t.height - 10) + "px";
+}
+function hideTip(){ tt.style.opacity = 0; }
+document.querySelectorAll("#loto .bar-group").forEach(function(g){
+  g.addEventListener("mouseenter", function(){ showTip(g); });
+  g.addEventListener("mouseleave", hideTip);
+  g.addEventListener("focus", function(){ showTip(g); });
+  g.addEventListener("blur", hideTip);
+});
+document.addEventListener("scroll", hideTip, {passive:true});
+
+/* ---- the 5.6 MB map embed loads only when asked for ---- */
+var mapBtn = document.getElementById("milp-map-btn");
 if(mapBtn){
-  mapBtn.addEventListener('click',()=>{
-    const shell=document.getElementById('milp-map');
-    const f=document.createElement('iframe');
-    f.src='DeterministicMap_embedded.html';
-    f.title='Interactive Honduras school connectivity map';
-    f.loading='eager';
-    f.allowFullscreen=true;
-    shell.innerHTML='';
+  mapBtn.addEventListener("click", function(){
+    var shell = document.getElementById("milp-map");
+    var f = document.createElement("iframe");
+    f.src = "DeterministicMap_embedded.html";
+    f.title = "Interactive Honduras school connectivity map";
+    f.loading = "eager";
+    f.allowFullscreen = true;
+    shell.innerHTML = "";
     shell.appendChild(f);
   });
 }
 
-/* active nav */
-const links=[...document.querySelectorAll('.nav-links a')];
-const secs=links.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);
-const nio=new IntersectionObserver(es=>{
-  es.forEach(e=>{
-    if(e.isIntersecting){
-      links.forEach(l=>l.classList.toggle('active',l.getAttribute('href')==='#'+e.target.id));
-    }
-  });
-},{rootMargin:'-35% 0px -60% 0px'});
-secs.forEach(s=>nio.observe(s));
+/* reduced motion: nothing waits on an observer to become readable */
+if(reduced){
+  document.querySelectorAll(".rise").forEach(function(el){ el.classList.add("settled"); });
+}
 })();
 </script>
 </body>
