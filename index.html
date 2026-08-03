@@ -22,7 +22,7 @@
 @font-face{
   font-family:"EB Garamond";
   src:url("fonts/eb-garamond-latin.woff2") format("woff2");
-  font-weight:400 600;
+  font-weight:400 800;
   font-style:normal;
   font-display:swap;
   unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
@@ -30,7 +30,7 @@
 @font-face{
   font-family:"EB Garamond";
   src:url("fonts/eb-garamond-latin-italic.woff2") format("woff2");
-  font-weight:400 500;
+  font-weight:400 800;
   font-style:italic;
   font-display:swap;
   unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
@@ -43,25 +43,29 @@
   /* ink & stock */
   --stock:#F0ECE4;         /* the card face — warm, but only just */
   --stock-deep:#E4DFD4;    /* shadowed edge of the stock */
-  --ink:#2B2A26;           /* warm near-black, never pure black */
-  --ink-soft:#5C594E;      /* secondary type and metadata (5.9:1 on clean stock,
-                              4.8:1 with the paper texture over it) */
+  --ink:#23211E;           /* near-black, cooled a step off the stock's warmth */
+  --ink-soft:color-mix(in oklab,var(--ink) 68%,var(--stock));  /* a tint of the ink,
+                              not a second hue — they stay related at every opacity */
   --surface:#191817;       /* the desk the card lies on */
   --accent:#6B3A32;        /* desaturated oxblood — live links, current marker */
 
-  /* rules */
-  --rule:rgba(92,89,78,.30);       /* hairline — links only, no dividers */
-  --rule-firm:rgba(43,42,38,.48);  /* engraved rule */
+  /* rules — derived from the ink for the same reason */
+  --rule:color-mix(in oklab,var(--ink) 22%,var(--stock));       /* hairline — links only */
+  --rule-firm:color-mix(in oklab,var(--ink) 52%,var(--stock));  /* engraved rule */
 
   /* type */
   --face:"EB Garamond",Georgia,"Times New Roman",serif;
-  --body-size:1.0625rem;
-  --body-leading:1.7;
-  --measure:64ch;
-  --track-caps:.14em;      /* small-caps tracking */
+  --body-size:1.1875rem;   /* Garamond's x-height is small; 19px sets like a 15px sans */
+  --body-leading:1.6;      /* leading comes down as the size goes up */
+  --measure:34em;          /* not ch — the advance of `0` moves with the figure style */
+
+  /* tracking — one scale, inverse to size. Small type needs more, large needs less. */
+  --track-sm:.18em;        /* labels under 14px */
+  --track-md:.13em;        /* labels 14–18px */
+  --track-lg:.09em;        /* small-cap headings over 18px */
 
   /* the card */
-  --card-w:clamp(304px,62vw,616px);
+  --card-w:clamp(320px,58vw,700px);
   --card-tilt:-0.4deg;
 
   /* sheets */
@@ -73,11 +77,11 @@
   --ease:cubic-bezier(.22,.85,.24,1);
   --rise:520ms;
 
-  /* paper: fractal tooth, then low-frequency cloudiness.
-     Layer opacity is baked into each SVG so the blend stays honest. */
-  --tooth:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='t'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23t)' opacity='0.105'/%3E%3C/svg%3E");
-  --cloud:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320'%3E%3Cfilter id='c'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.035' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='320' height='320' filter='url(%23c)' opacity='0.06'/%3E%3C/svg%3E");
-  --fibre:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.006 0.16' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='600' height='600' filter='url(%23f)' opacity='0.045'/%3E%3C/svg%3E");
+  /* paper — tooth and fibre removed. A screen cannot do impression, only a
+     picture of impression, and at 1× that picture is dirt on the serifs. What
+     is left is one low-frequency cloud plus the window light; the shadow stack
+     on .card carries the object-ness. Restore at half opacity if it reads flat. */
+  --cloud:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320'%3E%3Cfilter id='c'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.035' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='320' height='320' filter='url(%23c)' opacity='0.03'/%3E%3C/svg%3E");
 }
 
 /* ============================================================
@@ -95,10 +99,23 @@ body{
   font-family:var(--face);
   font-size:var(--body-size);
   line-height:var(--body-leading);
-  font-variant-numeric:oldstyle-nums;
+  /* oldstyle belongs in running prose and nowhere else; anything that is a
+     measurement, a metric, a year or a table cell opts back into lining below */
+  font-variant-numeric:oldstyle-nums proportional-nums;
   font-kerning:normal;
-  -webkit-font-smoothing:antialiased;
-  text-rendering:optimizeLegibility;
+  /* the face carries real small caps and real figure sets — never let the
+     browser fake either. If something breaks here it was already broken. */
+  font-synthesis:none;
+}
+/* Greyscale smoothing is right for light-on-dark and wrong for dark ink on
+   bone: on the sheets it strips a third of the stroke off an already delicate
+   serif. So it lives here only. */
+.desk,#tooltip{-webkit-font-smoothing:antialiased}
+
+/* anything that is a measurement, a metric, a year or a table cell */
+.metrics .fig,.result .r-num,table.figures,.chart-foot b,#tooltip b,
+.bar-year,.study-eyebrow .no,.post .when,.glance dd{
+  font-variant-numeric:lining-nums tabular-nums;
 }
 img,video,iframe{max-width:100%}
 ::selection{background:var(--ink);color:var(--stock)}
@@ -112,32 +129,28 @@ a:hover{text-decoration:underline;text-underline-offset:.22em;text-decoration-th
   position:fixed;top:-70px;left:var(--gutter);z-index:300;
   background:var(--ink);color:var(--stock);
   padding:12px 20px;transition:top .18s ease;
-  font-variant-caps:all-small-caps;letter-spacing:var(--track-caps);
+  font-variant-caps:all-small-caps;letter-spacing:var(--track-md);
 }
 .skip:focus{top:12px;text-decoration:none}
 
 /* ============================================================
-   PAPER — four layers, composited by the background painter
+   PAPER — two layers, composited by the background painter
    rather than by blended pseudo-elements: sheets run to several
    thousand pixels tall and a mix-blend-mode layer at that size
    is a compositing hazard.
-     1. long fibre grain, drawn out along the sheet
-     2. fractal tooth — the cotton grain
-     3. low-frequency cloudiness of uncoated stock
-     4. radial lightening, as if one window light is on it
+     1. low-frequency cloudiness of uncoated stock
+     2. radial lightening, as if one window light is on it
    ============================================================ */
 .paper{
   position:relative;
   border-radius:2px;
   background-color:var(--stock);
   background-image:
-    var(--fibre),
-    var(--tooth),
     var(--cloud),
     radial-gradient(122% 96% at 20% 6%,#FBF8F3 0%,var(--stock) 44%,var(--stock-deep) 100%);
-  background-size:600px 600px,160px 160px,320px 320px,100% 100%;
-  background-repeat:repeat,repeat,repeat,no-repeat;
-  background-blend-mode:multiply,multiply,multiply,normal;
+  background-size:320px 320px,100% 100%;
+  background-repeat:repeat,no-repeat;
+  background-blend-mode:multiply,normal;
 }
 
 /* ============================================================
@@ -166,8 +179,7 @@ a:hover{text-decoration:underline;text-underline-offset:.22em;text-decoration-th
 }
 
 /* intentional misregistration — do not "fix" */
-.card-type{transform:translate(-6px,4px)}   /* type block sits left of, and below, true centre */
-.card-name{letter-spacing:-.01em}           /* name set a hair tighter than comfortable */
+.card-type{transform:translate(-4px,3px)}   /* type block sits left of, and below, true centre */
 /* and no watermark. */
 
 .card-top{display:flex;justify-content:space-between;align-items:start;gap:1.6em}
@@ -194,32 +206,35 @@ a:hover{text-decoration:underline;text-underline-offset:.22em;text-decoration-th
 .hs-tl,.hs-tr{
   font-size:calc(var(--card-w) * .0182);
   line-height:1.55;
-  font-variant-caps:all-small-caps;letter-spacing:.18em;font-weight:500;
+  font-variant-caps:all-small-caps;letter-spacing:var(--track-sm);font-weight:400;
   color:var(--ink-soft);
 }
 .hs-tl{text-align:left;max-width:20ch}
 .hs-tr{text-align:right;margin-left:auto;max-width:13ch}
 .card-name{
   font-size:calc(var(--card-w) * .058);
-  line-height:1.05;font-weight:500;
+  line-height:1.05;font-weight:400;
   font-variant-caps:small-caps;
+  /* real small caps are built from capital forms and carry wide sidebearings
+     by design; they always want positive tracking */
+  letter-spacing:.03em;
   word-spacing:.12em;
 }
 .hs-disc{
   margin-top:calc(var(--card-w) * .030);
   font-size:calc(var(--card-w) * .0206);
-  font-variant-caps:all-small-caps;letter-spacing:.19em;font-weight:500;
+  font-variant-caps:all-small-caps;letter-spacing:var(--track-lg);font-weight:400;
   color:var(--ink-soft);
 }
 .hs-base{
   font-size:calc(var(--card-w) * .0166);
-  font-variant-caps:all-small-caps;letter-spacing:.13em;font-weight:500;
+  font-variant-caps:all-small-caps;letter-spacing:var(--track-sm);font-weight:400;
   color:var(--ink-soft);white-space:nowrap;
 }
 
 /* the quiet affordance */
 .cue{
-  font-variant-caps:all-small-caps;letter-spacing:.28em;
+  font-variant-caps:all-small-caps;letter-spacing:var(--track-sm);
   color:var(--stock);opacity:.55;
   font-size:.8125rem;
   transition:opacity .45s ease;
@@ -239,14 +254,14 @@ a:hover{text-decoration:underline;text-underline-offset:.22em;text-decoration-th
   }
   .card-index a{
     color:var(--stock);opacity:.86;
-    font-variant-caps:all-small-caps;letter-spacing:.16em;
+    font-variant-caps:all-small-caps;letter-spacing:var(--track-sm);
     font-size:.9375rem;
   }
   .card-index a:hover{opacity:1}
   .card .hs::after{display:none}
   .hs-tl,.hs-tr{font-size:calc(var(--card-w) * .0235)}
   .hs-disc{font-size:calc(var(--card-w) * .0262)}
-  .hs-base{font-size:calc(var(--card-w) * .0215);letter-spacing:.1em}
+  .hs-base{font-size:calc(var(--card-w) * .0215);letter-spacing:var(--track-md)}
 }
 
 
@@ -268,13 +283,16 @@ main{padding-top:clamp(18px,3vw,30px)}
   display:flex;align-items:baseline;gap:1.4em;flex-wrap:wrap;
   margin-bottom:clamp(32px,4.4vw,52px);
 }
+/* a marker, not a title — the h3 inside is the voice. Small, quiet and widely
+   tracked is unambiguously a choice; nearly-as-big-as-the-title is an accident. */
 .sheet-head h2{
-  font-size:clamp(1.25rem,2.4vw,1.5rem);font-weight:500;
-  font-variant-caps:all-small-caps;letter-spacing:.2em;
+  font-size:1.0625rem;font-weight:400;
+  font-variant-caps:all-small-caps;letter-spacing:var(--track-sm);
+  color:var(--ink-soft);
 }
 .sheet-head .aside{
   margin-left:auto;color:var(--ink-soft);
-  font-variant-caps:all-small-caps;letter-spacing:var(--track-caps);
+  font-variant-caps:all-small-caps;letter-spacing:var(--track-md);
   font-size:.9375rem;
 }
 @media(max-width:600px){.sheet-head .aside{display:none}}
@@ -283,7 +301,9 @@ main{padding-top:clamp(18px,3vw,30px)}
    chart furniture are laid out across the full column */
 .study-body p,.post p,.about-body p{max-width:var(--measure)}
 em{font-style:italic}
-strong{font-weight:600;color:var(--ink)}
+/* weight is held in reserve — hierarchy comes from size, case, tracking and
+   colour. 500 is the ceiling on this page; 600 fills Garamond's joints in. */
+strong{font-weight:500;color:var(--ink)}
 
 /* ============================================================
    ABOUT
@@ -292,7 +312,7 @@ strong{font-weight:600;color:var(--ink)}
 
 .contact-row{display:flex;flex-wrap:wrap;gap:.5em 1.6em;margin-top:2em}
 .contact-row a{
-  font-variant-caps:all-small-caps;letter-spacing:var(--track-caps);
+  font-variant-caps:all-small-caps;letter-spacing:var(--track-md);
   border-bottom:1px solid var(--rule);
 }
 .contact-row a:hover{text-decoration:none;border-bottom-color:var(--accent)}
@@ -308,17 +328,16 @@ strong{font-weight:600;color:var(--ink)}
 .result:hover{text-decoration:none}
 .result:hover .r-num{color:var(--accent)}
 .result .r-field{
-  font-variant-caps:all-small-caps;letter-spacing:var(--track-caps);
+  font-variant-caps:all-small-caps;letter-spacing:var(--track-md);
   color:var(--ink-soft);
 }
 .result .r-num{
-  font-size:clamp(1.5rem,3.2vw,2rem);line-height:1.1;font-weight:500;
-  font-variant-numeric:lining-nums tabular-nums;letter-spacing:.005em;
+  font-size:clamp(1.5rem,3.2vw,2rem);line-height:1.1;font-weight:400;
 }
-.result .r-what{grid-column:2;font-size:1rem;color:var(--ink);max-width:52ch}
+.result .r-what{grid-column:2;font-size:.95em;color:var(--ink);max-width:52ch}
 .result .r-go{
   grid-column:3;grid-row:1;
-  font-variant-caps:all-small-caps;letter-spacing:var(--track-caps);
+  font-variant-caps:all-small-caps;letter-spacing:var(--track-md);
   color:var(--accent);white-space:nowrap;
 }
 .result:hover .r-go{text-decoration:underline;text-underline-offset:.22em}
@@ -335,10 +354,10 @@ strong{font-weight:600;color:var(--ink)}
   gap:clamp(20px,3vw,34px);margin-top:clamp(30px,4vw,44px);
 }
 .glance dt{
-  font-variant-caps:all-small-caps;letter-spacing:var(--track-caps);
+  font-variant-caps:all-small-caps;letter-spacing:var(--track-md);
   color:var(--ink-soft);margin-bottom:.2em;
 }
-.glance dd{font-size:1rem;line-height:1.5}
+.glance dd{font-size:.95em;line-height:1.5}
 @media(max-width:820px){.glance{grid-template-columns:1fr 1fr}}
 @media(max-width:480px){.glance{grid-template-columns:1fr}}
 
@@ -348,23 +367,26 @@ strong{font-weight:600;color:var(--ink)}
 .study{padding-bottom:clamp(48px,7vw,84px)}
 .study+.study{padding-top:clamp(56px,8vw,96px)}
 .study-eyebrow{
-  display:flex;flex-wrap:wrap;gap:.4em 1.2em;margin-bottom:.9em;
-  font-variant-caps:all-small-caps;letter-spacing:var(--track-caps);
+  display:flex;flex-wrap:wrap;align-items:baseline;gap:.4em 1.2em;margin-bottom:.9em;
+  font-variant-caps:all-small-caps;letter-spacing:var(--track-md);
   color:var(--ink-soft);
 }
-.study-eyebrow .no{color:var(--accent);font-variant-numeric:lining-nums}
+/* 01 / 02 / 03 are the only genuine sequence on the page — let them be the
+   thing the eye lands on when a case study begins */
+.study-eyebrow .no{
+  color:var(--accent);font-variant-caps:normal;
+  font-size:clamp(1.75rem,4vw,2.5rem);line-height:1;letter-spacing:0;
+}
 .study h3{
-  font-size:clamp(1.5rem,3.4vw,2.125rem);font-weight:500;
-  line-height:1.18;max-width:26ch;letter-spacing:.002em;
+  font-size:clamp(1.5rem,3.4vw,2.125rem);font-weight:400;
+  line-height:1.18;max-width:26ch;
 }
 .facts{
   display:flex;flex-wrap:wrap;gap:.35em 2em;
   margin:1.4em 0 0;color:var(--ink-soft);
 }
-.facts b{
-  font-weight:500;color:var(--ink-soft);
-  font-variant-caps:all-small-caps;letter-spacing:var(--track-caps);
-}
+/* content, not a label — plain roman keeps the small-cap device meaningful */
+.facts b{font-weight:400;color:var(--ink-soft)}
 .facts span>span{color:var(--ink)}
 
 .study-grid{
@@ -373,9 +395,12 @@ strong{font-weight:600;color:var(--ink)}
 }
 @media(max-width:880px){.study-grid{grid-template-columns:1fr}}
 .study-body p+p{margin-top:1.1em}
+/* Problem. / Approach. / Outcome. — the small caps plus --ink against
+   --ink-soft prose does the work; no weight needed */
 .study-body p>strong:first-child{
-  font-weight:500;font-variant-caps:all-small-caps;
-  letter-spacing:var(--track-caps);
+  font-weight:400;font-variant-caps:all-small-caps;
+  letter-spacing:var(--track-lg);
+  color:var(--ink);
 }
 .study-aside{position:sticky;top:96px}
 @media(max-width:880px){.study-aside{position:static}}
@@ -385,18 +410,19 @@ strong{font-weight:600;color:var(--ink)}
 .metrics li{display:flex;align-items:baseline;gap:.9em}
 .metrics li+li{margin-top:1.15em}
 .metrics .fig{
-  font-size:clamp(1.625rem,3.6vw,2.25rem);line-height:1;font-weight:500;
-  font-variant-numeric:lining-nums tabular-nums;letter-spacing:.004em;
+  font-size:clamp(1.625rem,3.6vw,2.25rem);line-height:1;font-weight:400;
   flex:none;min-width:4.2ch;
 }
 .metrics .fig-word{font-size:1.25rem;min-width:0}
 .metrics .cap{
-  font-variant-caps:all-small-caps;letter-spacing:var(--track-caps);
+  font-variant-caps:all-small-caps;letter-spacing:var(--track-md);
   color:var(--ink-soft);line-height:1.35;
 }
+/* proper nouns — PyO3, Three.js, GitHub Actions. Small caps would flatten the
+   intercaps that make them readable as product names. */
 .tags{
   margin-top:1.8em;color:var(--ink-soft);line-height:1.6;
-  font-variant-caps:all-small-caps;letter-spacing:var(--track-caps);
+  font-size:.9em;
 }
 
 /* ============================================================
@@ -404,17 +430,16 @@ strong{font-weight:600;color:var(--ink)}
    ============================================================ */
 table.figures{
   width:100%;max-width:34rem;border-collapse:collapse;
-  font-variant-numeric:lining-nums tabular-nums;
 }
 table.figures caption{
   text-align:left;padding-bottom:.8em;color:var(--ink-soft);
-  font-variant-caps:all-small-caps;letter-spacing:var(--track-caps);
+  font-variant-caps:all-small-caps;letter-spacing:var(--track-md);
   font-variant-numeric:normal;
 }
 table.figures thead th{
-  text-align:left;font-weight:500;padding:0 0 .9em;
+  text-align:left;font-weight:400;padding:0 0 .9em;
   white-space:nowrap;vertical-align:bottom;
-  font-variant-caps:all-small-caps;letter-spacing:var(--track-caps);
+  font-variant-caps:all-small-caps;letter-spacing:var(--track-md);
   color:var(--ink-soft);font-variant-numeric:normal;
 }
 table.figures tbody th{
@@ -435,7 +460,7 @@ table.figures thead th:not(:first-child){text-align:right}
 table.figures td.dim{color:var(--ink-soft)}
 table.figures .won{
   margin-left:.7em;color:var(--accent);
-  font-variant-caps:all-small-caps;letter-spacing:var(--track-caps);
+  font-variant-caps:all-small-caps;letter-spacing:var(--track-md);
 }
 table.figures.spaced{margin-top:2.6em}
 .table-note{margin-top:1em;color:var(--ink-soft)}
@@ -446,7 +471,7 @@ table.figures.spaced{margin-top:2.6em}
 .chart{margin-top:2.2em}
 .chart-title{
   display:flex;justify-content:space-between;flex-wrap:wrap;gap:.4em 1.2em;
-  font-variant-caps:all-small-caps;letter-spacing:var(--track-caps);
+  font-variant-caps:all-small-caps;letter-spacing:var(--track-md);
   color:var(--ink-soft);margin-bottom:1.4em;
 }
 .legend{display:flex;gap:1.2em}
@@ -469,24 +494,20 @@ table.figures.spaced{margin-top:2.6em}
 .bar-group:hover .bar.model,.bar-group:focus-visible .bar.model{background:var(--accent)}
 .bar-year{
   position:absolute;bottom:-1.7em;left:0;right:0;text-align:center;
-  font-variant-caps:all-small-caps;letter-spacing:.08em;
+  font-variant-caps:all-small-caps;letter-spacing:var(--track-sm);
   color:var(--ink-soft);font-size:.875rem;
 }
-.chart-foot{
-  margin-top:3em;color:var(--ink-soft);
-  font-variant-caps:all-small-caps;letter-spacing:var(--track-caps);
-}
-.chart-foot b{color:var(--ink);font-weight:500;font-variant-numeric:lining-nums tabular-nums}
+.chart-foot{margin-top:3em;color:var(--ink-soft)}
+.chart-foot b{color:var(--ink);font-weight:400}
 
 #tooltip{
   position:fixed;z-index:250;pointer-events:none;opacity:0;
   transition:opacity .12s ease;
   background:var(--ink);color:var(--stock);
   padding:.5em .8em;font-size:.9375rem;line-height:1.5;white-space:nowrap;
-  font-variant-caps:all-small-caps;letter-spacing:.08em;
   box-shadow:0 8px 22px rgba(0,0,0,.4);
 }
-#tooltip b{font-weight:500;font-variant-numeric:lining-nums tabular-nums}
+#tooltip b{font-weight:400}
 
 /* ============================================================
    PLATES — video, map, framed like figures in a printed report
@@ -499,20 +520,17 @@ table.figures.spaced{margin-top:2.6em}
   gap:.3em 1em;
 }
 .fig-no{
-  font-variant-caps:all-small-caps;letter-spacing:.2em;
+  font-variant-caps:all-small-caps;letter-spacing:var(--track-lg);
   color:var(--accent);flex:none;
 }
-.fig-title{
-  font-variant-caps:all-small-caps;letter-spacing:var(--track-caps);
-  color:var(--ink);
-}
+.fig-title{color:var(--ink)}
 .fig-desc{
   flex-basis:100%;font-style:italic;color:var(--ink-soft);
   max-width:var(--measure);line-height:1.6;
 }
 .fig-link{
   margin-left:auto;font-variant-caps:all-small-caps;
-  letter-spacing:var(--track-caps);white-space:nowrap;
+  letter-spacing:var(--track-md);white-space:nowrap;
 }
 @media(max-width:780px){.fig-link{margin-left:0}}
 
@@ -526,21 +544,16 @@ table.figures.spaced{margin-top:2.6em}
   display:flex;flex-direction:column;align-items:center;gap:1.2em;
   padding:2em;text-align:center;color:var(--ink-soft);
 }
-.map-facade p{
-  font-variant-caps:all-small-caps;letter-spacing:var(--track-caps);
-  max-width:38ch;
-}
+.map-facade p{max-width:38ch}
+/* the one small-cap survivor here — it's a button, it earns the emphasis */
 .map-load-btn{
   font-family:inherit;font-size:1rem;
-  font-variant-caps:all-small-caps;letter-spacing:var(--track-caps);
+  font-variant-caps:all-small-caps;letter-spacing:var(--track-md);
   color:var(--stock);background:var(--ink);border:0;border-radius:1px;
   padding:.6em 1.6em;cursor:pointer;transition:background .18s ease;
 }
 .map-load-btn:hover{background:var(--accent)}
-.map-note{
-  font-variant-caps:all-small-caps;letter-spacing:var(--track-caps);
-  font-size:.9375rem;
-}
+.map-note{font-size:.9375rem}
 
 /* ============================================================
    SKILLS · EDUCATION · EXPERIENCE
@@ -551,16 +564,16 @@ table.figures.spaced{margin-top:2.6em}
 }
 .row+.row{margin-top:1.6em}
 .row>dt,.row .k{
-  font-variant-caps:all-small-caps;letter-spacing:var(--track-caps);
+  font-variant-caps:all-small-caps;letter-spacing:var(--track-md);
   color:var(--ink-soft);
 }
 .row .v{max-width:var(--measure)}
-.row .v b{font-weight:600;color:var(--ink)}
+.row .v b{font-weight:500;color:var(--ink)}
 @media(max-width:680px){.row{grid-template-columns:1fr}}
 
 .award{margin-top:3em;display:flex;flex-wrap:wrap;gap:.4em 1.4em}
 .award .k{
-  font-variant-caps:all-small-caps;letter-spacing:var(--track-caps);
+  font-variant-caps:all-small-caps;letter-spacing:var(--track-md);
   color:var(--accent);flex:none;
 }
 
@@ -568,11 +581,11 @@ table.figures.spaced{margin-top:2.6em}
   display:flex;flex-wrap:wrap;align-items:baseline;gap:.4em 1.4em;
   margin-bottom:2em;
 }
-.degree-line h3{font-size:1.25rem;font-weight:500}
+.degree-line h3{font-size:1.25rem;font-weight:400}
 .degree-line .sub{color:var(--ink-soft)}
 .degree-line .pred{
   margin-left:auto;color:var(--accent);white-space:nowrap;
-  font-variant-caps:all-small-caps;letter-spacing:var(--track-caps);
+  font-variant-caps:all-small-caps;letter-spacing:var(--track-md);
 }
 @media(max-width:760px){.degree-line .pred{margin-left:0}}
 
@@ -583,13 +596,15 @@ table.figures.spaced{margin-top:2.6em}
 }
 .post+.post{margin-top:2.4em}
 .post .when{
-  font-variant-caps:all-small-caps;letter-spacing:var(--track-caps);
+  font-variant-caps:all-small-caps;letter-spacing:var(--track-md);
   color:var(--ink-soft);
 }
-.post h3{font-size:1.1875rem;font-weight:500}
+.post h3{font-size:1.1875rem;font-weight:400}
+/* a job title is content, not a label — italic separates it from the employer
+   above without spending the small-cap device on it */
 .post .role{
   color:var(--ink-soft);margin-bottom:.5em;
-  font-variant-caps:all-small-caps;letter-spacing:var(--track-caps);
+  font-style:italic;
 }
 @media(max-width:680px){.post{grid-template-columns:1fr}}
 
@@ -597,14 +612,14 @@ table.figures.spaced{margin-top:2.6em}
    COLOPHON
    ============================================================ */
 .colophon .statement{
-  font-size:clamp(1.375rem,3vw,1.875rem);font-weight:500;
+  font-size:clamp(1.375rem,3vw,1.875rem);font-weight:400;
   line-height:1.3;max-width:24ch;
 }
 .colophon .sub{margin-top:.8em;color:var(--ink-soft);max-width:var(--measure)}
 .colophon-base{
   display:flex;justify-content:space-between;flex-wrap:wrap;gap:.4em 1.4em;
   margin-top:clamp(44px,6vw,64px);color:var(--ink-soft);
-  font-variant-caps:all-small-caps;letter-spacing:var(--track-caps);
+  font-variant-caps:all-small-caps;letter-spacing:var(--track-md);
 }
 
 /* ============================================================
@@ -629,9 +644,11 @@ table.figures.spaced{margin-top:2.6em}
    PRINT — a clean document on white. No stock, no desk, no shadow.
    ============================================================ */
 @media print{
+  /* deliberate literals, not oversights: on paper the derived color-mix tints
+     are too light, so the secondary is pinned rather than mixed off the ink */
   :root{--ink:#000;--ink-soft:#333;--accent:#000;--rule:#bbb;--rule-firm:#000}
   html{scroll-padding-top:0}
-  body{background:#fff;color:#000;font-size:10.5pt;line-height:1.45}
+  body{background:#fff;color:#000;font-size:11pt;line-height:1.45}
   .cue,.card-index,.skip,#tooltip,.map-shell,.plate-frame video,
   .results .r-go,.legend{display:none !important}
   .plate-frame{border:0}
@@ -662,6 +679,9 @@ table.figures.spaced{margin-top:2.6em}
   .study{padding-bottom:14pt}
   .study+.study{padding-top:14pt}
   .study h3{font-size:14pt}
+  /* the sequence number is a display element on screen; on paper it would
+     outweigh the title it introduces */
+  .study-eyebrow .no{font-size:14pt}
   .facts{margin-top:8pt;padding-bottom:6pt}
   .metrics .fig{font-size:13pt}
   .bars{height:52pt}
@@ -725,7 +745,7 @@ table.figures.spaced{margin-top:2.6em}
   </div>
 
   <div class="about-body">
-    <p>I am a Computer Science and Management Science student at the University of Edinburgh, graduating in 2028 with a predicted First. I am currently a <strong>Business Science intern at Ekimetrics</strong> in London, where I work on marketing mix modelling alongside the data engineering and analysis that support it. Before joining Ekimetrics I spent sixteen weeks at Loopsio, building the application layer of a computer-vision product for structural inspection.</p>
+    <p>I am a Computer Science and Management Science student at the University of Edinburgh, graduating in 2028 with a predicted First. I am currently a <strong>Data Science intern at Ekimetrics</strong> in London, where I work on marketing mix modelling alongside the data engineering and analysis that support it. Before joining Ekimetrics I spent sixteen weeks at Loopsio, building the application layer of a computer-vision product for structural inspection.</p>
   </div>
 
   <div class="contact-row">
@@ -758,7 +778,7 @@ table.figures.spaced{margin-top:2.6em}
   <dl class="glance rise">
     <div>
       <dt>Currently</dt>
-      <dd>Business Science Intern, Ekimetrics</dd>
+      <dd>Data Science Intern, Ekimetrics</dd>
     </div>
     <div>
       <dt>Education</dt>
@@ -803,7 +823,7 @@ table.figures.spaced{margin-top:2.6em}
       <p class="when">Jul 2026 &ndash; present</p>
       <div>
         <h3>Ekimetrics &middot; London</h3>
-        <p class="role">Business Science Intern</p>
+        <p class="role">Data Science Intern</p>
         <p>I build and validate marketing mix models and forecasting tools in Python for retail, automotive and luxury clients, working across econometric and Bayesian specifications depending on the brief. The role also covers the data engineering that feeds those models, ingesting and reconciling client media, sales and market data, along with the exploratory analysis that goes into client deliverables.</p>
       </div>
     </article>
