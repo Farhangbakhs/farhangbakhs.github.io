@@ -491,6 +491,28 @@ table.figures.spaced{margin-top:2.6em}
 }
 @media(max-width:780px){.fig-link{margin-left:0}}
 
+/* diagrams are engraved, not drawn: hairlines in the firm rule, labels from the same small-cap scale,
+   and oxblood for the one idea each figure is about. A second, vertical drawing takes over where
+   the sheet goes to one column, because a shrunken pipeline cannot be read. */
+.plate-frame .dg{display:block;width:100%;height:auto;padding:clamp(14px,2.4vw,26px)}
+.dg .box,.dg .ln{fill:none;stroke:var(--rule-firm);stroke-width:.75;vector-effect:non-scaling-stroke}
+.dg .ln.ac,.dg .box.ac{stroke:var(--accent)}
+.dg text{
+  font-family:inherit;font-size:15px;fill:var(--ink-soft);
+  font-variant-numeric:lining-nums tabular-nums;
+}
+.dg .st{fill:var(--ink);font-variant-caps:all-small-caps;letter-spacing:var(--track-sm)}
+.dg .ac-t{fill:var(--accent)}
+/* the slopegraph sits in the aside where the table was: one drawing, no second version */
+.dg-slope{display:block;width:100%;max-width:340px;height:auto;margin-top:2.6em}
+.dg .val{font-size:22px;fill:var(--ink)}
+.plate-frame .dg-tall{display:none}
+.dg-tall text{font-size:18px}
+@media(max-width:880px){
+  .plate-frame .dg-wide{display:none}
+  .plate-frame .dg-tall{display:block;max-width:340px;margin:0 auto}
+}
+
 
 /* ============================================================
    SKILLS · EDUCATION · EXPERIENCE
@@ -507,6 +529,21 @@ table.figures.spaced{margin-top:2.6em}
 .row .v{max-width:var(--measure)}
 .row .v b{font-weight:500;color:var(--ink)}
 @media(max-width:680px){.row{grid-template-columns:1fr}}
+
+/* decisions, evidence, next: the Skills rows with a number in place of the label, and a head row over each group */
+.ledger .row{grid-template-columns:2.4rem minmax(0,1fr);gap:.4em 1rem}
+.ledger .row+.row{margin-top:1em}
+.ledger .row.head{grid-template-columns:1fr;margin-top:2.2em}
+.ledger .row.head:first-child{margin-top:0}
+.ledger .row .v{max-width:none}
+.ledger .row .k{white-space:nowrap}
+.ledger .row .k.mine{color:var(--accent)}
+/* the numbers and the measurements in the rows are figures, not prose: lining, as everywhere else */
+.ledger .row dt{font-variant-numeric:lining-nums tabular-nums}
+.ledger .row:not(.head) dt{font-variant-caps:normal;letter-spacing:0}
+.ledger .row .v{font-variant-numeric:lining-nums proportional-nums}
+/* the one-line lede above the figure and the outcome below the grid keep the grid's own distance */
+.facts+.study-body,.study-grid+.study-body{margin-top:clamp(26px,3.6vw,40px)}
 
 .award{margin-top:3em;display:flex;flex-wrap:wrap;gap:.4em 1.4em}
 .award .k{
@@ -805,7 +842,7 @@ table.figures.spaced{margin-top:2.6em}
 <section class="sheet paper" id="work">
   <div class="sheet-head">
     <h2>Projects</h2>
-    <span class="aside">Problem &middot; Approach &middot; Outcome</span>
+    <span class="aside">Decisions &middot; Evidence &middot; Next</span>
   </div>
 
   <!-- ---- 01 ORIGIN ---- -->
@@ -819,15 +856,130 @@ table.figures.spaced{margin-top:2.6em}
     <p class="facts">
       <span><b>Role</b> <span>Solo</span></span>
       <span><b>Code</b> <a href="https://github.com/Farhangbakhs/image-provenance-tracer" target="_blank" rel="noopener">GitHub</a></span>
-      <span><b>Evidence</b> <a href="#fig2">investigation page</a> &middot; <a href="#fig3">demo film</a></span>
+      <span><b>Evidence</b> <a href="#fig3">investigation page</a> &middot; <a href="#fig4">demo film</a></span>
     </p>
+
+    <div class="study-body">
+      <p>An image reaches an analyst with a story attached. ORIGIN finds where else it appeared, when, and where the story changed, on free-tier APIs.</p>
+    </div>
+
+    <figure class="plate rise" id="fig2">
+      <div class="plate-frame">
+        <svg class="dg dg-wide" viewBox="0 0 960 312" role="img" xmlns="http://www.w3.org/2000/svg">
+          <title>ORIGIN pipeline</title>
+          <desc>Seven stages in a row: image, discover, verify, date, group, grade and report. From every stage except the last, a line drops to one rule, the evidence store, and the report reads back from it.</desc>
+          <polygon class="box" points="8.5,12 110.5,12 118.5,20 118.5,108 110.5,116 8.5,116 0.5,108 0.5,20"/>
+          <text class="st" x="59.5" y="44" text-anchor="middle">Image</text>
+          <text x="59.5" y="70" text-anchor="middle">hashed and</text>
+          <text x="59.5" y="90" text-anchor="middle">stored</text>
+          <path class="ln" d="M120.5 64 H139.5 M134.5 60 L139.5 64 L134.5 68"/>
+          <path class="ln ac" d="M59.5 116 V239 M55.5 233 L59.5 239 L63.5 233"/>
+          <polygon class="box" points="148.5,12 250.5,12 258.5,20 258.5,108 250.5,116 148.5,116 140.5,108 140.5,20"/>
+          <text class="st" x="199.5" y="44" text-anchor="middle">Discover</text>
+          <text x="199.5" y="70" text-anchor="middle">Google Lens</text>
+          <path class="ln" d="M260.5 64 H279.5 M274.5 60 L279.5 64 L274.5 68"/>
+          <path class="ln ac" d="M199.5 116 V239 M195.5 233 L199.5 239 L203.5 233"/>
+          <polygon class="box" points="288.5,12 390.5,12 398.5,20 398.5,108 390.5,116 288.5,116 280.5,108 280.5,20"/>
+          <text class="st" x="339.5" y="44" text-anchor="middle">Verify</text>
+          <text x="339.5" y="70" text-anchor="middle">fetch and</text>
+          <text x="339.5" y="90" text-anchor="middle">match each</text>
+          <path class="ln" d="M400.5 64 H419.5 M414.5 60 L419.5 64 L414.5 68"/>
+          <path class="ln ac" d="M339.5 116 V239 M335.5 233 L339.5 239 L343.5 233"/>
+          <polygon class="box" points="428.5,12 530.5,12 538.5,20 538.5,108 530.5,116 428.5,116 420.5,108 420.5,20"/>
+          <text class="st" x="479.5" y="44" text-anchor="middle">Date</text>
+          <text x="479.5" y="70" text-anchor="middle">as a range,</text>
+          <text x="479.5" y="90" text-anchor="middle">from evidence</text>
+          <path class="ln" d="M540.5 64 H559.5 M554.5 60 L559.5 64 L554.5 68"/>
+          <path class="ln ac" d="M479.5 116 V239 M475.5 233 L479.5 239 L483.5 233"/>
+          <polygon class="box" points="568.5,12 670.5,12 678.5,20 678.5,108 670.5,116 568.5,116 560.5,108 560.5,20"/>
+          <text class="st" x="619.5" y="44" text-anchor="middle">Group</text>
+          <text x="619.5" y="70" text-anchor="middle">by the story</text>
+          <text x="619.5" y="90" text-anchor="middle">each one tells</text>
+          <path class="ln" d="M680.5 64 H699.5 M694.5 60 L699.5 64 L694.5 68"/>
+          <path class="ln ac" d="M619.5 116 V239 M615.5 233 L619.5 239 L623.5 233"/>
+          <polygon class="box" points="708.5,12 810.5,12 818.5,20 818.5,108 810.5,116 708.5,116 700.5,108 700.5,20"/>
+          <text class="st" x="759.5" y="44" text-anchor="middle">Grade</text>
+          <text x="759.5" y="70" text-anchor="middle">Admiralty</text>
+          <text x="759.5" y="90" text-anchor="middle">scale</text>
+          <path class="ln" d="M820.5 64 H839.5 M834.5 60 L839.5 64 L834.5 68"/>
+          <path class="ln ac" d="M759.5 116 V239 M755.5 233 L759.5 239 L763.5 233"/>
+          <polygon class="box" points="848.5,12 950.5,12 958.5,20 958.5,108 950.5,116 848.5,116 840.5,108 840.5,20"/>
+          <text class="st" x="899.5" y="44" text-anchor="middle">Report</text>
+          <text x="899.5" y="70" text-anchor="middle">brief and</text>
+          <text x="899.5" y="90" text-anchor="middle">evidence pack</text>
+          <path class="ln" d="M899.5 239 V118 M895.5 124 L899.5 118 L903.5 124"/>
+          <path class="ln" d="M0.5 240 H959.5"/>
+          <text class="st" x="0.5" y="272">Evidence store</text>
+          <text x="0.5" y="296">Postgres + pgvector &#183; content-addressed artefacts</text>
+          <text class="ac-t" x="959.5" y="272" text-anchor="end">Every finding cites a stored artefact (SHA-256, fetch time).</text>
+          </svg>
+        <svg class="dg dg-tall" viewBox="0 0 340 780" role="img" xmlns="http://www.w3.org/2000/svg">
+          <title>ORIGIN pipeline</title>
+          <desc>Seven stages stacked top to bottom: image, discover, verify, date, group, grade and report. From every stage except the last, a line runs left to one vertical rule, the evidence store, and the report reads back from it.</desc>
+          <path class="ln" d="M22 43 V571"/>
+          <polygon class="box" points="72.5,12 330.5,12 338.5,20 338.5,66 330.5,74 72.5,74 64.5,66 64.5,20"/>
+          <text class="st" x="80" y="38">Image</text>
+          <text x="80" y="62">hashed and stored</text>
+          <path class="ln" d="M201.5 76 V99 M197.5 93 L201.5 99 L205.5 93"/>
+          <path class="ln ac" d="M64 43 H24 M30 39 L24 43 L30 47"/>
+          <polygon class="box" points="72.5,100 330.5,100 338.5,108 338.5,154 330.5,162 72.5,162 64.5,154 64.5,108"/>
+          <text class="st" x="80" y="126">Discover</text>
+          <text x="80" y="150">Google Lens</text>
+          <path class="ln" d="M201.5 164 V187 M197.5 181 L201.5 187 L205.5 181"/>
+          <path class="ln ac" d="M64 131 H24 M30 127 L24 131 L30 135"/>
+          <polygon class="box" points="72.5,188 330.5,188 338.5,196 338.5,242 330.5,250 72.5,250 64.5,242 64.5,196"/>
+          <text class="st" x="80" y="214">Verify</text>
+          <text x="80" y="238">fetch and match each</text>
+          <path class="ln" d="M201.5 252 V275 M197.5 269 L201.5 275 L205.5 269"/>
+          <path class="ln ac" d="M64 219 H24 M30 215 L24 219 L30 223"/>
+          <polygon class="box" points="72.5,276 330.5,276 338.5,284 338.5,330 330.5,338 72.5,338 64.5,330 64.5,284"/>
+          <text class="st" x="80" y="302">Date</text>
+          <text x="80" y="326">as a range, from evidence</text>
+          <path class="ln" d="M201.5 340 V363 M197.5 357 L201.5 363 L205.5 357"/>
+          <path class="ln ac" d="M64 307 H24 M30 303 L24 307 L30 311"/>
+          <polygon class="box" points="72.5,364 330.5,364 338.5,372 338.5,418 330.5,426 72.5,426 64.5,418 64.5,372"/>
+          <text class="st" x="80" y="390">Group</text>
+          <text x="80" y="414">by the story each one tells</text>
+          <path class="ln" d="M201.5 428 V451 M197.5 445 L201.5 451 L205.5 445"/>
+          <path class="ln ac" d="M64 395 H24 M30 391 L24 395 L30 399"/>
+          <polygon class="box" points="72.5,452 330.5,452 338.5,460 338.5,506 330.5,514 72.5,514 64.5,506 64.5,460"/>
+          <text class="st" x="80" y="478">Grade</text>
+          <text x="80" y="502">Admiralty scale</text>
+          <path class="ln" d="M201.5 516 V539 M197.5 533 L201.5 539 L205.5 533"/>
+          <path class="ln ac" d="M64 483 H24 M30 479 L24 483 L30 487"/>
+          <polygon class="box" points="72.5,540 330.5,540 338.5,548 338.5,594 330.5,602 72.5,602 64.5,594 64.5,548"/>
+          <text class="st" x="80" y="566">Report</text>
+          <text x="80" y="590">brief and evidence pack</text>
+          <path class="ln" d="M24 571 H63 M57 567 L63 571 L57 575"/>
+          <text class="st" x="0.5" y="642">Evidence store</text>
+          <text x="0.5" y="668">Postgres + pgvector &#183;</text>
+          <text x="0.5" y="690">content-addressed artefacts</text>
+          <text class="ac-t" x="0.5" y="726">Every finding cites a stored</text>
+          <text class="ac-t" x="0.5" y="748">artefact (SHA-256, fetch time).</text>
+          </svg>
+      </div>
+      <figcaption>
+        <span class="fig-no">Fig. 2</span>
+        <span class="fig-title">ORIGIN pipeline</span>
+        <em class="fig-desc">Seven stages, one evidence store. Each stage writes what it finds with its source, and the report reads only from the store.</em>
+      </figcaption>
+    </figure>
 
     <div class="study-grid">
       <div class="study-body">
-        <p><strong>Problem.</strong> An image reaches an analyst with a story attached. Reverse-image search lists pages, but not which copies are the same picture, when each one appeared, or where the story changes.</p>
-        <p><strong>Approach.</strong> I built it alone. It takes one image and works in order: find copies through Google Lens, fetch and check each one, date it from evidence, group the copies by the story they tell, grade the sources, and cite everything. Every finding links to the stored source behind it (SHA-256 and fetch time), and the result exports as a JSON evidence pack or a PDF brief. Postgres constraints enforce the evidence rules: a claim needs a sighting, the audit log is append-only and API quota cannot be overspent.</p>
-        <p><strong>Outcome.</strong> I built a matching evaluation: 18 sample photos, each edited 14 ways a repost is edited (crop, caption, watermark, recompression). Tuning the thresholds on it raised recall on edited copies from 75.4% to 93.7%, with 2 false positives in 306 unrelated pairs, both from one stereo pair of the same scene. The set is small and the thresholds were tuned on it, so the next step is a held-out test on real reposts (<a href="https://github.com/Farhangbakhs/image-provenance-tracer/blob/main/evals/report.md" target="_blank" rel="noopener">evals/report.md</a>).</p>
-        <p>ORIGIN is not hosted. It runs locally with your own free-tier SerpApi and Gemini keys, and the repository README has the steps.</p>
+        <dl class="rows ledger">
+          <div class="row head"><dt>Decisions</dt></div>
+          <div class="row"><dt>01</dt><dd class="v"><b>Evidence rules live in Postgres.</b> Why: no code path can write an unsourced claim. Cost: changes need migrations. <a href="https://github.com/Farhangbakhs/image-provenance-tracer/blob/main/packages/shared/src/origin_core/db/migrations/versions/20261110_b4ffc87f6b93_initial_schema.py" target="_blank" rel="noopener">initial_schema.py</a></dd></div>
+          <div class="row"><dt>02</dt><dd class="v"><b>Fetched pages are untrusted.</b> Why: the fetcher pins the vetted IP, re-checking redirects. Cost: some pages can&rsquo;t be reached. <a href="https://github.com/Farhangbakhs/image-provenance-tracer/blob/main/packages/shared/src/origin_core/fetch.py" target="_blank" rel="noopener">fetch.py</a></dd></div>
+          <div class="row"><dt>03</dt><dd class="v"><b>Verify the top 50 hits.</b> Why: the verifier ran out of memory at 399 hits. Cost: others go unchecked. <a href="https://github.com/Farhangbakhs/image-provenance-tracer/blob/main/packages/shared/src/origin_core/settings.py" target="_blank" rel="noopener">settings.py</a></dd></div>
+
+          <div class="row head"><dt>Evidence</dt></div>
+          <div class="row"><dt>01</dt><dd class="v">Recall on simulated repost edits 75.4% to 93.7%; 2 false positives in 306 pairs, tuned on that set. <a href="https://github.com/Farhangbakhs/image-provenance-tracer/blob/main/evals/report.md" target="_blank" rel="noopener">report.md</a></dd></div>
+          <div class="row"><dt>02</dt><dd class="v">A live trace rejected 44 of 50 hits as &ldquo;no image&rdquo;. Every rejection now records its reason. <a href="https://github.com/Farhangbakhs/image-provenance-tracer/blob/main/packages/shared/src/origin_core/db/migrations/versions/20261120_a3f1c9d27b44_candidate_fetch_info.py" target="_blank" rel="noopener">candidate_fetch_info.py</a></dd></div>
+
+          <div class="row head"><dt>Next</dt></div>
+          <div class="row"><dt>01</dt><dd class="v">Test on real reposts, which start from larger originals. The investigator agent is not built. <a href="https://github.com/Farhangbakhs/image-provenance-tracer/blob/main/docs/LIMITATIONS.md" target="_blank" rel="noopener">LIMITATIONS.md</a></dd></div>
+        </dl>
       </div>
       <aside class="study-aside">
         <ul class="metrics">
@@ -855,7 +1007,11 @@ table.figures.spaced{margin-top:2.6em}
       </aside>
     </div>
 
-    <figure class="plate rise" id="fig2">
+    <div class="study-body">
+      <p><strong>Outcome.</strong> Recall on edited copies rose from 75.4% to 93.7% on 18 sample photos, but the thresholds were tuned on that same set. ORIGIN is not hosted: it runs locally with your own free-tier keys.</p>
+    </div>
+
+    <figure class="plate rise" id="fig3">
       <div class="plate-frame">
         <picture>
           <source srcset="img/origin-investigation-1600.webp" type="image/webp">
@@ -864,14 +1020,14 @@ table.figures.spaced{margin-top:2.6em}
         </picture>
       </div>
       <figcaption>
-        <span class="fig-no">Fig. 2</span>
+        <span class="fig-no">Fig. 3</span>
         <span class="fig-title">ORIGIN investigation page</span>
         <a class="fig-link" href="https://github.com/Farhangbakhs/image-provenance-tracer" target="_blank" rel="noopener">Open the repository</a>
         <em class="fig-desc">One traced photograph: the answer in a sentence, stories as rows on a time axis, and the evidence for the earliest copy.</em>
       </figcaption>
     </figure>
 
-    <figure class="plate rise" id="fig3">
+    <figure class="plate rise" id="fig4">
       <div class="plate-frame">
         <video controls preload="none" poster="origin_poster.jpg" playsinline
                aria-label="Screen recording of one ORIGIN trace: the image page, the investigation page and the printable brief">
@@ -880,7 +1036,7 @@ table.figures.spaced{margin-top:2.6em}
         </video>
       </div>
       <figcaption>
-        <span class="fig-no">Fig. 3</span>
+        <span class="fig-no">Fig. 4</span>
         <span class="fig-title">ORIGIN demo</span>
         <a class="fig-link" href="origin_demo.mp4" download>Download the film</a>
         <em class="fig-desc">One trace, start to finish: the image page, the investigation and the printable brief. MP4, 3 minutes.</em>
@@ -892,7 +1048,7 @@ table.figures.spaced{margin-top:2.6em}
   <article class="study rise" id="p2">
     <p class="study-eyebrow">
       <span class="no">02</span>
-      <span>Data pipeline and analyst console</span>
+      <span>Optimisation &middot; MILP</span>
       <span>Team coursework &middot; 2026</span>
     </p>
     <h3>School connectivity optimisation, Honduras</h3>
@@ -903,11 +1059,167 @@ table.figures.spaced{margin-top:2.6em}
       <span><b>Live</b> <a href="https://farhangbakhs.github.io/honduras-connectivity/" target="_blank" rel="noopener">analyst console</a></span>
     </p>
 
+    <div class="study-body">
+      <p>Plan which Honduran schools to connect, and when, under a fixed US$125M five-year budget and a strict build order: tower, then WISP equipment, then devices.</p>
+    </div>
+
+    <figure class="plate rise" id="fig5">
+      <div class="plate-frame">
+        <svg class="dg dg-wide" viewBox="0 0 960 444" role="img" xmlns="http://www.w3.org/2000/svg">
+          <title>Honduras model and data path</title>
+          <desc>Top: the team model. A build order of tower, then WISP, then devices, and a five-year budget feed one model that branches into two plans, unrestricted at 98.7 percent and annual milestones at 74.4 percent connected by year 5. Bottom: the data path from source data through my pipeline, the team model, the scenario files, my build checks and my console, with an audit of the model output against the team report.</desc>
+          <text class="st" x="0.5" y="20">Model</text>
+          <text x="78" y="20">the team&rsquo;s multi-period MILP</text>
+          <polygon class="box" points="8.5,36 110.5,36 118.5,44 118.5,98 110.5,106 8.5,106 0.5,98 0.5,44"/>
+          <text class="st" x="59.5" y="64" text-anchor="middle">Tower</text>
+          <text x="59.5" y="88" text-anchor="middle">built first</text>
+          <path class="ln" d="M120.5 71 H169.5 M164.5 67 L169.5 71 L164.5 75"/>
+          <polygon class="box" points="178.5,36 280.5,36 288.5,44 288.5,98 280.5,106 178.5,106 170.5,98 170.5,44"/>
+          <text class="st" x="229.5" y="64" text-anchor="middle">WISP</text>
+          <text x="229.5" y="88" text-anchor="middle">needs a tower</text>
+          <path class="ln" d="M290.5 71 H339.5 M334.5 67 L339.5 71 L334.5 75"/>
+          <polygon class="box" points="348.5,36 450.5,36 458.5,44 458.5,98 450.5,106 348.5,106 340.5,98 340.5,44"/>
+          <text class="st" x="399.5" y="64" text-anchor="middle">Devices</text>
+          <text x="399.5" y="88" text-anchor="middle">need WISP</text>
+          <path class="ln" d="M0.5 130 H458.5 V146 H0.5 Z"/>
+          <path class="ln" d="M92.1 130 V146"/>
+          <path class="ln" d="M183.7 130 V146"/>
+          <path class="ln" d="M275.3 130 V146"/>
+          <path class="ln" d="M366.9 130 V146"/>
+          <text x="46.3" y="172" text-anchor="middle">Y1</text>
+          <text x="137.9" y="172" text-anchor="middle">Y2</text>
+          <text x="229.5" y="172" text-anchor="middle">Y3</text>
+          <text x="321.1" y="172" text-anchor="middle">Y4</text>
+          <text x="412.7" y="172" text-anchor="middle">Y5</text>
+          <text x="0.5" y="198">Budget: US$125M, five years</text>
+          <path class="ln" d="M460.5 71 H540 M460.5 138 H540 M540 71 V157"/>
+          <path class="ln" d="M540 71 H619 M614 67 L619 71 L614 75"/>
+          <polygon class="box" points="628.5,36 951.5,36 959.5,44 959.5,98 951.5,106 628.5,106 620.5,98 620.5,44"/>
+          <text class="st" x="636.5" y="64">Unrestricted</text>
+          <text x="636.5" y="88">98.7% connected by year 5</text>
+          <path class="ln" d="M540 157 H619 M614 153 L619 157 L614 161"/>
+          <polygon class="box" points="628.5,122 951.5,122 959.5,130 959.5,184 951.5,192 628.5,192 620.5,184 620.5,130"/>
+          <text class="st" x="636.5" y="150">Annual milestones</text>
+          <text x="636.5" y="174">74.4% connected by year 5</text>
+          <path class="ln" d="M0.5 228 H959.5"/>
+          <text class="st" x="0.5" y="262">Data path</text>
+          <text x="112" y="262">from source data to console</text>
+          <polygon class="box" points="8.5,280 130.5,280 138.5,288 138.5,376 130.5,384 8.5,384 0.5,376 0.5,288"/>
+          <text class="st" x="69.5" y="312" text-anchor="middle">Sources</text>
+          <text x="69.5" y="338" text-anchor="middle">Giga,</text>
+          <text x="69.5" y="358" text-anchor="middle">OpenCellID</text>
+          <path class="ln" d="M140.5 332 H161.5 M156.5 328 L161.5 332 L156.5 336"/>
+          <polygon class="box ac" points="170.5,280 292.5,280 300.5,288 300.5,376 292.5,384 170.5,384 162.5,376 162.5,288"/>
+          <text class="st" x="231.5" y="312" text-anchor="middle">Pipeline</text>
+          <text x="231.5" y="338" text-anchor="middle">extract and</text>
+          <text x="231.5" y="358" text-anchor="middle">merge</text>
+          <path class="ln" d="M302.5 332 H323.5 M318.5 328 L323.5 332 L318.5 336"/>
+          <polygon class="box" points="332.5,280 454.5,280 462.5,288 462.5,376 454.5,384 332.5,384 324.5,376 324.5,288"/>
+          <text class="st" x="393.5" y="312" text-anchor="middle">Model</text>
+          <text x="393.5" y="338" text-anchor="middle">MILP,</text>
+          <text x="393.5" y="358" text-anchor="middle">team</text>
+          <path class="ln" d="M464.5 332 H485.5 M480.5 328 L485.5 332 L480.5 336"/>
+          <polygon class="box" points="494.5,280 616.5,280 624.5,288 624.5,376 616.5,384 494.5,384 486.5,376 486.5,288"/>
+          <text class="st" x="555.5" y="312" text-anchor="middle">Output</text>
+          <text x="555.5" y="338" text-anchor="middle">scenario</text>
+          <text x="555.5" y="358" text-anchor="middle">files</text>
+          <path class="ln" d="M626.5 332 H647.5 M642.5 328 L647.5 332 L642.5 336"/>
+          <polygon class="box ac" points="656.5,280 778.5,280 786.5,288 786.5,376 778.5,384 656.5,384 648.5,376 648.5,288"/>
+          <text class="st" x="717.5" y="312" text-anchor="middle">Checks</text>
+          <text x="717.5" y="338" text-anchor="middle">build_data.py</text>
+          <text x="717.5" y="358" text-anchor="middle">row and ID checks</text>
+          <path class="ln" d="M788.5 332 H809.5 M804.5 328 L809.5 332 L804.5 336"/>
+          <polygon class="box ac" points="818.5,280 940.5,280 948.5,288 948.5,376 940.5,384 818.5,384 810.5,376 810.5,288"/>
+          <text class="st" x="879.5" y="312" text-anchor="middle">Console</text>
+          <text x="879.5" y="338" text-anchor="middle">every figure</text>
+          <text x="879.5" y="358" text-anchor="middle">cites a source</text>
+          <path class="ln ac" d="M555.5 384 V410 M551.5 404 L555.5 410 L559.5 404"/>
+          <text class="ac-t" x="531.5" y="432">Audit: team report against model output, 4 mismatches</text>
+          </svg>
+        <svg class="dg dg-tall" viewBox="0 0 340 1176" role="img" xmlns="http://www.w3.org/2000/svg">
+          <title>Honduras model and data path</title>
+          <desc>Top: the team model. A build order of tower, then WISP, then devices, and a five-year budget lead to two plans, unrestricted at 98.7 percent and annual milestones at 74.4 percent connected by year 5. Below: the data path from source data through my pipeline, the team model, the scenario files, my build checks and my console, with an audit of the model output against the team report.</desc>
+          <text class="st" x="0.5" y="22">Model</text>
+          <text x="0.5" y="46">the team&rsquo;s multi-period MILP</text>
+          <polygon class="box" points="8.5,68 331.5,68 339.5,76 339.5,114 331.5,122 8.5,122 0.5,114 0.5,76"/>
+          <text class="st" x="16" y="90">Tower</text>
+          <text x="16" y="112">built first</text>
+          <path class="ln" d="M170 124 V143 M166 137 L170 143 L174 137"/>
+          <polygon class="box" points="8.5,144 331.5,144 339.5,152 339.5,190 331.5,198 8.5,198 0.5,190 0.5,152"/>
+          <text class="st" x="16" y="166">WISP</text>
+          <text x="16" y="188">needs a tower</text>
+          <path class="ln" d="M170 200 V219 M166 213 L170 219 L174 213"/>
+          <polygon class="box" points="8.5,220 331.5,220 339.5,228 339.5,266 331.5,274 8.5,274 0.5,266 0.5,228"/>
+          <text class="st" x="16" y="242">Devices</text>
+          <text x="16" y="264">need WISP</text>
+          <path class="ln" d="M0.5 306 H339.5 V322 H0.5 Z"/>
+          <path class="ln" d="M68.3 306 V322"/>
+          <path class="ln" d="M136.1 306 V322"/>
+          <path class="ln" d="M203.9 306 V322"/>
+          <path class="ln" d="M271.7 306 V322"/>
+          <text x="34.4" y="348" text-anchor="middle">Y1</text>
+          <text x="102.2" y="348" text-anchor="middle">Y2</text>
+          <text x="170" y="348" text-anchor="middle">Y3</text>
+          <text x="237.8" y="348" text-anchor="middle">Y4</text>
+          <text x="305.6" y="348" text-anchor="middle">Y5</text>
+          <text x="0.5" y="376">Budget: US$125M, five years</text>
+          <path class="ln" d="M14 392 V513"/>
+          <path class="ln" d="M14 439 H39 M34 435 L39 439 L34 443"/>
+          <polygon class="box" points="48.5,412 331.5,412 339.5,420 339.5,458 331.5,466 48.5,466 40.5,458 40.5,420"/>
+          <text class="st" x="56" y="434">Unrestricted</text>
+          <text x="56" y="456">98.7% connected by year 5</text>
+          <path class="ln" d="M14 513 H39 M34 509 L39 513 L34 517"/>
+          <polygon class="box" points="48.5,486 331.5,486 339.5,494 339.5,532 331.5,540 48.5,540 40.5,532 40.5,494"/>
+          <text class="st" x="56" y="508">Annual milestones</text>
+          <text x="56" y="530">74.4% connected by year 5</text>
+          <path class="ln" d="M0.5 566 H339.5"/>
+          <text class="st" x="0.5" y="602">Data path</text>
+          <text x="0.5" y="626">from source data to console</text>
+          <polygon class="box" points="8.5,650 331.5,650 339.5,658 339.5,696 331.5,704 8.5,704 0.5,696 0.5,658"/>
+          <text class="st" x="16" y="672">Sources</text>
+          <text x="16" y="694">Giga, OpenCellID</text>
+          <path class="ln" d="M170 706 V725 M166 719 L170 725 L174 719"/>
+          <polygon class="box ac" points="8.5,726 331.5,726 339.5,734 339.5,772 331.5,780 8.5,780 0.5,772 0.5,734"/>
+          <text class="st" x="16" y="748">Pipeline</text>
+          <text x="16" y="770">extract and merge</text>
+          <path class="ln" d="M170 782 V801 M166 795 L170 801 L174 795"/>
+          <polygon class="box" points="8.5,802 331.5,802 339.5,810 339.5,848 331.5,856 8.5,856 0.5,848 0.5,810"/>
+          <text class="st" x="16" y="824">Model</text>
+          <text x="16" y="846">MILP, team</text>
+          <path class="ln" d="M170 858 V877 M166 871 L170 877 L174 871"/>
+          <polygon class="box" points="8.5,878 331.5,878 339.5,886 339.5,924 331.5,932 8.5,932 0.5,924 0.5,886"/>
+          <text class="st" x="16" y="900">Output</text>
+          <text x="16" y="922">scenario files</text>
+          <path class="ln" d="M170 934 V953 M166 947 L170 953 L174 947"/>
+          <polygon class="box ac" points="8.5,954 331.5,954 339.5,962 339.5,1000 331.5,1008 8.5,1008 0.5,1000 0.5,962"/>
+          <text class="st" x="16" y="976">Checks</text>
+          <text x="16" y="998">build_data.py row and ID checks</text>
+          <path class="ln" d="M170 1010 V1029 M166 1023 L170 1029 L174 1023"/>
+          <polygon class="box ac" points="8.5,1030 331.5,1030 339.5,1038 339.5,1076 331.5,1084 8.5,1084 0.5,1076 0.5,1038"/>
+          <text class="st" x="16" y="1052">Console</text>
+          <text x="16" y="1074">every figure cites a source</text>
+          <text class="ac-t" x="0.5" y="1124">Audit: team report against</text>
+          <text class="ac-t" x="0.5" y="1146">model output, 4 mismatches</text>
+          </svg>
+      </div>
+      <figcaption>
+        <span class="fig-no">Fig. 5</span>
+        <span class="fig-title">Honduras model and data path</span>
+        <em class="fig-desc">One model, two plans, and the data path around it. Oxblood: my part. Ink: team. The pipeline scripts are not yet in the public repository; the checks and console are.</em>
+      </figcaption>
+    </figure>
+
     <div class="study-grid">
       <div class="study-body">
-        <p><strong>Problem.</strong> Honduras&rsquo;s public school system is largely offline: of 15,492 public schools in the Giga dataset, 1,130 (7.3%) have a connection. Connecting a school needs a tower, then WISP equipment, then devices, in that order, on a fixed US$125M budget over five years.</p>
-        <p><strong>Approach.</strong> The team formulated the plan as a multi-period mixed-integer linear programme in Julia/JuMP, solved with Gurobi, for two plans: one unrestricted, and one that must show annual progress. I built the data pipeline. I reverse-engineered the UNICEF&ndash;ITU Giga dataset to extract 15,000+ school records and merged cell-tower records into 7,297 sites. On my own I then rebuilt the results as a public analyst console where every figure cites its source. The build script asserts row counts and matching school IDs across both scenario files, so a data refresh cannot silently break the published figures.</p>
-        <p><strong>Outcome.</strong> The unrestricted plan connects 12,409 of the 12,578 schools in scope (98.7%) by year 5. Requiring annual milestones brings that to 9,363 (74.4%), a loss of 3,046 schools, or 24.2 percentage points. I audited the model output against the team report and found 4 mismatches, which the repository records. One is duplicate site records in the milestone output, and another is a claim about unreached schools that the output files do not support.</p>
+        <dl class="rows ledger">
+          <div class="row head"><dt>Decisions</dt></div>
+          <div class="row"><dt>01</dt><dd class="v"><b>Multi-period MILP: build order (tower, WISP, devices) and a five-year budget as constraints, solved with Gurobi.</b> Model code not public. <a href="https://farhangbakhs.github.io/honduras-connectivity/#formulation" target="_blank" rel="noopener">formulation</a> <span class="k">team</span></dd></div>
+          <div class="row"><dt>02</dt><dd class="v"><b>Build checks row counts and IDs across both plans.</b> Why: no silent breakage. Cost: any mismatch stops the build. <a href="https://github.com/Farhangbakhs/honduras-connectivity/blob/main/scripts/build_data.py" target="_blank" rel="noopener">build_data.py</a> <span class="k mine">mine</span></dd></div>
+          <div class="row"><dt>03</dt><dd class="v"><b>Every console figure cites its source.</b> Why: anyone can check it. Cost: setup figures come from the report. <a href="https://github.com/Farhangbakhs/honduras-connectivity/blob/main/data/findings.json" target="_blank" rel="noopener">findings.json</a> <span class="k mine">mine</span></dd></div>
+
+          <div class="row head"><dt>Evidence</dt></div>
+          <div class="row"><dt>01</dt><dd class="v">Auditing the model output against the team report found 4 mismatches, recorded in the repo. <a href="https://github.com/Farhangbakhs/honduras-connectivity/blob/main/data/findings.json" target="_blank" rel="noopener">findings.json</a> <span class="k mine">mine</span></dd></div>
+        </dl>
       </div>
       <aside class="study-aside">
         <ul class="metrics">
@@ -917,19 +1229,31 @@ table.figures.spaced{margin-top:2.6em}
           <li><span class="fig">24.2pp</span><span class="cap">Coverage given up to hit annual milestones</span></li>
         </ul>
 
-        <table class="figures lead spaced">
-          <caption>Year-5 connectivity by plan</caption>
-          <tbody>
-            <tr><th scope="row">Unrestricted</th><td>98.7%</td></tr>
-            <tr><th scope="row">With annual milestones</th><td>74.4%</td></tr>
-          </tbody>
-        </table>
+        <svg class="dg dg-slope" viewBox="0 0 320 226" role="img" xmlns="http://www.w3.org/2000/svg">
+        <title>Year-5 connectivity by plan</title>
+        <desc>A slope between two plans. The unrestricted plan connects 98.7 percent of schools by year 5 and the plan with annual milestones connects 74.4 percent, a fall of 24.2 percentage points.</desc>
+        <text class="st" x="0.5" y="18">Year-5 connectivity</text>
+        <path class="ln" d="M70 44 V174 M250 44 V174"/>
+        <path class="ln ac" d="M70 45.69 L250 77.28"/>
+        <polygon class="box" style="fill:var(--stock)" points="70,40.69 75,45.69 70,50.69 65,45.69"/>
+        <polygon class="box" style="fill:var(--stock)" points="250,72.28 255,77.28 250,82.28 245,77.28"/>
+        <text class="val" x="60" y="52.69" text-anchor="end">98.7%</text>
+        <text class="val" x="260" y="84.28">74.4%</text>
+        <text class="ac-t" x="160" y="52" text-anchor="middle">&minus;24.2 pp</text>
+        <text x="0.5" y="200">Unrestricted</text>
+        <text x="319.5" y="200" text-anchor="end">With annual</text>
+        <text x="319.5" y="220" text-anchor="end">milestones</text>
+        </svg>
 
         <p class="tags">Python &middot; Julia/JuMP &middot; Gurobi &middot; MapLibre</p>
       </aside>
     </div>
 
-    <figure class="plate rise" id="fig4">
+    <div class="study-body">
+      <p><strong>Outcome.</strong> Annual milestones cost 3,046 schools: 12,409 connected by year 5 became 9,363. The setup figures, such as 15,492 schools in the dataset, come from the team report, because the published files cannot reproduce them.</p>
+    </div>
+
+    <figure class="plate rise" id="fig6">
       <div class="plate-frame">
         <picture>
           <source srcset="img/honduras-console-1600.webp" type="image/webp">
@@ -938,7 +1262,7 @@ table.figures.spaced{margin-top:2.6em}
         </picture>
       </div>
       <figcaption>
-        <span class="fig-no">Fig. 4</span>
+        <span class="fig-no">Fig. 6</span>
         <span class="fig-title">Honduras analyst console</span>
         <a class="fig-link" href="https://farhangbakhs.github.io/honduras-connectivity/" target="_blank" rel="noopener">Open the live console</a>
         <em class="fig-desc">The console in its default state: the unrestricted plan at year 5, with 12,409 of the 12,578 schools connected.</em>
@@ -958,14 +1282,123 @@ table.figures.spaced{margin-top:2.6em}
       <span><b>Role</b> <span>Card reading and backend, team of 3</span></span>
       <span><b>Code</b> <a href="https://github.com/Farhangbakhs/pokervis" target="_blank" rel="noopener">GitHub</a></span>
       <span><b>Event</b> <a href="https://hacktheburgh.com/" target="_blank" rel="noopener">HackTheBurgh XIII</a></span>
-      <span><b>Evidence</b> <a href="#fig5">photograph below</a></span>
+      <span><b>Evidence</b> <a href="#fig8">photograph below</a></span>
     </p>
+
+    <div class="study-body">
+      <p>Bets on a real-card poker table settle on-chain, so a misread card must never move money.</p>
+    </div>
+
+    <figure class="plate rise" id="fig7">
+      <div class="plate-frame">
+        <svg class="dg dg-wide" viewBox="0 0 960 272" role="img" xmlns="http://www.w3.org/2000/svg">
+          <title>PokerVis card path</title>
+          <desc>Six stages in a row: phone camera, card detection, confirmation, table state, one Solana transaction and player wallets. Under the confirmation stage, four reads of one card are shown, seen, seen, missed, seen, and the card counts because three of the last four reads saw it. The table state also feeds the player interface on phones and the big screen.</desc>
+          <polygon class="box" points="8.5,12 130.5,12 138.5,20 138.5,108 130.5,116 8.5,116 0.5,108 0.5,20"/>
+          <text class="st" x="69.5" y="44" text-anchor="middle">Camera</text>
+          <text x="69.5" y="70" text-anchor="middle">phone above</text>
+          <text x="69.5" y="90" text-anchor="middle">the table</text>
+          <path class="ln" d="M140.5 64 H161.5 M156.5 60 L161.5 64 L156.5 68"/>
+          <polygon class="box ac" points="170.5,12 292.5,12 300.5,20 300.5,108 292.5,116 170.5,116 162.5,108 162.5,20"/>
+          <text class="st" x="231.5" y="44" text-anchor="middle">Detect</text>
+          <text x="231.5" y="70" text-anchor="middle">YOLOv8,</text>
+          <text x="231.5" y="90" text-anchor="middle">each card</text>
+          <path class="ln" d="M302.5 64 H323.5 M318.5 60 L323.5 64 L318.5 68"/>
+          <polygon class="box ac" points="332.5,12 454.5,12 462.5,20 462.5,108 454.5,116 332.5,116 324.5,108 324.5,20"/>
+          <text class="st" x="393.5" y="44" text-anchor="middle">Confirm</text>
+          <text x="393.5" y="70" text-anchor="middle">3 of the last</text>
+          <text x="393.5" y="90" text-anchor="middle">4 frames</text>
+          <path class="ln" d="M464.5 64 H485.5 M480.5 60 L485.5 64 L480.5 68"/>
+          <polygon class="box ac" points="494.5,12 616.5,12 624.5,20 624.5,108 616.5,116 494.5,116 486.5,108 486.5,20"/>
+          <text class="st" x="555.5" y="44" text-anchor="middle">Table</text>
+          <text x="555.5" y="70" text-anchor="middle">FastAPI,</text>
+          <text x="555.5" y="90" text-anchor="middle">table state</text>
+          <path class="ln" d="M626.5 64 H647.5 M642.5 60 L647.5 64 L642.5 68"/>
+          <polygon class="box" points="656.5,12 778.5,12 786.5,20 786.5,108 778.5,116 656.5,116 648.5,108 648.5,20"/>
+          <text class="st" x="717.5" y="44" text-anchor="middle">Settle</text>
+          <text x="717.5" y="70" text-anchor="middle">one Solana</text>
+          <text x="717.5" y="90" text-anchor="middle">transaction</text>
+          <path class="ln" d="M788.5 64 H809.5 M804.5 60 L809.5 64 L804.5 68"/>
+          <polygon class="box" points="818.5,12 940.5,12 948.5,20 948.5,108 940.5,116 818.5,116 810.5,108 810.5,20"/>
+          <text class="st" x="879.5" y="44" text-anchor="middle">Wallets</text>
+          <text x="879.5" y="70" text-anchor="middle">players&rsquo;,</text>
+          <text x="879.5" y="90" text-anchor="middle">devnet</text>
+          <path class="ln ac" d="M324.5 116 L271.5 176 M462.5 116 L515.5 176"/>
+          <polygon class="box ac" points="276.5,176 318.5,176 323.5,181 323.5,215 318.5,220 276.5,220 271.5,215 271.5,181"/>
+          <path class="ln" d="M286.5 199 L294.5 208 L309.5 189"/>
+          <polygon class="box ac" points="340.5,176 382.5,176 387.5,181 387.5,215 382.5,220 340.5,220 335.5,215 335.5,181"/>
+          <path class="ln" d="M350.5 199 L358.5 208 L373.5 189"/>
+          <polygon class="box ac" points="404.5,176 446.5,176 451.5,181 451.5,215 446.5,220 404.5,220 399.5,215 399.5,181"/>
+          <path class="ln" d="M416.5 190 L434.5 207 M434.5 190 L416.5 207"/>
+          <polygon class="box ac" points="468.5,176 510.5,176 515.5,181 515.5,215 510.5,220 468.5,220 463.5,215 463.5,181"/>
+          <path class="ln" d="M478.5 199 L486.5 208 L501.5 189"/>
+          <text class="st" x="393.5" y="248" text-anchor="middle">counts</text>
+          <path class="ln" d="M555.5 118 V207 H646.5 M641.5 203 L646.5 207 L641.5 211"/>
+          <polygon class="box" points="656.5,172 778.5,172 786.5,180 786.5,234 778.5,242 656.5,242 648.5,234 648.5,180"/>
+          <text class="st" x="717.5" y="200" text-anchor="middle">UI</text>
+          <text x="717.5" y="224" text-anchor="middle">phones, big screen</text>
+          </svg>
+        <svg class="dg dg-tall" viewBox="0 0 340 664" role="img" xmlns="http://www.w3.org/2000/svg">
+          <title>PokerVis card path</title>
+          <desc>Stages stacked top to bottom: phone camera, card detection, confirmation, table state, one Solana transaction and player wallets. Under the confirmation stage, four reads of one card are shown, seen, seen, missed, seen, and the card counts because three of the last four reads saw it. A line from the table state runs down the left to the player interface on phones and the big screen.</desc>
+          <polygon class="box" points="8.5,12 331.5,12 339.5,20 339.5,58 331.5,66 8.5,66 0.5,58 0.5,20"/>
+          <text class="st" x="16.5" y="34">Camera</text>
+          <text x="16.5" y="56">phone above the table</text>
+          <path class="ln" d="M170 68 V87 M166 81 L170 87 L174 81"/>
+          <polygon class="box ac" points="8.5,88 331.5,88 339.5,96 339.5,134 331.5,142 8.5,142 0.5,134 0.5,96"/>
+          <text class="st" x="16.5" y="110">Detect</text>
+          <text x="16.5" y="132">YOLOv8, each card</text>
+          <path class="ln" d="M170 144 V163 M166 157 L170 163 L174 157"/>
+          <polygon class="box ac" points="8.5,164 331.5,164 339.5,172 339.5,210 331.5,218 8.5,218 0.5,210 0.5,172"/>
+          <text class="st" x="16.5" y="186">Confirm</text>
+          <text x="16.5" y="208">3 of the last 4 frames</text>
+          <polygon class="box ac" points="72.5,340 331.5,340 339.5,348 339.5,386 331.5,394 72.5,394 64.5,386 64.5,348"/>
+          <text class="st" x="80.5" y="362">Table</text>
+          <text x="80.5" y="384">FastAPI, table state</text>
+          <path class="ln" d="M202 396 V415 M198 409 L202 415 L206 409"/>
+          <polygon class="box" points="72.5,416 331.5,416 339.5,424 339.5,462 331.5,470 72.5,470 64.5,462 64.5,424"/>
+          <text class="st" x="80.5" y="438">Settle</text>
+          <text x="80.5" y="460">one Solana transaction</text>
+          <path class="ln" d="M202 472 V491 M198 485 L202 491 L206 485"/>
+          <polygon class="box" points="72.5,492 331.5,492 339.5,500 339.5,538 331.5,546 72.5,546 64.5,538 64.5,500"/>
+          <text class="st" x="80.5" y="514">Wallets</text>
+          <text x="80.5" y="536">players&rsquo;, devnet</text>
+          <path class="ln ac" d="M120 218 L48 246 M220 218 L292 246"/>
+          <polygon class="box ac" points="53,246 95,246 100,251 100,285 95,290 53,290 48,285 48,251"/>
+          <path class="ln" d="M63 269 L71 278 L86 259"/>
+          <polygon class="box ac" points="117,246 159,246 164,251 164,285 159,290 117,290 112,285 112,251"/>
+          <path class="ln" d="M127 269 L135 278 L150 259"/>
+          <polygon class="box ac" points="181,246 223,246 228,251 228,285 223,290 181,290 176,285 176,251"/>
+          <path class="ln" d="M193 260 L211 277 M211 260 L193 277"/>
+          <polygon class="box ac" points="245,246 287,246 292,251 292,285 287,290 245,290 240,285 240,251"/>
+          <path class="ln" d="M255 269 L263 278 L278 259"/>
+          <text class="st" x="170" y="322" text-anchor="middle">counts</text>
+          <path class="ln" d="M322 218 V339 M318 333 L322 339 L326 333"/>
+          <polygon class="box" points="72.5,588 331.5,588 339.5,596 339.5,634 331.5,642 72.5,642 64.5,634 64.5,596"/>
+          <text class="st" x="80.5" y="610">UI</text>
+          <text x="80.5" y="632">phones, big screen</text>
+          <path class="ln" d="M64 367 H22 V615 H58 M52 611 L58 615 L52 619"/>
+          </svg>
+      </div>
+      <figcaption>
+        <span class="fig-no">Fig. 7</span>
+        <span class="fig-title">PokerVis card path</span>
+        <em class="fig-desc">From a phone camera to one Solana transaction per hand. Oxblood: my part. Ink: Ruairidh Colombini Allison and Jack Scott.</em>
+      </figcaption>
+    </figure>
 
     <div class="study-grid">
       <div class="study-body">
-        <p><strong>Problem.</strong> A poker game played with real cards cannot settle its own bets. The table has to read the cards, and a wrong read must never move money.</p>
-        <p><strong>Approach.</strong> A phone above a real poker table reads the cards, players bet from their phones, and each hand settles to their wallets in one Solana transaction. My part was the card-reading pipeline, built on YOLOv8, and the FastAPI backend and table state. A card only counts once it is read in 3 of the last 4 frames, so the ledger never acts on a misread. <a href="https://github.com/ru1ve" target="_blank" rel="noopener">Ruairidh Colombini Allison</a> and <a href="https://github.com/JackScott808" target="_blank" rel="noopener">Jack Scott</a> built the UI and the Solana mapping.</p>
-        <p><strong>Outcome.</strong> The project won Best Use of Solana at <a href="https://hacktheburgh.com/" target="_blank" rel="noopener">HackTheBurgh XIII</a>. It runs locally on Solana devnet with play money. It is not hosted.</p>
+        <dl class="rows ledger">
+          <div class="row head"><dt>Decisions</dt></div>
+          <div class="row"><dt>01</dt><dd class="v"><b>Cards need 3 of 4 frames.</b> Why: misreads can&rsquo;t move money. Cost: a card registers a few frames late. <a href="https://github.com/Farhangbakhs/pokervis/blob/main/vision/tracker.py" target="_blank" rel="noopener">tracker.py</a> <span class="k mine">mine</span></dd></div>
+          <div class="row"><dt>02</dt><dd class="v"><b>One Table class owns every state change.</b> Why: the API stays thin and testable. Cost: one lock serialises changes. <a href="https://github.com/Farhangbakhs/pokervis/blob/main/server/table.py" target="_blank" rel="noopener">table.py</a> <span class="k mine">mine</span></dd></div>
+          <div class="row"><dt>03</dt><dd class="v"><b>Each hand settles in one Solana transaction.</b> Why: payouts are atomic. Cost: one overdrawn balance rejects the hand. <a href="https://github.com/Farhangbakhs/pokervis/blob/main/chain/service/src/chain.ts" target="_blank" rel="noopener">chain.ts</a> <span class="k">team</span></dd></div>
+
+          <div class="row head"><dt>Evidence</dt></div>
+          <div class="row"><dt>01</dt><dd class="v">84 Python tests and 5 chain-service tests pass, including a full hand from card readings to settlement. <a href="https://github.com/Farhangbakhs/pokervis/blob/main/server/tests/test_flow.py" target="_blank" rel="noopener">test_flow.py</a></dd></div>
+          <div class="row"><dt>02</dt><dd class="v">Tracker tests show a phantom card never becomes stable. <a href="https://github.com/Farhangbakhs/pokervis/blob/main/vision/tests/test_tracker.py" target="_blank" rel="noopener">test_tracker.py</a></dd></div>
+        </dl>
       </div>
       <aside class="study-aside">
         <ul class="metrics">
@@ -976,7 +1409,11 @@ table.figures.spaced{margin-top:2.6em}
       </aside>
     </div>
 
-    <figure class="plate rise" id="fig5">
+    <div class="study-body">
+      <p><strong>Outcome.</strong> The project won Best Use of Solana at <a href="https://hacktheburgh.com/" target="_blank" rel="noopener">HackTheBurgh XIII</a>. It runs on Solana devnet with play money and is not hosted, and its devnet settlement is covered by manual scripts, not automated tests.</p>
+    </div>
+
+    <figure class="plate rise" id="fig8">
       <div class="plate-frame">
         <picture>
           <source srcset="img/hacktheburgh-1500.webp" type="image/webp">
@@ -985,13 +1422,13 @@ table.figures.spaced{margin-top:2.6em}
         </picture>
       </div>
       <figcaption>
-        <span class="fig-no">Fig. 5</span>
+        <span class="fig-no">Fig. 8</span>
         <span class="fig-title">HackTheBurgh XIII</span>
         <a class="fig-link" href="https://hacktheburgh.com/" target="_blank" rel="noopener">Visit the event site</a>
-        <em class="fig-desc">At HackTheBurgh XIII, 7th and 8th November 2026, where PokerVis won Best Use of Solana.</em>
+        <em class="fig-desc">The team with one of the judges at HackTheBurgh XIII, where PokerVis won Best Use of Solana.</em>
       </figcaption>
     </figure>
-  </article>
+</article>
 </section>
 
 <!-- ============ SKILLS ============ -->
