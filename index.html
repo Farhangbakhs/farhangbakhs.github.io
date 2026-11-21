@@ -3,11 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Farhang Bakhshi &middot; Data Science &amp; Quantitative Modelling</title>
-<meta name="robots" content="noindex, nofollow">
-<meta name="description" content="Portfolio of Farhang Bakhshi. Machine learning, statistical modelling and optimisation. University of Edinburgh, Computer Science and Management Science.">
-<meta property="og:title" content="Farhang Bakhshi &middot; Data Science &amp; Quantitative Modelling">
-<meta property="og:description" content="Case studies in machine learning, optimisation and software engineering. University of Edinburgh.">
+<title>Farhang Bakhshi &middot; Data and AI Engineering</title>
+<meta name="description" content="Farhang Bakhshi. Data pipelines, LLM agents and an image provenance tracer. Computer Science and Management Science at the University of Edinburgh.">
+<link rel="canonical" href="https://farhangbakhs.github.io/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://farhangbakhs.github.io/">
+<meta property="og:title" content="Farhang Bakhshi &middot; Data and AI Engineering">
+<meta property="og:description" content="Data pipelines, LLM agents and an image provenance tracer. Computer Science and Management Science at the University of Edinburgh.">
+<meta property="og:image" content="https://farhangbakhs.github.io/img/origin-investigation-1600.jpg">
+<meta property="og:image:alt" content="The ORIGIN investigation page for a traced photograph: the answer sentence, stories as rows on a time axis, and the evidence for the earliest copy.">
 <meta name="theme-color" content="#EAE4D6">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23EAE4D6'/%3E%3Crect x='3' y='3' width='26' height='26' fill='none' stroke='%232B2A26' stroke-width='1'/%3E%3Ctext x='16' y='22' font-family='Georgia,serif' font-size='14' letter-spacing='1' text-anchor='middle' fill='%232B2A26'%3EFB%3C/text%3E%3C/svg%3E">
 <link rel="preload" href="fonts/eb-garamond-latin.woff2" as="font" type="font/woff2" crossorigin>
@@ -110,11 +114,11 @@ body{
 /* Greyscale smoothing is right for light-on-dark and wrong for dark ink on
    bone: on the sheets it strips a third of the stroke off an already delicate
    serif. So it lives here only. */
-.desk,#tooltip{-webkit-font-smoothing:antialiased}
+.desk{-webkit-font-smoothing:antialiased}
 
 /* anything that is a measurement, a metric, a year or a table cell */
-.metrics .fig,.result .r-num,table.figures,.chart-foot b,#tooltip b,
-.bar-year,.study-eyebrow .no,.post .when,.glance dd{
+.metrics .fig,.result .r-num,table.figures,
+.study-eyebrow .no,.post .when,.glance dd{
   font-variant-numeric:lining-nums tabular-nums;
 }
 img,video,iframe{max-width:100%}
@@ -458,63 +462,16 @@ table.figures td,table.figures thead th:not(:first-child){min-width:7ch;padding-
 table.figures td{padding:.45em 0;text-align:right;white-space:nowrap;letter-spacing:.02em}
 table.figures thead th:not(:first-child){text-align:right}
 table.figures td.dim{color:var(--ink-soft)}
-table.figures .won{
-  margin-left:.7em;color:var(--accent);
-  font-variant-caps:all-small-caps;letter-spacing:var(--track-md);
-}
 table.figures.spaced{margin-top:2.6em}
 .table-note{margin-top:1em;color:var(--ink-soft)}
 
 /* ============================================================
-   THE ONE CHART — ink columns, hairline axis, no gridlines
-   ============================================================ */
-.chart{margin-top:2.2em}
-.chart-title{
-  display:flex;justify-content:space-between;flex-wrap:wrap;gap:.4em 1.2em;
-  font-variant-caps:all-small-caps;letter-spacing:var(--track-md);
-  color:var(--ink-soft);margin-bottom:1.4em;
-}
-.legend{display:flex;gap:1.2em}
-.legend span{display:flex;align-items:center;gap:.5em}
-.legend i{width:9px;height:9px;flex:none}
-.legend .l-model i{background:var(--ink)}
-.legend .l-base i{border:1px solid var(--ink-soft)}
-
-.bars{
-  display:flex;align-items:flex-end;gap:.6em;height:132px;
-  border-bottom:1px solid var(--rule-firm);
-}
-.bar-group{
-  flex:1;display:flex;align-items:flex-end;gap:2px;height:100%;
-  position:relative;cursor:default;
-}
-.bar{flex:1;min-width:4px}
-.bar.model{background:var(--ink)}
-.bar.base{border:1px solid var(--ink-soft);border-bottom:none}
-.bar-group:hover .bar.model,.bar-group:focus-visible .bar.model{background:var(--accent)}
-.bar-year{
-  position:absolute;bottom:-1.7em;left:0;right:0;text-align:center;
-  font-variant-caps:all-small-caps;letter-spacing:var(--track-sm);
-  color:var(--ink-soft);font-size:.875rem;
-}
-.chart-foot{margin-top:3em;color:var(--ink-soft)}
-.chart-foot b{color:var(--ink);font-weight:400}
-
-#tooltip{
-  position:fixed;z-index:250;pointer-events:none;opacity:0;
-  transition:opacity .12s ease;
-  background:var(--ink);color:var(--stock);
-  padding:.5em .8em;font-size:.9375rem;line-height:1.5;white-space:nowrap;
-  box-shadow:0 8px 22px rgba(0,0,0,.4);
-}
-#tooltip b{font-weight:400}
-
-/* ============================================================
-   PLATES — video, map, framed like figures in a printed report
+   PLATES: video and images, framed like figures in a printed report
    ============================================================ */
 .plate{margin-top:clamp(38px,5vw,58px)}
 .plate-frame{border:1px solid var(--rule-firm);background:var(--stock-deep)}
 .plate-frame video{display:block;width:100%;height:auto;background:#141210;color:var(--stock)}
+.plate-frame img{display:block;width:100%;height:auto}
 .plate figcaption{
   margin-top:.9em;display:flex;flex-wrap:wrap;align-items:baseline;
   gap:.3em 1em;
@@ -534,26 +491,6 @@ table.figures.spaced{margin-top:2.6em}
 }
 @media(max-width:780px){.fig-link{margin-left:0}}
 
-.map-shell{
-  position:relative;width:100%;aspect-ratio:16/9;min-height:300px;
-  background:var(--stock);
-  display:flex;align-items:center;justify-content:center;overflow:hidden;
-}
-.map-shell iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-.map-facade{
-  display:flex;flex-direction:column;align-items:center;gap:1.2em;
-  padding:2em;text-align:center;color:var(--ink-soft);
-}
-.map-facade p{max-width:38ch}
-/* the one small-cap survivor here — it's a button, it earns the emphasis */
-.map-load-btn{
-  font-family:inherit;font-size:1rem;
-  font-variant-caps:all-small-caps;letter-spacing:var(--track-md);
-  color:var(--stock);background:var(--ink);border:0;border-radius:1px;
-  padding:.6em 1.6em;cursor:pointer;transition:background .18s ease;
-}
-.map-load-btn:hover{background:var(--accent)}
-.map-note{font-size:.9375rem}
 
 /* ============================================================
    SKILLS · EDUCATION · EXPERIENCE
@@ -649,8 +586,8 @@ table.figures.spaced{margin-top:2.6em}
   :root{--ink:#000;--ink-soft:#333;--accent:#000;--rule:#bbb;--rule-firm:#000}
   html{scroll-padding-top:0}
   body{background:#fff;color:#000;font-size:11pt;line-height:1.45}
-  .cue,.card-index,.skip,#tooltip,.map-shell,.plate-frame video,
-  .results .r-go,.legend{display:none !important}
+  .cue,.card-index,.skip,.plate-frame video,
+  .results .r-go{display:none !important}
   .plate-frame{border:0}
   .paper{background:#fff !important;background-image:none !important;box-shadow:none !important}
   .desk{min-height:0;padding:0 0 12pt;display:block}
@@ -684,8 +621,6 @@ table.figures.spaced{margin-top:2.6em}
   .study-eyebrow .no{font-size:14pt}
   .facts{margin-top:8pt;padding-bottom:6pt}
   .metrics .fig{font-size:13pt}
-  .bars{height:52pt}
-  .chart-foot{margin-top:20pt}
   .plate{margin-top:12pt}
   .post{padding:8pt 0}
   .colophon-base{margin-top:14pt}
@@ -702,23 +637,23 @@ table.figures.spaced{margin-top:2.6em}
 
 <!-- ============ the card ============ -->
 <header class="desk" id="top">
-  <article class="card paper" aria-label="Calling card — select a line to open a section">
+  <article class="card paper" aria-label="Calling card, select a line to open a section">
     <div class="card-type">
       <div class="card-top">
         <a class="hs hs-tl" href="#skills"
-           aria-label="Data science and quantitative modelling — open Skills">Data Science &amp; Quantitative Modelling</a>
+           aria-label="Data and AI engineering, open Skills">Data &amp; AI Engineering</a>
         <a class="hs hs-tr" href="#education"
-           aria-label="University of Edinburgh — open Education">University of Edinburgh</a>
+           aria-label="University of Edinburgh, open Education">University of Edinburgh</a>
       </div>
       <div class="card-mid">
         <h1 class="card-name"><a class="hs" href="#about"
-           aria-label="Farhang Bakhshi — open About">Farhang Bakhshi</a></h1>
+           aria-label="Farhang Bakhshi, open About">Farhang Bakhshi</a></h1>
         <a class="hs hs-disc" href="#work"
-           aria-label="Machine learning, econometrics, optimisation — open Case studies">Machine Learning &middot; Econometrics &middot; Optimisation</a>
+           aria-label="Python, Databricks, LLM agents, open Projects">Python &middot; Databricks &middot; LLM agents</a>
       </div>
       <div class="card-base">
         <a class="hs hs-base" href="#experience"
-           aria-label="London, email, LinkedIn, GitHub — open Experience and contact">London &middot; farhangbak@gmail.com &middot; LinkedIn &middot; GitHub</a>
+           aria-label="London, email, LinkedIn, GitHub, open Experience and contact">London &middot; farhangbak@gmail.com &middot; LinkedIn &middot; GitHub</a>
       </div>
     </div>
   </article>
@@ -729,7 +664,7 @@ table.figures.spaced{margin-top:2.6em}
     <a href="#about">About</a>
     <a href="#education">Education</a>
     <a href="#experience">Experience</a>
-    <a href="#work">Case studies</a>
+    <a href="#work">Projects</a>
     <a href="#skills">Skills</a>
     <a href="#coursework">Coursework</a>
     <a href="#contact">Contact</a>
@@ -741,37 +676,37 @@ table.figures.spaced{margin-top:2.6em}
 <section class="sheet paper" id="about">
   <div class="sheet-head">
     <h2>About</h2>
-    <span class="aside">Edinburgh &middot; London &mdash; MMXXVI</span>
+    <span class="aside">Edinburgh &middot; London &middot; MMXXVI</span>
   </div>
 
   <div class="about-body">
-    <p>I am a Computer Science and Management Science student at the University of Edinburgh, graduating in 2028 with a predicted First. I am currently a <strong>Data Science intern at Ekimetrics</strong> in London, where I work on marketing mix modelling alongside the data engineering and analysis that support it. Before joining Ekimetrics I spent sixteen weeks at Loopsio, building the application layer of a computer-vision product for structural inspection.</p>
+    <p>I am a Computer Science and Management Science student at the University of Edinburgh, graduating in 2028 with a predicted First. I am in London for my placement year as a <strong>Data Science intern at Ekimetrics</strong>, where I build data reconciliation, validation and Databricks pipelines behind a UK retail client&rsquo;s marketing-mix model. Earlier this year I was a contract Software Developer at Loopsio, where I built the application layer of an offline crack-surveying desktop app.</p>
   </div>
 
   <div class="contact-row">
     <a href="mailto:farhangbak@gmail.com">farhangbak@gmail.com</a>
-    <a href="https://www.linkedin.com/in/farhang-bakhshi-854423347/" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="https://www.linkedin.com/in/farhang-bakhshi" target="_blank" rel="noopener">LinkedIn</a>
     <a href="https://github.com/Farhangbakhs" target="_blank" rel="noopener">GitHub</a>
   </div>
 
   <div class="results rise">
     <a class="result" href="#p1">
-      <span class="r-field">Software engineering</span>
-      <span class="r-num">3 models shipped</span>
-      <span class="r-go">Case study 01</span>
-      <span class="r-what">Three research vision models, shipped as one desktop application with signed installers for Windows, macOS and Linux.</span>
+      <span class="r-field">Image provenance</span>
+      <span class="r-num">93.7% recall on edited copies</span>
+      <span class="r-go">Project 01</span>
+      <span class="r-what">Up from 75.4% after threshold tuning, on 252 simulated repost edits.</span>
     </a>
     <a class="result" href="#p2">
-      <span class="r-field">Operations research</span>
+      <span class="r-field">Data pipeline</span>
       <span class="r-num">12,578 schools</span>
-      <span class="r-go">Case study 02</span>
-      <span class="r-what">A five-year, $125M internet rollout for Honduras, planned against a 20% budget cut.</span>
+      <span class="r-go">Project 02</span>
+      <span class="r-what">A US$125M, five-year school connectivity plan for Honduras, published as a public analyst console where every figure cites its source.</span>
     </a>
     <a class="result" href="#p3">
-      <span class="r-field">Machine learning</span>
-      <span class="r-num">9 of 9 tournaments</span>
-      <span class="r-go">Case study 03</span>
-      <span class="r-what">A leakage-free pipeline that beats the majority-class baseline in every held-out World Cup from 1990 to 2022.</span>
+      <span class="r-field">Computer vision</span>
+      <span class="r-num">Best Use of Solana</span>
+      <span class="r-go">Project 03</span>
+      <span class="r-what">HackTheBurgh XIII, team of 3.</span>
     </a>
   </div>
 
@@ -785,8 +720,8 @@ table.figures.spaced{margin-top:2.6em}
       <dd>BSc CS &amp; Management Science, Edinburgh</dd>
     </div>
     <div>
-      <dt>Focus</dt>
-      <dd>ML &middot; econometrics &middot; optimisation</dd>
+      <dt>Stack</dt>
+      <dd>Python &middot; Databricks &middot; LLM agents</dd>
     </div>
     <div>
       <dt>Graduating</dt>
@@ -806,7 +741,7 @@ table.figures.spaced{margin-top:2.6em}
     <div class="degree-line">
       <h3>University of Edinburgh</h3>
       <span class="sub">BSc (Hons) Computer Science and Management Science &middot; graduating 2028</span>
-      <span class="pred">Predicted First-Class Honours</span>
+      <span class="pred">Predicted First</span>
     </div>
   </div>
 </section>
@@ -815,221 +750,245 @@ table.figures.spaced{margin-top:2.6em}
 <section class="sheet paper" id="experience">
   <div class="sheet-head">
     <h2>Experience</h2>
-    <span class="aside">Edinburgh &middot; London</span>
+    <span class="aside">London &middot; Edinburgh</span>
   </div>
 
   <div class="rise">
     <article class="post">
-      <p class="when">Jul 2026 &ndash; present</p>
+      <p class="when">Jul 2026 &ndash; Jun 2027</p>
       <div>
         <h3>Ekimetrics &middot; London</h3>
-        <p class="role">Data Science Intern</p>
-        <p>I build and validate marketing mix models and forecasting tools in Python for retail, automotive and luxury clients, working across econometric and Bayesian specifications depending on the brief. The role also covers the data engineering that feeds those models, ingesting and reconciling client media, sales and market data, along with the exploratory analysis that goes into client deliverables.</p>
+        <p class="role">Data Science Intern; Junior Data Scientist (incoming, Jan to Jun 2027)</p>
+        <div class="study-body">
+          <p>Data reconciliation, validation and Databricks pipelines behind a UK retail client&rsquo;s Bayesian marketing-mix model.</p>
+          <p>I wrote a pandas script that compares each release of a 5,000+ column model database with the last. Its first run flagged 71 of 1,165 shared columns for review.</p>
+          <p>I extended the script into an LLM agent in Databricks with project-specific skills. It runs at 3 pipeline checkpoints, reads the Delta mapping tables to trace each change to its source, and labels it expected, known defect or new regression. It halts on anything it cannot trace. On a live cycle with no mapping changes, it caught double counting and traced it to a processing error before the data reached modelling.</p>
+          <p>I replaced the per-market Excel validation workbooks, about a week each to update, with one Power BI validation tool that the client uses. I demoed it to the client and their media agencies.</p>
+          <p>I migrated 5 ETL pipelines to scheduled PySpark jobs on Databricks (Lakeflow Jobs). Each was signed off by a parity test against the legacy output.</p>
+        </div>
       </div>
     </article>
 
     <article class="post">
-      <p class="when">2026</p>
+      <p class="when">Jan 2026 &ndash; Apr 2026</p>
       <div>
-        <h3>Loopsio &middot; UK</h3>
-        <p class="role">Software Developer, ALICS</p>
-        <p>A sixteen-week project in a team of four. I built the application layer that turned three research computer-vision models into a cross-platform desktop tool for structural crack surveying, described in full in case study 01 below.</p>
+        <h3>Loopsio</h3>
+        <p class="role">Software Developer (Contract)</p>
+        <div class="study-body">
+          <p>Shipped ALICS v0.1.8, an offline crack-surveying desktop app, in a team of 4. I built the application layer.</p>
+          <p>I designed the SQLite schema (12 migrations) that versions every analysis result by scan and grid cell, and moved multi-MB outputs to BLOB columns to fix row-size failures on large scans.</p>
+          <p>I turned 3 research-only PyTorch vision models into one offline detect, segment, measure and 3D pipeline that surveyors run without installing Python.</p>
+          <p>I built signed installers for Windows, macOS and Linux with a GitHub Actions build matrix, plus a check that fails the build early if the bundled runtime is incomplete.</p>
+        </div>
+
+        <figure class="plate rise" id="fig1">
+          <div class="plate-frame">
+            <video controls preload="metadata" poster="alics_poster.jpg" playsinline
+                   aria-label="Screen recording of the ALICS desktop application running crack detection and analysis">
+              <source src="alics.mp4" type="video/mp4">
+              Your browser does not support embedded video. <a href="alics.mp4">Download the demo</a>.
+            </video>
+          </div>
+          <figcaption>
+            <span class="fig-no">Fig. 1</span>
+            <span class="fig-title">ALICS desktop application</span>
+            <a class="fig-link" href="alics.mp4" download>Download the film</a>
+            <em class="fig-desc">Detection, segmentation, measurement and 3D, in sequence. MP4, 33 seconds, 720p.</em>
+          </figcaption>
+        </figure>
       </div>
     </article>
   </div>
 </section>
 
-<!-- ============ CASE STUDIES ============ -->
+<!-- ============ PROJECTS ============ -->
 <section class="sheet paper" id="work">
   <div class="sheet-head">
-    <h2>Case studies</h2>
+    <h2>Projects</h2>
     <span class="aside">Problem &middot; Approach &middot; Outcome</span>
   </div>
 
-  <!-- ---- 01 ALICS ---- -->
+  <!-- ---- 01 ORIGIN ---- -->
   <article class="study rise" id="p1">
     <p class="study-eyebrow">
       <span class="no">01</span>
-      <span>Software engineering</span>
-      <span>Loopsio &middot; 2026</span>
+      <span>Image provenance</span>
+      <span>Solo project &middot; 2026</span>
     </p>
-    <h3>ALICS: productionising computer vision for structural inspection</h3>
+    <h3>ORIGIN: a dated, evidence-backed history of an image</h3>
     <p class="facts">
-      <span><b>Role</b> <span>Software developer, team of 4</span></span>
-      <span><b>Duration</b> <span>16 weeks</span></span>
-      <span><b>Evidence</b> <a href="#fig1">film below</a></span>
+      <span><b>Role</b> <span>Solo</span></span>
+      <span><b>Code</b> <a href="https://github.com/Farhangbakhs/image-provenance-tracer" target="_blank" rel="noopener">GitHub</a></span>
+      <span><b>Evidence</b> <a href="#fig2">investigation page</a> &middot; <a href="#fig3">demo film</a></span>
     </p>
 
     <div class="study-grid">
       <div class="study-body">
-        <p><strong>Problem.</strong> Three research computer-vision models existed only as lab code: YOLO detection, U-Net segmentation and photometric-stereo 3D reconstruction. Civil engineers needed to run all three offline and on site, without installing Python or working in a terminal.</p>
-        <p><strong>Approach.</strong> I built the application layer around the existing analysis code: a Tauri 2 and Rust backend, a React 19 and TypeScript frontend, and a zero-copy Rust-to-Python inference bridge over PyO3 that uses NumPy ndarray views, so that multi-megapixel images cross the language boundary without serialisation. Results are persisted per scan and per cell in a SQLite layer with twelve migrations, one of which moved image data into BLOB storage to resolve row-size limits on large scans.</p>
-        <p><strong>Outcome.</strong> The tool ships as signed installers for Windows, macOS and Linux with the Python runtime bundled, so a surveyor installs it like any other desktop application. It reports crack width in millimetres against a calibration target, renders a Three.js mesh with a signed depth scale, and exports templated PDF inspection reports suitable for structural documentation.</p>
+        <p><strong>Problem.</strong> An image reaches an analyst with a story attached. Reverse-image search lists pages, but not which copies are the same picture, when each one appeared, or where the story changes.</p>
+        <p><strong>Approach.</strong> I built it alone. It takes one image and works in order: find copies through Google Lens, fetch and check each one, date it from evidence, group the copies by the story they tell, grade the sources, and cite everything. Every finding links to the stored source behind it (SHA-256 and fetch time), and the result exports as a JSON evidence pack or a PDF brief. Postgres constraints enforce the evidence rules: a claim needs a sighting, the audit log is append-only and API quota cannot be overspent.</p>
+        <p><strong>Outcome.</strong> I built a matching evaluation: 18 sample photos, each edited 14 ways a repost is edited (crop, caption, watermark, recompression). Tuning the thresholds on it raised recall on edited copies from 75.4% to 93.7%, with 2 false positives in 306 unrelated pairs, both from one stereo pair of the same scene. The set is small and the thresholds were tuned on it, so the next step is a held-out test on real reposts (<a href="https://github.com/Farhangbakhs/image-provenance-tracer/blob/main/evals/report.md" target="_blank" rel="noopener">evals/report.md</a>).</p>
+        <p>ORIGIN is not hosted. It runs locally with your own free-tier SerpApi and Gemini keys, and the repository README has the steps.</p>
       </div>
       <aside class="study-aside">
         <ul class="metrics">
-          <li><span class="fig">3</span><span class="cap">Research vision models shipped</span></li>
-          <li><span class="fig">4</span><span class="cap">Platforms with signed installers</span></li>
-          <li><span class="fig">12</span><span class="cap">SQLite schema migrations</span></li>
-          <li><span class="fig fig-word">Zero-copy</span><span class="cap">Rust to Python image bridge (PyO3)</span></li>
-        </ul>
-        <p class="tags">Tauri 2 &middot; Rust &middot; React 19 &middot; TypeScript &middot; PyO3 &middot; SQLite &middot; Three.js &middot; GitHub Actions</p>
-      </aside>
-    </div>
-
-    <figure class="plate rise" id="fig1">
-      <div class="plate-frame">
-        <video controls preload="metadata" poster="alics_poster.jpg" playsinline
-               aria-label="Screen recording of the ALICS desktop application running crack detection and analysis">
-          <source src="alics.mp4" type="video/mp4">
-          Your browser does not support embedded video. <a href="alics.mp4">Download the demo</a>.
-        </video>
-      </div>
-      <figcaption>
-        <span class="fig-no">Fig. 1</span>
-        <span class="fig-title">ALICS desktop application</span>
-        <a class="fig-link" href="alics.mp4" download>Download the film</a>
-        <em class="fig-desc">Detection, segmentation, 3D reconstruction and PDF export, in sequence. MP4, 33 seconds, 720p.</em>
-      </figcaption>
-    </figure>
-  </article>
-
-  <!-- ---- 02 MILP ---- -->
-  <article class="study rise" id="p2">
-    <p class="study-eyebrow">
-      <span class="no">02</span>
-      <span>Operations research</span>
-      <span>Coursework, Mathematical Programming in Advanced Analytics &middot; 2026</span>
-    </p>
-    <h3>School connectivity optimisation under budget uncertainty</h3>
-    <p class="facts">
-      <span><b>Role</b> <span>Geospatial pipeline and modelling, team project</span></span>
-      <span><b>Solver</b> <span>Gurobi via Julia/JuMP</span></span>
-      <span><b>Evidence</b> <a href="#fig2">dashboard below</a></span>
-    </p>
-
-    <div class="study-grid">
-      <div class="study-body">
-        <p><strong>Problem.</strong> Around 93% of Honduran public schools have no internet connection. Connecting one requires a three-layer prerequisite chain that has to be built in order: a tower, then WISP equipment, then devices in the school itself. Building a new tower costs eighteen times as much as equipping an existing one, and the national budget is both phased over five years and uncertain at the outset.</p>
-        <p><strong>Approach.</strong> The team formulated a multi-period mixed-integer linear programme: budgeted maximal covering, prerequisite sequencing constraints, soft annual deployment milestones, and a two-stage stochastic extension hedging a &plusmn;20% budget shock in years 3 to 5. I built the geospatial pipeline over 15,000+ schools and 7,297 candidate tower sites, using a 10 km Haversine coverage radius.</p>
-        <p><strong>Outcome.</strong> Left unrestricted, the model connects 98.7% of in-scope schools. Imposing the political deployment milestones brings that down to 74.4%, a gap of 3,046 schools, or roughly 125 schools for every percentage point of early visibility bought. We solved both versions deliberately, so that the cost of the milestones could be quoted as a figure rather than argued about, and both are embedded in the dashboard below. The stochastic extension secures a 1,067-school core that survives a budget cut, with EVPI and VSS bounds of at least 263 and 177 schools respectively.</p>
-      </div>
-      <aside class="study-aside">
-        <ul class="metrics">
-          <li><span class="fig">12,578</span><span class="cap">Schools in scope &middot; 7,297 candidate towers</span></li>
-          <li><span class="fig">$125M</span><span class="cap">Five-year national budget</span></li>
-          <li><span class="fig">24.3pp</span><span class="cap">Coverage given up to hit annual milestones</span></li>
-          <li><span class="fig">&ge;177</span><span class="cap">Extra schools secured by hedging the budget</span></li>
+          <li><span class="fig">93.7%</span><span class="cap">Recall on edited copies, up from 75.4%</span></li>
+          <li><span class="fig">252</span><span class="cap">Simulated repost edits, from 18 sample photos</span></li>
+          <li><span class="fig">2 of 306</span><span class="cap">False positives in unrelated pairs</span></li>
         </ul>
 
         <table class="figures lead spaced">
-          <caption>Year-5 connectivity by model variant</caption>
+          <caption>Matching thresholds, on the same evaluation set</caption>
+          <thead>
+            <tr>
+              <th scope="col">Measure</th>
+              <th scope="col">v1</th>
+              <th scope="col">v2, tuned</th>
+            </tr>
+          </thead>
           <tbody>
-            <tr><th scope="row">Deterministic, no milestones</th><td>98.7%</td></tr>
-            <tr><th scope="row">Deterministic, with milestones</th><td>74.4%</td></tr>
-            <tr><th scope="row">Stochastic, pessimistic budget (&minus;20%)</th><td>50.2%</td></tr>
+            <tr><th scope="row">Recall on edited copies</th><td class="dim">75.4%</td><td>93.7%</td></tr>
+            <tr><th scope="row">False positives, unrelated pairs</th><td class="dim">0.7%</td><td>0.7%</td></tr>
           </tbody>
         </table>
 
-        <p class="tags">Julia &middot; JuMP &middot; Gurobi &middot; MILP &middot; Stochastic programming &middot; Python</p>
+        <p class="tags">Python &middot; FastAPI &middot; Postgres &middot; pgvector &middot; Redis &middot; Next.js</p>
       </aside>
     </div>
 
     <figure class="plate rise" id="fig2">
       <div class="plate-frame">
-        <div class="map-shell" id="milp-map">
-          <div class="map-facade">
-            <p>12,578 schools &middot; both solved rollouts embedded &middot; year-by-year playback</p>
-            <button class="map-load-btn" id="milp-map-btn" type="button">Load interactive map</button>
-            <span class="map-note">Loads a 5.6 MB embed</span>
-          </div>
-        </div>
+        <picture>
+          <source srcset="img/origin-investigation-1600.webp" type="image/webp">
+          <img src="img/origin-investigation-1600.jpg" width="1600" height="900" loading="lazy"
+               alt="The ORIGIN investigation page for a traced photograph of an explosion at night. The top of the page gives the answer: first found on bbc.co.uk on 15 November 2019, with the earliest readable story on elpais.com the next day, reused in four other stories that contradict it. Below, each story is a row on a time axis, and a side panel shows the earliest copy with its match evidence.">
+        </picture>
       </div>
       <figcaption>
         <span class="fig-no">Fig. 2</span>
-        <span class="fig-title">Honduras deployment dashboard</span>
-        <a class="fig-link" href="DeterministicMap_embedded.html" target="_blank" rel="noopener">Open full screen</a>
-        <em class="fig-desc">Opens on the milestone rollout. The scenario switch compares it against the unrestricted optimum. MapLibre and deck.gl.</em>
+        <span class="fig-title">ORIGIN investigation page</span>
+        <a class="fig-link" href="https://github.com/Farhangbakhs/image-provenance-tracer" target="_blank" rel="noopener">Open the repository</a>
+        <em class="fig-desc">One traced photograph: the answer in a sentence, stories as rows on a time axis, and the evidence for the earliest copy.</em>
+      </figcaption>
+    </figure>
+
+    <figure class="plate rise" id="fig3">
+      <div class="plate-frame">
+        <video controls preload="none" poster="origin_poster.jpg" playsinline
+               aria-label="Screen recording of one ORIGIN trace: the image page, the investigation page and the printable brief">
+          <source src="origin_demo.mp4" type="video/mp4">
+          Your browser does not support embedded video. <a href="origin_demo.mp4">Download the demo</a>.
+        </video>
+      </div>
+      <figcaption>
+        <span class="fig-no">Fig. 3</span>
+        <span class="fig-title">ORIGIN demo</span>
+        <a class="fig-link" href="origin_demo.mp4" download>Download the film</a>
+        <em class="fig-desc">One trace, start to finish: the image page, the investigation and the printable brief. MP4, 3 minutes.</em>
       </figcaption>
     </figure>
   </article>
 
-  <!-- ---- 03 World Cup ---- -->
-  <article class="study rise" id="p3">
+  <!-- ---- 02 Honduras ---- -->
+  <article class="study rise" id="p2">
     <p class="study-eyebrow">
-      <span class="no">03</span>
-      <span>Machine learning &amp; statistics</span>
-      <span>Personal project &middot; 2026</span>
+      <span class="no">02</span>
+      <span>Data pipeline and analyst console</span>
+      <span>Team coursework &middot; 2026</span>
     </p>
-    <h3>World Cup predictor, validated tournament by tournament</h3>
+    <h3>School connectivity optimisation, Honduras</h3>
     <p class="facts">
-      <span><b>Role</b> <span>Solo, data pipeline to validation</span></span>
-      <span><b>Validation</b> <span>Leave-one-tournament-out CV &middot; 100k Monte Carlo</span></span>
+      <span><b>Role</b> <span>Data pipeline, analyst console and audit</span></span>
+      <span><b>Solver</b> <span>Gurobi via Julia/JuMP</span></span>
+      <span><b>Code</b> <a href="https://github.com/Farhangbakhs/honduras-connectivity" target="_blank" rel="noopener">GitHub</a></span>
+      <span><b>Live</b> <a href="https://farhangbakhs.github.io/honduras-connectivity/" target="_blank" rel="noopener">analyst console</a></span>
     </p>
 
     <div class="study-grid">
       <div class="study-body">
-        <p><strong>Problem.</strong> Sports prediction is unusually prone to leakage. Features are easily built on information that did not exist at the time of the match, and held-out tournaments bleed into training through shared history. The pipeline is designed around preventing both.</p>
-        <p><strong>Approach.</strong> Regex state machines parse 1,402 matches from every World Cup since 1930, plus Euro and Copa Am&eacute;rica. A sequential FeatureBuilder enforces read-then-update, so features for match <em>i</em> use only matches 0 to <em>i</em>&minus;1. 42 features cover Elo with confederation-tuned K-factors, career goal statistics, recent form, tournament experience and head-to-head record. A LightGBM classifier is blended 75/25 with a Poisson expected-goals GLM, tuned over 300 Optuna trials.</p>
-        <p><strong>Outcome.</strong> The model beats the majority-class baseline in all nine leave-one-tournament-out folds, 1990 to 2022, averaging 52.4% against 45.0%. Its best fold is 2006, at 64.1%; its worst is 2002, at 43.8%, where the baseline was also at its weakest. Tournament experience carries more weight than raw Elo. Confederation membership carries none once performance features are in.</p>
-        <p><strong>2026.</strong> The bracket simulation was run before the tournament and put no team above 15.3%, which is to say it treated the field as open rather than backing a favourite. Spain went on to win. The model placed Spain fourth, at 9.2% to win the tournament and 16.0% to reach the final.</p>
+        <p><strong>Problem.</strong> Honduras&rsquo;s public school system is largely offline: of 15,492 public schools in the Giga dataset, 1,130 (7.3%) have a connection. Connecting a school needs a tower, then WISP equipment, then devices, in that order, on a fixed US$125M budget over five years.</p>
+        <p><strong>Approach.</strong> The team formulated the plan as a multi-period mixed-integer linear programme in Julia/JuMP, solved with Gurobi, for two plans: one unrestricted, and one that must show annual progress. I built the data pipeline. I reverse-engineered the UNICEF&ndash;ITU Giga dataset to extract 15,000+ school records and merged cell-tower records into 7,297 sites. On my own I then rebuilt the results as a public analyst console where every figure cites its source. The build script asserts row counts and matching school IDs across both scenario files, so a data refresh cannot silently break the published figures.</p>
+        <p><strong>Outcome.</strong> The unrestricted plan connects 12,409 of the 12,578 schools in scope (98.7%) by year 5. Requiring annual milestones brings that to 9,363 (74.4%), a loss of 3,046 schools, or 24.2 percentage points. I audited the model output against the team report and found 4 mismatches, which the repository records. One is duplicate site records in the milestone output, and another is a claim about unreached schools that the output files do not support.</p>
       </div>
       <aside class="study-aside">
         <ul class="metrics">
-          <li><span class="fig">+7.4pp</span><span class="cap">Accuracy above baseline, mean of 9 folds</span></li>
-          <li><span class="fig">100k</span><span class="cap">Simulated tournament brackets</span></li>
-          <li><span class="fig">42</span><span class="cap">Leakage-free features</span></li>
-          <li><span class="fig">1,402</span><span class="cap">Matches parsed: World Cup, Euro, Copa</span></li>
+          <li><span class="fig">12,578</span><span class="cap">Schools in scope</span></li>
+          <li><span class="fig">7,297</span><span class="cap">Existing tower sites</span></li>
+          <li><span class="fig">$125M</span><span class="cap">Five-year budget</span></li>
+          <li><span class="fig">24.2pp</span><span class="cap">Coverage given up to hit annual milestones</span></li>
         </ul>
 
-        <div class="chart" aria-label="Leave-one-tournament-out cross-validation accuracy versus majority-class baseline by tournament year. Model beats baseline in all nine folds, mean 52.4 percent versus 45.0 percent.">
-          <p class="chart-title">
-            <span>LOTO-CV accuracy by held-out tournament</span>
-            <span class="legend">
-              <span class="l-model"><i></i>Model</span>
-              <span class="l-base"><i></i>Baseline</span>
-            </span>
-          </p>
-          <div class="bars" id="loto">
-            <div class="bar-group" tabindex="0" role="img" aria-label="1990: model 57.7%, baseline 51.9%" data-year="1990" data-model="57.7" data-base="51.9"><div class="bar model" style="height:57.7%"></div><div class="bar base" style="height:51.9%"></div><span class="bar-year">&rsquo;90</span></div>
-            <div class="bar-group" tabindex="0" role="img" aria-label="1994: model 55.8%, baseline 48.1%" data-year="1994" data-model="55.8" data-base="48.1"><div class="bar model" style="height:55.8%"></div><div class="bar base" style="height:48.1%"></div><span class="bar-year">&rsquo;94</span></div>
-            <div class="bar-group" tabindex="0" role="img" aria-label="1998: model 45.3%, baseline 43.8%" data-year="1998" data-model="45.3" data-base="43.8"><div class="bar model" style="height:45.3%"></div><div class="bar base" style="height:43.8%"></div><span class="bar-year">&rsquo;98</span></div>
-            <div class="bar-group" tabindex="0" role="img" aria-label="2002: model 43.8%, baseline 42.2%" data-year="2002" data-model="43.8" data-base="42.2"><div class="bar model" style="height:43.8%"></div><div class="bar base" style="height:42.2%"></div><span class="bar-year">&rsquo;02</span></div>
-            <div class="bar-group" tabindex="0" role="img" aria-label="2006: model 64.1%, baseline 50.0%" data-year="2006" data-model="64.1" data-base="50.0"><div class="bar model" style="height:64.1%"></div><div class="bar base" style="height:50%"></div><span class="bar-year">&rsquo;06</span></div>
-            <div class="bar-group" tabindex="0" role="img" aria-label="2010: model 45.3%, baseline 39.1%" data-year="2010" data-model="45.3" data-base="39.1"><div class="bar model" style="height:45.3%"></div><div class="bar base" style="height:39.1%"></div><span class="bar-year">&rsquo;10</span></div>
-            <div class="bar-group" tabindex="0" role="img" aria-label="2014: model 54.7%, baseline 43.8%" data-year="2014" data-model="54.7" data-base="43.8"><div class="bar model" style="height:54.7%"></div><div class="bar base" style="height:43.8%"></div><span class="bar-year">&rsquo;14</span></div>
-            <div class="bar-group" tabindex="0" role="img" aria-label="2018: model 54.7%, baseline 40.6%" data-year="2018" data-model="54.7" data-base="40.6"><div class="bar model" style="height:54.7%"></div><div class="bar base" style="height:40.6%"></div><span class="bar-year">&rsquo;18</span></div>
-            <div class="bar-group" tabindex="0" role="img" aria-label="2022: model 50.0%, baseline 45.3%" data-year="2022" data-model="50.0" data-base="45.3"><div class="bar model" style="height:50%"></div><div class="bar base" style="height:45.3%"></div><span class="bar-year">&rsquo;22</span></div>
-          </div>
-          <p class="chart-foot">Mean <b>52.4%</b> against a <b>45.0%</b> baseline</p>
-        </div>
+        <table class="figures lead spaced">
+          <caption>Year-5 connectivity by plan</caption>
+          <tbody>
+            <tr><th scope="row">Unrestricted</th><td>98.7%</td></tr>
+            <tr><th scope="row">With annual milestones</th><td>74.4%</td></tr>
+          </tbody>
+        </table>
 
-        <p class="tags">Python &middot; LightGBM &middot; Poisson GLM &middot; Optuna &middot; pandas &middot; Monte Carlo</p>
+        <p class="tags">Python &middot; Julia/JuMP &middot; Gurobi &middot; MapLibre</p>
       </aside>
     </div>
 
-    <figure class="plate rise">
-      <table class="figures">
-        <thead>
-          <tr>
-            <th scope="col">Team</th>
-            <th scope="col">Wins</th>
-            <th scope="col">Reaches final</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><th scope="row">Brazil</th><td>15.3%</td><td class="dim">25.8%</td></tr>
-          <tr><th scope="row">Argentina</th><td>14.3%</td><td class="dim">24.5%</td></tr>
-          <tr><th scope="row">France</th><td>11.2%</td><td class="dim">19.2%</td></tr>
-          <tr><th scope="row">Spain <span class="won">won</span></th><td>9.2%</td><td class="dim">16.0%</td></tr>
-          <tr><th scope="row">Portugal</th><td>6.6%</td><td class="dim">12.3%</td></tr>
-          <tr><th scope="row">England</th><td>6.2%</td><td class="dim">11.8%</td></tr>
-        </tbody>
-      </table>
+    <figure class="plate rise" id="fig4">
+      <div class="plate-frame">
+        <picture>
+          <source srcset="img/honduras-console-1600.webp" type="image/webp">
+          <img src="img/honduras-console-1600.jpg" width="1600" height="1000" loading="lazy"
+               alt="The Honduras school connectivity console in its default state. A dark map of Honduras is covered with points for the 12,578 schools in scope, most shown as connected. A layers panel sits on the left. On the right, the unrestricted plan at year 5 shows 12,409 of 12,578 schools connected (98.7%), 330 new towers and 1,336 WISP units. A year-by-year timeline runs along the bottom.">
+        </picture>
+      </div>
       <figcaption>
-        <span class="fig-no">Fig. 3</span>
-        <span class="fig-title">Pre-tournament distribution, 100,000 simulated brackets</span>
-        <em class="fig-desc">The top six of the sixteen teams still in contention when the simulation was run. The distribution is flat: nine percentage points separate first from sixth.</em>
+        <span class="fig-no">Fig. 4</span>
+        <span class="fig-title">Honduras analyst console</span>
+        <a class="fig-link" href="https://farhangbakhs.github.io/honduras-connectivity/" target="_blank" rel="noopener">Open the live console</a>
+        <em class="fig-desc">The console in its default state: the unrestricted plan at year 5, with 12,409 of the 12,578 schools connected.</em>
+      </figcaption>
+    </figure>
+  </article>
+
+  <!-- ---- 03 PokerVis ---- -->
+  <article class="study rise" id="p3">
+    <p class="study-eyebrow">
+      <span class="no">03</span>
+      <span>Computer vision</span>
+      <span>HackTheBurgh XIII &middot; Best Use of Solana</span>
+    </p>
+    <h3>PokerVis: a phone camera reads the cards on a real poker table</h3>
+    <p class="facts">
+      <span><b>Role</b> <span>Card reading and backend, team of 3</span></span>
+      <span><b>Code</b> <a href="https://github.com/Farhangbakhs/pokervis" target="_blank" rel="noopener">GitHub</a></span>
+      <span><b>Event</b> <a href="https://hacktheburgh.com/" target="_blank" rel="noopener">HackTheBurgh XIII</a></span>
+      <span><b>Evidence</b> <a href="#fig5">photograph below</a></span>
+    </p>
+
+    <div class="study-grid">
+      <div class="study-body">
+        <p><strong>Problem.</strong> A poker game played with real cards cannot settle its own bets. The table has to read the cards, and a wrong read must never move money.</p>
+        <p><strong>Approach.</strong> A phone above a real poker table reads the cards, players bet from their phones, and each hand settles to their wallets in one Solana transaction. My part was the card-reading pipeline, built on YOLOv8, and the FastAPI backend and table state. A card only counts once it is read in 3 of the last 4 frames, so the ledger never acts on a misread. <a href="https://github.com/ru1ve" target="_blank" rel="noopener">Ruairidh Colombini Allison</a> and <a href="https://github.com/JackScott808" target="_blank" rel="noopener">Jack Scott</a> built the UI and the Solana mapping.</p>
+        <p><strong>Outcome.</strong> The project won Best Use of Solana at <a href="https://hacktheburgh.com/" target="_blank" rel="noopener">HackTheBurgh XIII</a>. It runs locally on Solana devnet with play money. It is not hosted.</p>
+      </div>
+      <aside class="study-aside">
+        <ul class="metrics">
+          <li><span class="fig">3 of 4</span><span class="cap">Frames in which a card must be read before it counts</span></li>
+          <li><span class="fig">1</span><span class="cap">Solana transaction settles each hand</span></li>
+        </ul>
+        <p class="tags">Python &middot; YOLOv8 &middot; FastAPI &middot; Solana</p>
+      </aside>
+    </div>
+
+    <figure class="plate rise" id="fig5">
+      <div class="plate-frame">
+        <picture>
+          <source srcset="img/hacktheburgh-1500.webp" type="image/webp">
+          <img src="img/hacktheburgh-1500.jpg" width="1500" height="1000" loading="lazy"
+               alt="Four people stand in a row in a lecture room in front of a HackTheBurgh banner that reads Scotland's largest hackathon, 7th to 8th November 2026. Three of them hold small blue prize pouches, and all four smile at the camera.">
+        </picture>
+      </div>
+      <figcaption>
+        <span class="fig-no">Fig. 5</span>
+        <span class="fig-title">HackTheBurgh XIII</span>
+        <a class="fig-link" href="https://hacktheburgh.com/" target="_blank" rel="noopener">Visit the event site</a>
+        <em class="fig-desc">At HackTheBurgh XIII, 7th and 8th November 2026, where PokerVis won Best Use of Solana.</em>
       </figcaption>
     </figure>
   </article>
@@ -1043,30 +1002,26 @@ table.figures.spaced{margin-top:2.6em}
 
   <dl class="rows rise">
     <div class="row">
-      <dt>Machine learning</dt>
-      <dd class="v"><b>scikit-learn, XGBoost, LightGBM, PyTorch</b> &middot; cross-validation, hyperparameter tuning, probability calibration, feature engineering</dd>
+      <dt>Data</dt>
+      <dd class="v"><b>Python (pandas, PySpark)</b> &middot; SQL (Postgres, SQLite) &middot; Databricks (Delta Lake, Lakeflow Jobs) &middot; Power BI &middot; Jupyter</dd>
     </div>
     <div class="row">
-      <dt>Statistics &amp; optimisation</dt>
-      <dd class="v"><b>Mixed-integer and two-stage stochastic programming (JuMP/Gurobi)</b> &middot; regression, ANOVA, time-series and econometric modelling</dd>
+      <dt>Automation &amp; AI</dt>
+      <dd class="v"><b>Claude Code</b> &middot; LLM agents with custom skills (Databricks Genie Code) &middot; GitHub Actions</dd>
     </div>
     <div class="row">
-      <dt>Data &amp; visualisation</dt>
-      <dd class="v"><b>pandas, NumPy</b> &middot; Matplotlib, Plotly, Seaborn, Streamlit, web scraping (Selenium)</dd>
+      <dt>Engineering</dt>
+      <dd class="v"><b>Git, Docker</b> &middot; FastAPI &middot; pytest</dd>
     </div>
     <div class="row">
-      <dt>Data engineering</dt>
-      <dd class="v"><b>SQL</b> &middot; SQLite, PostgreSQL, ETL pipelines, database design</dd>
-    </div>
-    <div class="row">
-      <dt>Languages &amp; tools</dt>
-      <dd class="v"><b>Python, SQL, Julia</b> &middot; Git, Docker, FastAPI, REST APIs, Jupyter &middot; working knowledge of Rust and TypeScript</dd>
+      <dt>Languages</dt>
+      <dd class="v"><b>English</b> &middot; Farsi</dd>
     </div>
   </dl>
 
   <p class="award rise">
     <span class="k">Award</span>
-    <span><strong>Second of thirty teams at an Anthropic-sponsored hackathon, 2024.</strong> Built and presented a working prototype in three hours.</span>
+    <span><strong>Second of thirty teams at an Anthropic-sponsored AI hackathon, 2024.</strong></span>
   </p>
 </section>
 
@@ -1074,22 +1029,18 @@ table.figures.spaced{margin-top:2.6em}
 <section class="sheet paper" id="coursework">
   <div class="sheet-head">
     <h2>Coursework</h2>
-    <span class="aside">Selected, 2022&ndash;2026</span>
+    <span class="aside">Selected</span>
   </div>
 
   <div class="rise">
     <dl class="rows">
       <div class="row">
         <dt>Computing &amp; data science</dt>
-        <dd class="v">Machine Learning &middot; Informatics Large Practical &middot; Foundations of Data Science &middot; Algorithms and Data Structures &middot; Introduction to Computation &middot; Object Oriented Programming</dd>
+        <dd class="v">Machine Learning &middot; Informatics Large Practical &middot; Foundations of Data Science &middot; Algorithms and Data Structures</dd>
       </div>
       <div class="row">
-        <dt>Mathematics &amp; optimisation</dt>
-        <dd class="v">Mathematical Programming in Advanced Analytics &middot; Management Science and Operations Analytics &middot; Discrete Mathematics and Probability &middot; Introduction to Linear Algebra &middot; Calculus and its Applications</dd>
-      </div>
-      <div class="row">
-        <dt>Business &amp; strategy</dt>
-        <dd class="v">Business Analytics and Information Systems &middot; Principles of Finance &middot; The Strategy of Digital Transformation &middot; Entrepreneurship and Business Growth</dd>
+        <dt>Optimisation</dt>
+        <dd class="v">Mathematical Programming in Advanced Analytics</dd>
       </div>
     </dl>
     <p class="table-note">The full transcript is available on request.</p>
@@ -1105,21 +1056,19 @@ table.figures.spaced{margin-top:2.6em}
   </div>
 
   <p class="statement">I am happy to talk through any of the work on this page.</p>
-  <p class="sub">Code and write-ups for the case studies are available on request. I graduate in 2028.</p>
+  <p class="sub">The code for all three projects is public on GitHub. I graduate in 2028. I am a British citizen with full right to work in the UK.</p>
 
   <div class="contact-row">
     <a href="mailto:farhangbak@gmail.com">farhangbak@gmail.com</a>
-    <a href="https://www.linkedin.com/in/farhang-bakhshi-854423347/" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="https://www.linkedin.com/in/farhang-bakhshi" target="_blank" rel="noopener">LinkedIn</a>
     <a href="https://github.com/Farhangbakhs" target="_blank" rel="noopener">GitHub</a>
   </div>
 
   <p class="colophon-base">
     <span>Farhang Bakhshi &middot; London</span>
-    <span>Set in EB Garamond &middot; last revised July 2026</span>
+    <span>Set in EB Garamond &middot; last revised November 2026</span>
   </p>
 </footer>
-
-<div id="tooltip" aria-hidden="true"></div>
 
 <script>
 (function(){
@@ -1171,42 +1120,6 @@ setCardMode();
 if(narrow.addEventListener) narrow.addEventListener("change", setCardMode);
 else if(narrow.addListener) narrow.addListener(setCardMode);
 window.addEventListener("resize", setCardMode, {passive:true});
-
-/* ---- LOTO chart readout, on hover and on focus ---- */
-var tt = document.getElementById("tooltip");
-function showTip(g){
-  var r = g.getBoundingClientRect();
-  tt.innerHTML = "<b>" + g.dataset.year + "</b> &middot; model <b>" + g.dataset.model +
-                 "%</b> &middot; baseline <b>" + g.dataset.base + "%</b>";
-  tt.style.opacity = 1;
-  var t = tt.getBoundingClientRect();
-  tt.style.left = Math.min(window.innerWidth - t.width - 10,
-                           Math.max(10, r.left + r.width/2 - t.width/2)) + "px";
-  tt.style.top = (r.top - t.height - 10) + "px";
-}
-function hideTip(){ tt.style.opacity = 0; }
-document.querySelectorAll("#loto .bar-group").forEach(function(g){
-  g.addEventListener("mouseenter", function(){ showTip(g); });
-  g.addEventListener("mouseleave", hideTip);
-  g.addEventListener("focus", function(){ showTip(g); });
-  g.addEventListener("blur", hideTip);
-});
-document.addEventListener("scroll", hideTip, {passive:true});
-
-/* ---- the 5.6 MB map embed loads only when asked for ---- */
-var mapBtn = document.getElementById("milp-map-btn");
-if(mapBtn){
-  mapBtn.addEventListener("click", function(){
-    var shell = document.getElementById("milp-map");
-    var f = document.createElement("iframe");
-    f.src = "DeterministicMap_embedded.html";
-    f.title = "Interactive Honduras school connectivity map";
-    f.loading = "eager";
-    f.allowFullscreen = true;
-    shell.innerHTML = "";
-    shell.appendChild(f);
-  });
-}
 
 /* reduced motion: nothing waits on an observer to become readable */
 if(reduced){
